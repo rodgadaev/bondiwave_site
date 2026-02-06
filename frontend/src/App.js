@@ -245,7 +245,7 @@ const Features = () => {
   ];
   
   return (
-    <section className="py-24 md:py-32 bg-[#0A0A0A]" data-testid="features-section">
+    <section className="py-16 md:py-20 bg-[#0A0A0A]" data-testid="features-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div {...fadeUp} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, i) => (
@@ -309,9 +309,9 @@ const StorySection = () => {
   ];
   
   return (
-    <section className="py-24 md:py-32 bg-[#0A0A0A]" data-testid="story-section">
+    <section className="py-16 md:py-20 bg-[#0A0A0A]" data-testid="story-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div {...fadeUp} className="text-center mb-16">
+        <motion.div {...fadeUp} className="text-center mb-10">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Our Origin</p>
           <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tight mb-6">
             The Bondi Wave<br/>Story
@@ -595,9 +595,9 @@ const Benefits = () => {
   ];
   
   return (
-    <section id="benefits" className="py-24 md:py-32" data-testid="benefits-section">
+    <section id="benefits" className="py-16 md:py-20" data-testid="benefits-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div {...fadeUp} className="text-center mb-16">
+        <motion.div {...fadeUp} className="text-center mb-10">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">The Science</p>
           <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tight">
             Why Nose<br/>Strips Work
@@ -692,7 +692,7 @@ const Benefits = () => {
 // Product Showcase
 const ProductShowcase = () => {
   return (
-    <section className="py-24 md:py-32 bg-[#0A0A0A]" data-testid="product-section">
+    <section className="py-16 md:py-20 bg-[#0A0A0A]" data-testid="product-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div {...fadeUp}>
@@ -782,7 +782,7 @@ const EmailSignup = () => {
   };
   
   return (
-    <section id="waitlist" className="py-24 md:py-32" data-testid="waitlist-section">
+    <section id="waitlist" className="py-16 md:py-20" data-testid="waitlist-section">
       <div className="max-w-3xl mx-auto px-6 md:px-12 text-center">
         <motion.div {...fadeUp}>
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Be First</p>
@@ -829,7 +829,7 @@ const EmailSignup = () => {
 // Footer
 const Footer = () => {
   return (
-    <footer className="py-16 border-t border-white/10 bg-[#050505]" data-testid="footer">
+    <footer className="py-12 border-t border-white/10 bg-[#050505]" data-testid="footer">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
