@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { 
   Wind, Moon, Zap, Heart, Shield, Droplets, 
@@ -213,30 +213,21 @@ const Hero = () => {
           </div>
         </motion.div>
         
-        {/* Right Content - 3D Product Viewer */}
+        {/* Right Content - Static Product Image */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.9, x: 50 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
           className="relative flex justify-center lg:justify-end"
         >
           <div className="relative">
             <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
-            <div className="relative z-10 w-full max-w-lg lg:max-w-xl">
-              <iframe 
-                title="Bondi Wave 3D Product"
-                allowFullScreen
-                style={{ border: 'none', background: 'transparent' }}
-                width="500"
-                height="500"
-                src="https://www.pacdora.com/share?filter_url=ps7jgmcta5"
-                className="w-full h-auto aspect-square"
-                data-testid="hero-3d-viewer"
-              />
-            </div>
-            <p className="text-center mt-2 text-xs text-neutral-500 font-mono uppercase tracking-wider">
-              Drag to rotate
-            </p>
+            <img 
+              src={ASSETS.heroProduct} 
+              alt="Bondi Wave Nose Strips" 
+              className="relative z-10 w-full max-w-lg lg:max-w-xl drop-shadow-2xl"
+              data-testid="hero-product-image"
+            />
           </div>
         </motion.div>
       </div>
