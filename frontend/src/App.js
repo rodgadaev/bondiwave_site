@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { 
   Wind, Moon, Zap, Heart, Shield, Droplets, 
   Instagram, Facebook, ShoppingBag, ArrowRight,
@@ -162,17 +162,8 @@ const Navigation = () => {
 
 // Hero Section
 const Hero = () => {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-  
-  // Rotate from 0 to 180 degrees as user scrolls
-  const rotateY = useTransform(scrollYProgress, [0, 1], [0, 180]);
-  
   return (
-    <section ref={containerRef} className="min-h-screen relative overflow-hidden flex items-center" data-testid="hero-section">
+    <section className="min-h-screen relative overflow-hidden flex items-center" data-testid="hero-section">
       {/* Background Glow */}
       <div className="absolute inset-0 hero-glow" />
       
@@ -222,64 +213,30 @@ const Hero = () => {
           </div>
         </motion.div>
         
-        {/* Right Content - 3D Rotating Product */}
+        {/* Right Content - 3D Product Viewer */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
           className="relative flex justify-center lg:justify-end"
         >
-          <div className="relative" style={{ perspective: '1000px' }}>
+          <div className="relative">
             <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
-            
-            {/* 3D Flip Container */}
-            <motion.div
-              style={{ 
-                rotateY,
-                transformStyle: 'preserve-3d',
-              }}
-              className="relative w-full max-w-lg lg:max-w-xl"
-              data-testid="hero-product-3d"
-            >
-              {/* Front Face */}
-              <div 
-                className="relative z-10"
-                style={{ backfaceVisibility: 'hidden' }}
-              >
-                <img 
-                  src={ASSETS.heroProduct} 
-                  alt="Bondi Wave Nose Strips - Front" 
-                  className="w-full drop-shadow-2xl"
-                  data-testid="hero-product-front"
-                />
-              </div>
-              
-              {/* Back Face */}
-              <div 
-                className="absolute inset-0"
-                style={{ 
-                  backfaceVisibility: 'hidden',
-                  transform: 'rotateY(180deg)'
-                }}
-              >
-                <img 
-                  src={ASSETS.productAlt} 
-                  alt="Bondi Wave Nose Strips - Back" 
-                  className="w-full drop-shadow-2xl"
-                  data-testid="hero-product-back"
-                />
-              </div>
-            </motion.div>
-            
-            {/* Scroll hint */}
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5 }}
-              className="text-center mt-4 text-xs text-neutral-500 font-mono uppercase tracking-wider"
-            >
-              Scroll to rotate
-            </motion.p>
+            <div className="relative z-10 w-full max-w-lg lg:max-w-xl">
+              <iframe 
+                title="Bondi Wave 3D Product"
+                allowFullScreen
+                style={{ border: 'none', background: 'transparent' }}
+                width="500"
+                height="500"
+                src="https://www.pacdora.com/share?filter_url=ps7jgmcta5"
+                className="w-full h-auto aspect-square"
+                data-testid="hero-3d-viewer"
+              />
+            </div>
+            <p className="text-center mt-2 text-xs text-neutral-500 font-mono uppercase tracking-wider">
+              Drag to rotate
+            </p>
           </div>
         </motion.div>
       </div>
