@@ -16,10 +16,7 @@ const API = `${BACKEND_URL}/api`;
 const ASSETS = {
   logo: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/9rfimotz_Bondi%20Wave%20Logo.svg",
   heroProduct: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/4ffyuxz2_5.svg",
-  productAlt: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/l1v90194_6.svg",
   display1: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/qdbr08jk_BREETHE%20FREELY%20-%20Display%20Cases.svg",
-  display2: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/63y4k7w5_BREETHE%20FREELY%20-%20Display%20Cases%20%281%29.svg",
-  display3: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/ube8y5u8_BREETHE%20FREELY%20-%20Display%20Cases%20%282%29.svg",
 };
 
 // Social Links
