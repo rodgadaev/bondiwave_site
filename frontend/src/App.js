@@ -296,12 +296,15 @@ const Benefits = () => {
         
         {/* Benefits Image */}
         <motion.div {...fadeUp} className="flex justify-center mb-16">
-          <img 
-            src="https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/gkt75uwm_BREETHE%20FREELY%20-%20Display%20Cases%20%282%29.svg"
-            alt="Bondi Wave Nose Strips - How They Work"
-            className="w-full max-w-3xl"
-            data-testid="benefits-image"
-          />
+          <div className="relative">
+            <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
+            <img 
+              src="https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/gkt75uwm_BREETHE%20FREELY%20-%20Display%20Cases%20%282%29.svg"
+              alt="Bondi Wave Nose Strips - How They Work"
+              className="relative z-10 w-full max-w-3xl"
+              data-testid="benefits-image"
+            />
+          </div>
         </motion.div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -420,12 +423,15 @@ const ProductShowcase = () => {
             {...fadeUp}
             className="relative"
           >
-            <img 
-              src={ASSETS.display1} 
-              alt="Bondi Wave Display Case" 
-              className="w-full max-w-xl mx-auto"
-              data-testid="product-display"
-            />
+            <div className="relative flex justify-center">
+              <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
+              <img 
+                src={ASSETS.display1} 
+                alt="Bondi Wave Display Case" 
+                className="relative z-10 w-full max-w-xl mx-auto"
+                data-testid="product-display"
+              />
+            </div>
           </motion.div>
         </div>
       </div>
