@@ -22,11 +22,11 @@ const ASSETS = {
   display3: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/ube8y5u8_BREETHE%20FREELY%20-%20Display%20Cases%20%282%29.svg",
 };
 
-// Social Links (placeholder)
+// Social Links
 const SOCIAL_LINKS = {
-  instagram: "https://instagram.com/bondiwave",
+  instagram: "https://instagram.com/thebondiwave",
   facebook: "https://facebook.com/bondiwave",
-  tiktok: "https://tiktok.com/@bondiwave",
+  tiktok: "https://tiktok.com/@thebondiwave",
   amazon: "https://amazon.com.au/bondiwave",
 };
 
