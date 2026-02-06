@@ -294,6 +294,16 @@ const Benefits = () => {
           </h2>
         </motion.div>
         
+        {/* Benefits Image */}
+        <motion.div {...fadeUp} className="flex justify-center mb-16">
+          <img 
+            src="https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/gkt75uwm_BREETHE%20FREELY%20-%20Display%20Cases%20%282%29.svg"
+            alt="Bondi Wave Nose Strips - How They Work"
+            className="w-full max-w-3xl"
+            data-testid="benefits-image"
+          />
+        </motion.div>
+        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Sport Benefits */}
           <motion.div 
