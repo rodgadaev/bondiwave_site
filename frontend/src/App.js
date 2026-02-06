@@ -871,6 +871,7 @@ function App() {
       <Hero />
       <Marquee />
       <Features />
+      <StorySection />
       <Benefits />
       <ProductShowcase />
       <EmailSignup />
