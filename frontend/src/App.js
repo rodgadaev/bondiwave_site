@@ -327,17 +327,25 @@ const StorySection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Interactive Map */}
           <motion.div {...fadeUp} className="relative">
-            <div className="relative bg-[#050505] border border-white/10 p-6 md:p-8 overflow-hidden" data-testid="interactive-map" style={{ minHeight: '400px' }}>
+            <div className="relative bg-[#050505] border border-white/10 p-4 md:p-6 overflow-hidden" data-testid="interactive-map" style={{ minHeight: '320px' }}>
               {/* Map SVG */}
-              <svg viewBox="0 0 100 80" className="w-full" style={{ height: '320px' }}>
-                {/* Ocean Background */}
+              <svg viewBox="0 0 100 70" className="w-full" style={{ height: '280px' }}>
+                {/* Definitions */}
                 <defs>
-                  <linearGradient id="oceanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#00B4D8" stopOpacity="0.1" />
-                    <stop offset="100%" stopColor="#007790" stopOpacity="0.05" />
+                  <linearGradient id="oceanGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0%" stopColor="#00B4D8" stopOpacity="0.25" />
+                    <stop offset="50%" stopColor="#007790" stopOpacity="0.15" />
+                    <stop offset="100%" stopColor="#050505" stopOpacity="0.05" />
                   </linearGradient>
+                  <linearGradient id="landGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#1a1a1a" stopOpacity="1" />
+                    <stop offset="100%" stopColor="#0d0d0d" stopOpacity="1" />
+                  </linearGradient>
+                  <pattern id="wavePattern" x="0" y="0" width="8" height="4" patternUnits="userSpaceOnUse">
+                    <path d="M 0 2 Q 2 0, 4 2 Q 6 4, 8 2" fill="none" stroke="#00B4D8" strokeWidth="0.3" strokeOpacity="0.3" />
+                  </pattern>
                   <filter id="glow">
-                    <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+                    <feGaussianBlur stdDeviation="0.8" result="coloredBlur"/>
                     <feMerge>
                       <feMergeNode in="coloredBlur"/>
                       <feMergeNode in="SourceGraphic"/>
@@ -345,125 +353,180 @@ const StorySection = () => {
                   </filter>
                 </defs>
                 
-                {/* Ocean */}
-                <rect x="0" y="0" width="100" height="80" fill="url(#oceanGradient)" />
+                {/* Ocean Area (bottom half) */}
+                <path d="M 0 35 Q 25 40, 50 38 Q 75 36, 100 42 L 100 70 L 0 70 Z" fill="url(#oceanGradient)" />
+                <path d="M 0 35 Q 25 40, 50 38 Q 75 36, 100 42 L 100 70 L 0 70 Z" fill="url(#wavePattern)" />
                 
-                {/* Coastline Path */}
+                {/* Wave lines */}
+                <path d="M 0 48 Q 20 52, 40 48 Q 60 44, 80 50 Q 90 52, 100 48" fill="none" stroke="#00B4D8" strokeWidth="0.4" strokeOpacity="0.2" />
+                <path d="M 0 55 Q 25 58, 50 54 Q 75 50, 100 56" fill="none" stroke="#00B4D8" strokeWidth="0.3" strokeOpacity="0.15" />
+                <path d="M 0 62 Q 30 65, 60 61 Q 85 58, 100 63" fill="none" stroke="#00B4D8" strokeWidth="0.2" strokeOpacity="0.1" />
+                
+                {/* Land Area (top half) */}
+                <path d="M 0 0 L 100 0 L 100 38 Q 75 32, 50 34 Q 25 36, 0 30 Z" fill="url(#landGradient)" />
+                
+                {/* Buildings/Houses silhouette on land */}
+                <g fill="#1f1f1f" opacity="0.8">
+                  {/* Building cluster 1 */}
+                  <rect x="5" y="8" width="4" height="12" />
+                  <rect x="10" y="12" width="3" height="8" />
+                  <rect x="14" y="10" width="5" height="10" />
+                  
+                  {/* Building cluster 2 */}
+                  <rect x="30" y="14" width="4" height="10" />
+                  <rect x="35" y="16" width="3" height="8" />
+                  <rect x="39" y="12" width="5" height="12" />
+                  
+                  {/* Building cluster 3 */}
+                  <rect x="55" y="10" width="3" height="14" />
+                  <rect x="59" y="14" width="4" height="10" />
+                  <rect x="64" y="12" width="3" height="12" />
+                  
+                  {/* Building cluster 4 */}
+                  <rect x="78" y="8" width="5" height="16" />
+                  <rect x="84" y="12" width="4" height="12" />
+                  <rect x="89" y="10" width="6" height="14" />
+                </g>
+                
+                {/* Trees/vegetation dots */}
+                <g fill="#00B4D8" opacity="0.15">
+                  <circle cx="22" cy="18" r="2" />
+                  <circle cx="26" cy="20" r="1.5" />
+                  <circle cx="48" cy="16" r="2" />
+                  <circle cx="52" cy="19" r="1.5" />
+                  <circle cx="72" cy="14" r="2" />
+                  <circle cx="76" cy="17" r="1.5" />
+                </g>
+                
+                {/* Promenade/path line along coast */}
                 <path
-                  d="M 10 20 Q 20 35, 28 42 Q 38 50, 48 55 Q 58 52, 68 48 Q 78 55, 92 68"
+                  d="M 5 28 Q 15 32, 28 34 Q 40 36, 50 35 Q 60 34, 70 32 Q 82 30, 95 34"
                   fill="none"
                   stroke="#262626"
-                  strokeWidth="8"
+                  strokeWidth="3"
                   strokeLinecap="round"
                 />
                 
-                {/* Walking Path */}
+                {/* Walking Path (coastal trail) */}
                 <path
-                  d="M 15 25 Q 22 38, 28 42 Q 38 50, 48 55 Q 58 52, 68 48 Q 78 58, 88 65"
+                  d="M 12 30 Q 20 34, 28 35 Q 40 37, 50 36 Q 60 35, 70 33 Q 82 32, 90 35"
                   fill="none"
                   stroke="#00B4D8"
-                  strokeWidth="2"
+                  strokeWidth="1.2"
                   strokeLinecap="round"
-                  strokeDasharray="4,2"
+                  strokeDasharray="3,1.5"
                   filter="url(#glow)"
                 />
                 
-                {/* Stop Points */}
-                {stops.map((stop) => (
-                  <g key={stop.id}>
-                    {/* Pulse animation for active */}
-                    {activeStop === stop.id && (
+                {/* Beach areas (sandy patches) */}
+                <ellipse cx="15" cy="38" rx="8" ry="3" fill="#1a1a1a" opacity="0.5" />
+                <ellipse cx="50" cy="40" rx="6" ry="2.5" fill="#1a1a1a" opacity="0.5" />
+                <ellipse cx="88" cy="42" rx="7" ry="3" fill="#1a1a1a" opacity="0.5" />
+                
+                {/* Stop Points - Smaller */}
+                {stops.map((stop, index) => {
+                  const adjustedY = [30, 34, 36, 33, 35][index];
+                  const adjustedX = [12, 28, 50, 70, 90][index];
+                  return (
+                    <g key={stop.id}>
+                      {activeStop === stop.id && (
+                        <circle
+                          cx={adjustedX}
+                          cy={adjustedY}
+                          r="4"
+                          fill="none"
+                          stroke="#00B4D8"
+                          strokeWidth="0.5"
+                          opacity="0.5"
+                        >
+                          <animate attributeName="r" from="2.5" to="6" dur="1s" repeatCount="indefinite" />
+                          <animate attributeName="opacity" from="0.6" to="0" dur="1s" repeatCount="indefinite" />
+                        </circle>
+                      )}
                       <circle
-                        cx={stop.x}
-                        cy={stop.y}
-                        r="6"
-                        fill="none"
+                        cx={adjustedX}
+                        cy={adjustedY}
+                        r="2.5"
+                        fill={activeStop === stop.id ? "#00B4D8" : "#050505"}
                         stroke="#00B4D8"
                         strokeWidth="1"
-                        opacity="0.5"
+                        style={{ cursor: 'pointer', transition: 'fill 0.3s' }}
+                        onMouseEnter={() => setActiveStop(stop.id)}
+                        onMouseLeave={() => setActiveStop(null)}
+                        data-testid={`map-stop-${stop.id}`}
+                      />
+                      <text
+                        x={adjustedX}
+                        y={adjustedY - 5}
+                        textAnchor="middle"
+                        fill={activeStop === stop.id ? "#00B4D8" : "#666"}
+                        fontSize="2.2"
+                        fontFamily="Oswald, sans-serif"
+                        style={{ textTransform: 'uppercase', letterSpacing: '0.03em' }}
                       >
-                        <animate attributeName="r" from="4" to="10" dur="1s" repeatCount="indefinite" />
-                        <animate attributeName="opacity" from="0.8" to="0" dur="1s" repeatCount="indefinite" />
-                      </circle>
-                    )}
-                    <circle
-                      cx={stop.x}
-                      cy={stop.y}
-                      r="4"
-                      fill={activeStop === stop.id ? "#00B4D8" : "#050505"}
-                      stroke="#00B4D8"
-                      strokeWidth="2"
-                      style={{ cursor: 'pointer', transition: 'fill 0.3s' }}
-                      onMouseEnter={() => setActiveStop(stop.id)}
-                      onMouseLeave={() => setActiveStop(null)}
-                      data-testid={`map-stop-${stop.id}`}
-                    />
-                    {/* Labels */}
-                    <text
-                      x={stop.x}
-                      y={stop.y - 7}
-                      textAnchor="middle"
-                      fill={activeStop === stop.id ? "#00B4D8" : "#A3A3A3"}
-                      fontSize="3"
-                      fontFamily="Oswald, sans-serif"
-                      style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}
-                    >
-                      {stop.name}
-                    </text>
-                  </g>
-                ))}
+                        {stop.name}
+                      </text>
+                    </g>
+                  );
+                })}
                 
                 {/* Location Labels */}
-                <text x="8" y="12" fill="#00B4D8" fontSize="4" fontFamily="Oswald, sans-serif" fontWeight="bold">
+                <text x="5" y="6" fill="#00B4D8" fontSize="3.5" fontFamily="Oswald, sans-serif" fontWeight="bold" letterSpacing="0.1em">
                   BONDI
                 </text>
-                <text x="82" y="78" fill="#00B4D8" fontSize="4" fontFamily="Oswald, sans-serif" fontWeight="bold">
+                <text x="85" y="6" fill="#00B4D8" fontSize="3.5" fontFamily="Oswald, sans-serif" fontWeight="bold" letterSpacing="0.1em">
                   BRONTE
                 </text>
                 
+                {/* Ocean label */}
+                <text x="50" y="60" textAnchor="middle" fill="#00B4D8" fontSize="2.5" fontFamily="Oswald, sans-serif" opacity="0.4" letterSpacing="0.3em">
+                  PACIFIC OCEAN
+                </text>
+                
                 {/* Compass */}
-                <g transform="translate(90, 10)">
-                  <circle cx="0" cy="0" r="4" fill="none" stroke="#262626" strokeWidth="0.5" />
-                  <text x="0" y="-1" textAnchor="middle" fill="#A3A3A3" fontSize="2.5" fontFamily="Oswald">N</text>
-                  <line x1="0" y1="1" x2="0" y2="3" stroke="#00B4D8" strokeWidth="0.5" />
+                <g transform="translate(94, 58)">
+                  <circle cx="0" cy="0" r="3" fill="#0a0a0a" stroke="#262626" strokeWidth="0.3" />
+                  <text x="0" y="0.5" textAnchor="middle" fill="#00B4D8" fontSize="2" fontFamily="Oswald" fontWeight="bold">N</text>
                 </g>
               </svg>
               
-              {/* Hover Image Display - Positioned as overlay */}
+              {/* Hover Image Display - Smaller */}
               {stops.map((stop) => (
                 <motion.div
                   key={stop.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
+                  initial={{ opacity: 0, scale: 0.9, y: 10 }}
                   animate={{ 
                     opacity: activeStop === stop.id ? 1 : 0,
-                    scale: activeStop === stop.id ? 1 : 0.9
+                    scale: activeStop === stop.id ? 1 : 0.9,
+                    y: activeStop === stop.id ? 0 : 10
                   }}
-                  transition={{ duration: 0.3 }}
-                  className={`absolute inset-6 md:inset-8 pointer-events-none ${activeStop === stop.id ? 'z-20' : 'z-0'}`}
+                  transition={{ duration: 0.25 }}
+                  className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none ${activeStop === stop.id ? 'z-20' : 'z-0'}`}
+                  style={{ width: '200px', height: '150px' }}
                 >
-                  <div className="relative w-full h-full bg-[#050505] border-2 border-[#00B4D8] overflow-hidden shadow-2xl">
+                  <div className="relative w-full h-full bg-[#050505] border border-[#00B4D8] overflow-hidden shadow-2xl">
                     <img 
                       src={stop.image} 
                       alt={`Run club at ${stop.name}`}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-                      <p className="font-heading text-xl md:text-2xl uppercase text-white">{stop.name}</p>
-                      <p className="font-mono text-xs text-[#00B4D8] uppercase tracking-wider">Run Club Community</p>
+                    <div className="absolute bottom-0 left-0 right-0 p-2">
+                      <p className="font-heading text-sm uppercase text-white">{stop.name}</p>
+                      <p className="font-mono text-[10px] text-[#00B4D8] uppercase tracking-wider">Run Club</p>
                     </div>
                   </div>
                 </motion.div>
               ))}
               
               {/* Map Legend */}
-              <div className="mt-4 flex items-center justify-center gap-6 text-xs text-neutral-500">
-                <span className="flex items-center gap-2">
-                  <span className="w-3 h-0.5 bg-[#00B4D8]" style={{ borderStyle: 'dashed' }}></span>
+              <div className="mt-3 flex items-center justify-center gap-4 text-[10px] text-neutral-500">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-0.5 bg-[#00B4D8] opacity-60"></span>
                   Coastal Walk
                 </span>
-                <span className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full border border-[#00B4D8]"></span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full border border-[#00B4D8]"></span>
                   Hover to explore
                 </span>
               </div>
