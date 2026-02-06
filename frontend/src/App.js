@@ -179,9 +179,9 @@ const Hero = () => {
             >
               Coming March 2026
             </motion.p>
-            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tighter leading-[0.9]">
-              Breathe<br/>
-              <span className="text-[#00B4D8]">Better.</span>
+            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tight leading-[0.9]">
+              <span className="tracking-[0.02em]">Breathe</span><br/>
+              <span className="text-[#00B4D8] tracking-[0.02em]">Better.</span>
             </h1>
           </div>
           
