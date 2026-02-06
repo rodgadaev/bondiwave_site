@@ -1,0 +1,120 @@
+{
+  "design_system": {
+    "typography": {
+      "font_family": {
+        "heading": "Oswald, sans-serif",
+        "body": "Manrope, sans-serif",
+        "mono": "JetBrains Mono, monospace"
+      },
+      "scale": {
+        "h1": "text-6xl md:text-8xl font-bold uppercase tracking-tighter leading-none",
+        "h2": "text-4xl md:text-6xl font-bold uppercase tracking-tight",
+        "h3": "text-2xl md:text-3xl font-semibold uppercase tracking-wide",
+        "body_lg": "text-lg md:text-xl font-medium leading-relaxed",
+        "body_base": "text-base font-normal leading-relaxed text-neutral-400",
+        "caption": "text-sm font-mono uppercase tracking-widest text-cyan-500"
+      }
+    },
+    "colors": {
+      "palette": {
+        "background": "#050505",
+        "surface": "#0A0A0A",
+        "surface_highlight": "#121212",
+        "primary": "#00B4D8",
+        "primary_dim": "#007790",
+        "text_primary": "#FFFFFF",
+        "text_secondary": "#A3A3A3",
+        "border": "#262626",
+        "error": "#FF453A"
+      },
+      "gradients": {
+        "hero_glow": "radial-gradient(circle at center, rgba(0, 180, 216, 0.15) 0%, rgba(5, 5, 5, 0) 70%)",
+        "surface_fade": "linear-gradient(to bottom, rgba(10, 10, 10, 0) 0%, #0A0A0A 100%)"
+      }
+    },
+    "spacing": {
+      "section_padding": "py-24 md:py-32",
+      "container_padding": "px-6 md:px-12",
+      "element_gap": "gap-8"
+    },
+    "visual_enhancers": {
+      "border_radius": "rounded-none",
+      "shadows": {
+        "glow": "0 0 40px -10px rgba(0, 180, 216, 0.3)",
+        "card": "0 1px 0 0 rgba(255, 255, 255, 0.1)"
+      },
+      "effects": {
+        "glass": "backdrop-blur-xl bg-black/60 border-b border-white/10",
+        "noise": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E\")"
+      }
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#00B4D8] text-black font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300 px-8 py-4 rounded-none clip-path-slant",
+      "secondary": "bg-transparent border border-white/20 text-white font-bold uppercase tracking-wider hover:border-[#00B4D8] hover:text-[#00B4D8] transition-all duration-300 px-8 py-4 rounded-none",
+      "ghost": "text-neutral-400 hover:text-white uppercase tracking-widest text-sm font-bold transition-colors"
+    },
+    "cards": {
+      "feature": "bg-[#0A0A0A] border border-white/5 p-8 hover:border-[#00B4D8]/50 transition-colors duration-500 group relative overflow-hidden",
+      "pricing": "bg-[#0A0A0A] border border-[#00B4D8] p-10 relative"
+    },
+    "inputs": {
+      "default": "bg-transparent border-b border-white/20 text-white placeholder:text-neutral-600 focus:border-[#00B4D8] focus:outline-none py-4 px-0 rounded-none w-full transition-colors font-mono"
+    }
+  },
+  "layout_strategies": {
+    "grid_system": "grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8",
+    "hero_layout": "h-screen min-h-[800px] flex flex-col justify-center relative overflow-hidden",
+    "bento_grid": "grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[minmax(300px,auto)]"
+  },
+  "assets": {
+    "images": {
+      "hero_product": "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/828eqn8r_Box.png",
+      "product_strips": "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/v9foakyl_Nose%20Strips.png",
+      "product_back": "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/ikfo0f11_Back%20Of%20Box.png",
+      "display_cases": "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/ba4nx74s_Display%20Cases.png",
+      "logo": "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/9rfimotz_Bondi%20Wave%20Logo.svg",
+      "mood_sprint": "https://images.unsplash.com/photo-1728908053208-b7403ce54b6b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHwyfHxzcHJpbnRlciUyMHJ1bm5pbmclMjB0cmFjayUyMG5pZ2h0JTIwZGFya3xlbnwwfHx8fDE3NzAzNTExMzB8MA&ixlib=rb-4.1.0&q=85",
+      "mood_sleep": "https://images.unsplash.com/photo-1708294870848-2cf2397c5dd5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwyfHxtYW4lMjBzbGVlcGluZyUyMGluJTIwYmVkJTIwZGFyayUyMHJvb20lMjBibHVlJTIwbGlnaHR8ZW58MHx8fHwxNzcwMzUxMTM0fDA&ixlib=rb-4.1.0&q=85",
+      "mood_sweat": "https://images.unsplash.com/photo-1613953294671-977cfceec099?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxNzV8MHwxfHNlYXJjaHwyfHxjcm9zc2ZpdCUyMGF0aGxldGUlMjBzd2VhdGluZyUyMGZhY2UlMjBjbG9zZSUyMHVwJTIwYmxhY2slMjBhbmQlMjB3aGl0ZXxlbnwwfHx8fDE3NzAzNTExNDB8MA&ixlib=rb-4.1.0&q=85"
+    },
+    "icons": "lucide-react"
+  },
+  "motion": {
+    "libraries": ["framer-motion", "lenis"],
+    "animations": {
+      "fade_up": {
+        "initial": { "opacity": 0, "y": 40 },
+        "whileInView": { "opacity": 1, "y": 0 },
+        "viewport": { "once": true },
+        "transition": { "duration": 0.8, "ease": [0.16, 1, 0.3, 1] }
+      },
+      "stagger_children": {
+        "visible": { "transition": { "staggerChildren": 0.1 } }
+      },
+      "hover_glow": {
+        "whileHover": { "boxShadow": "0 0 30px -5px rgba(0, 180, 216, 0.5)" }
+      }
+    }
+  },
+  "instructions_to_main_agent": [
+    "INSTALL FONTS: Add 'Oswald' and 'Manrope' from Google Fonts via import in index.css.",
+    "INSTALL LENIS: 'npm install @studio-freight/react-lenis' and wrap the app in it for smooth scrolling.",
+    "DARK MODE ONLY: Do not implement a light mode toggle. The brand is strictly dark.",
+    "NO ROUNDED CORNERS: Force 'rounded-none' on almost everything to maintain the sharp, aggressive sports aesthetic.",
+    "USE NOISE: Add the noise texture overlay (opacity 0.05) to the body background to prevent color banding and add grit.",
+    "HERO SECTION: Use the 'mood_sprint' image as a subtle background with heavy black overlay (90%), then place the 'hero_product' (Box) floating in the center-right with a cyan radial gradient behind it.",
+    "MARQUEE: Create a slow scrolling text band with 'LATEX FREE • HYPO ALLERGENIC • MEDICAL GRADE' using a transparent background and white borders.",
+    "COUNTDOWN: Implement a countdown to March 1, 2026, in the footer or hero.",
+    "FORMS: Use the 'inputs.default' style for the email signup. It should look like a terminal input or a technical spec line.",
+    "TESTING: Add data-testid to all interactive elements (buttons, inputs, links)."
+  ],
+  "universal_guidelines": [
+    "Do not use gradients for text.",
+    "Do not center align the app container.",
+    "Use 'sonner' for toasts.",
+    "Ensure all images have alt text.",
+    "Use 'lucide-react' for icons."
+  ]
+}
