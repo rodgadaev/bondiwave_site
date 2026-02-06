@@ -15,10 +15,11 @@ const API = `${BACKEND_URL}/api`;
 // Brand Assets
 const ASSETS = {
   logo: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/9rfimotz_Bondi%20Wave%20Logo.svg",
-  box: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/828eqn8r_Box.png",
-  boxBack: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/ikfo0f11_Back%20Of%20Box.png",
-  strips: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/v9foakyl_Nose%20Strips.png",
-  display: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/ba4nx74s_Display%20Cases.png",
+  heroProduct: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/4ffyuxz2_5.svg",
+  productAlt: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/l1v90194_6.svg",
+  display1: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/qdbr08jk_BREETHE%20FREELY%20-%20Display%20Cases.svg",
+  display2: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/63y4k7w5_BREETHE%20FREELY%20-%20Display%20Cases%20%281%29.svg",
+  display3: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/ube8y5u8_BREETHE%20FREELY%20-%20Display%20Cases%20%282%29.svg",
 };
 
 // Social Links (placeholder)
@@ -130,7 +131,7 @@ const Navigation = () => {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
         <a href="/" data-testid="logo-link">
-          <img src={ASSETS.logo} alt="Bondi Wave" className="h-8 md:h-10" />
+          <img src={ASSETS.logo} alt="Bondi Wave" className="h-12 md:h-16 lg:h-20" />
         </a>
         
         <div className="flex items-center gap-4 md:gap-6">
@@ -222,9 +223,9 @@ const Hero = () => {
           <div className="relative">
             <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
             <img 
-              src={ASSETS.box} 
-              alt="Bondi Wave Nose Strips Box" 
-              className="relative z-10 w-full max-w-md lg:max-w-lg drop-shadow-2xl"
+              src={ASSETS.heroProduct} 
+              alt="Bondi Wave Nose Strips" 
+              className="relative z-10 w-full max-w-lg lg:max-w-xl drop-shadow-2xl"
               data-testid="hero-product-image"
             />
           </div>
@@ -409,20 +410,12 @@ const ProductShowcase = () => {
             {...fadeUp}
             className="relative"
           >
-            <div className="grid grid-cols-2 gap-4">
-              <img 
-                src={ASSETS.box} 
-                alt="Bondi Wave Box Front" 
-                className="w-full"
-                data-testid="product-box-front"
-              />
-              <img 
-                src={ASSETS.boxBack} 
-                alt="Bondi Wave Box Back" 
-                className="w-full"
-                data-testid="product-box-back"
-              />
-            </div>
+            <img 
+              src={ASSETS.display1} 
+              alt="Bondi Wave Display Case" 
+              className="w-full max-w-xl mx-auto"
+              data-testid="product-display"
+            />
           </motion.div>
         </div>
       </div>
@@ -515,7 +508,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div>
-            <img src={ASSETS.logo} alt="Bondi Wave" className="h-8 mb-4" />
+            <img src={ASSETS.logo} alt="Bondi Wave" className="h-12 md:h-14 mb-4" />
             <p className="text-neutral-500 text-sm leading-relaxed">
               Premium nasal strips engineered for athletes and anyone who values quality sleep.
             </p>
