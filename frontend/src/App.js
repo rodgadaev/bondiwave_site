@@ -327,9 +327,9 @@ const StorySection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Interactive Map */}
           <motion.div {...fadeUp} className="relative">
-            <div className="relative bg-[#050505] border border-white/10 p-6 md:p-8" data-testid="interactive-map">
+            <div className="relative bg-[#050505] border border-white/10 p-6 md:p-8 overflow-hidden" data-testid="interactive-map" style={{ minHeight: '400px' }}>
               {/* Map SVG */}
-              <svg viewBox="0 0 100 80" className="w-full h-auto" style={{ minHeight: '300px' }}>
+              <svg viewBox="0 0 100 80" className="w-full" style={{ height: '320px' }}>
                 {/* Ocean Background */}
                 <defs>
                   <linearGradient id="oceanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -429,33 +429,32 @@ const StorySection = () => {
                 </g>
               </svg>
               
-              {/* Hover Image Display */}
-              <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                {stops.map((stop) => (
-                  <motion.div
-                    key={stop.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ 
-                      opacity: activeStop === stop.id ? 1 : 0,
-                      scale: activeStop === stop.id ? 1 : 0.8
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className={`absolute inset-4 md:inset-8 ${activeStop === stop.id ? 'z-10' : 'z-0'}`}
-                  >
-                    <div className="relative w-full h-full bg-[#050505] border border-[#00B4D8] overflow-hidden">
-                      <img 
-                        src={stop.image} 
-                        alt={`Run club at ${stop.name}`}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                        <p className="font-heading text-lg uppercase text-white">{stop.name}</p>
-                        <p className="font-mono text-xs text-[#00B4D8] uppercase tracking-wider">Run Club Community</p>
-                      </div>
+              {/* Hover Image Display - Positioned as overlay */}
+              {stops.map((stop) => (
+                <motion.div
+                  key={stop.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ 
+                    opacity: activeStop === stop.id ? 1 : 0,
+                    scale: activeStop === stop.id ? 1 : 0.9
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className={`absolute inset-6 md:inset-8 pointer-events-none ${activeStop === stop.id ? 'z-20' : 'z-0'}`}
+                >
+                  <div className="relative w-full h-full bg-[#050505] border-2 border-[#00B4D8] overflow-hidden shadow-2xl">
+                    <img 
+                      src={stop.image} 
+                      alt={`Run club at ${stop.name}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
+                      <p className="font-heading text-xl md:text-2xl uppercase text-white">{stop.name}</p>
+                      <p className="font-mono text-xs text-[#00B4D8] uppercase tracking-wider">Run Club Community</p>
                     </div>
-                  </motion.div>
-                ))}
-              </div>
+                  </div>
+                </motion.div>
+              ))}
               
               {/* Map Legend */}
               <div className="mt-4 flex items-center justify-center gap-6 text-xs text-neutral-500">
