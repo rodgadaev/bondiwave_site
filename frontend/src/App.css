@@ -1,34 +1,99 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Bondi Wave Custom Styles */
+
+/* Marquee animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.animate-marquee {
+  animation: marquee 30s linear infinite;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+/* Glass morphism */
+.glass {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(5, 5, 5, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.App-link {
-    color: #61dafb;
+/* Hero glow */
+.hero-glow {
+  background: radial-gradient(
+    circle at 70% 50%,
+    rgba(0, 180, 216, 0.12) 0%,
+    rgba(5, 5, 5, 0) 60%
+  );
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Glow effect */
+.glow-cyan {
+  box-shadow: 0 0 60px -20px rgba(0, 180, 216, 0.5);
+}
+
+/* Button clip path */
+.clip-slant {
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+/* Smooth transitions */
+* {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Focus ring */
+input:focus,
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.3);
+}
+
+/* Selection */
+::selection {
+  background: #00B4D8;
+  color: #050505;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00B4D8;
+}
+
+/* Prevent layout shift */
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+/* Link hover underline */
+a {
+  text-decoration: none;
+}
+
+/* Hide scrollbar for marquee */
+.overflow-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.overflow-hidden::-webkit-scrollbar {
+  display: none;
 }
