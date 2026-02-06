@@ -266,6 +266,254 @@ const Features = () => {
   );
 };
 
+// Story Section with Interactive Map
+const StorySection = () => {
+  const [activeStop, setActiveStop] = useState(null);
+  
+  const stops = [
+    {
+      id: 1,
+      name: "Bondi Beach",
+      x: 15,
+      y: 25,
+      image: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/lpl15a9p_IMG_5015%202.jpg"
+    },
+    {
+      id: 2,
+      name: "Bondi Icebergs",
+      x: 28,
+      y: 42,
+      image: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/95k5d59b_IMG_5014.jpg"
+    },
+    {
+      id: 3,
+      name: "Tamarama Beach",
+      x: 48,
+      y: 55,
+      image: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/3pzssuza_IMG_5013%202.jpg"
+    },
+    {
+      id: 4,
+      name: "Mackenzies Point",
+      x: 68,
+      y: 48,
+      image: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/mkqh7v3w_IMG_5012.jpg"
+    },
+    {
+      id: 5,
+      name: "Bronte Beach",
+      x: 88,
+      y: 65,
+      image: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/jw9l8zyj_IMG_5011.PNG"
+    }
+  ];
+  
+  return (
+    <section className="py-24 md:py-32 bg-[#0A0A0A]" data-testid="story-section">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <motion.div {...fadeUp} className="text-center mb-16">
+          <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Our Origin</p>
+          <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tight mb-6">
+            The Bondi Wave<br/>Story
+          </h2>
+          <p className="text-neutral-400 text-lg max-w-3xl mx-auto leading-relaxed">
+            The Bondi to Bronte coastal walk is one of Australia's most iconic routes — 
+            a world-renowned path beloved by runners, walkers, tourists and locals alike. 
+            Celebrated for its breathtaking ocean vistas, vibrant athletic culture, and the 
+            invigorating embrace of fresh sea-salt air.
+          </p>
+        </motion.div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Interactive Map */}
+          <motion.div {...fadeUp} className="relative">
+            <div className="relative bg-[#050505] border border-white/10 p-6 md:p-8" data-testid="interactive-map">
+              {/* Map SVG */}
+              <svg viewBox="0 0 100 80" className="w-full h-auto" style={{ minHeight: '300px' }}>
+                {/* Ocean Background */}
+                <defs>
+                  <linearGradient id="oceanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#00B4D8" stopOpacity="0.1" />
+                    <stop offset="100%" stopColor="#007790" stopOpacity="0.05" />
+                  </linearGradient>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                
+                {/* Ocean */}
+                <rect x="0" y="0" width="100" height="80" fill="url(#oceanGradient)" />
+                
+                {/* Coastline Path */}
+                <path
+                  d="M 10 20 Q 20 35, 28 42 Q 38 50, 48 55 Q 58 52, 68 48 Q 78 55, 92 68"
+                  fill="none"
+                  stroke="#262626"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                />
+                
+                {/* Walking Path */}
+                <path
+                  d="M 15 25 Q 22 38, 28 42 Q 38 50, 48 55 Q 58 52, 68 48 Q 78 58, 88 65"
+                  fill="none"
+                  stroke="#00B4D8"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeDasharray="4,2"
+                  filter="url(#glow)"
+                />
+                
+                {/* Stop Points */}
+                {stops.map((stop) => (
+                  <g key={stop.id}>
+                    {/* Pulse animation for active */}
+                    {activeStop === stop.id && (
+                      <circle
+                        cx={stop.x}
+                        cy={stop.y}
+                        r="6"
+                        fill="none"
+                        stroke="#00B4D8"
+                        strokeWidth="1"
+                        opacity="0.5"
+                      >
+                        <animate attributeName="r" from="4" to="10" dur="1s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" from="0.8" to="0" dur="1s" repeatCount="indefinite" />
+                      </circle>
+                    )}
+                    <circle
+                      cx={stop.x}
+                      cy={stop.y}
+                      r="4"
+                      fill={activeStop === stop.id ? "#00B4D8" : "#050505"}
+                      stroke="#00B4D8"
+                      strokeWidth="2"
+                      style={{ cursor: 'pointer', transition: 'fill 0.3s' }}
+                      onMouseEnter={() => setActiveStop(stop.id)}
+                      onMouseLeave={() => setActiveStop(null)}
+                      data-testid={`map-stop-${stop.id}`}
+                    />
+                    {/* Labels */}
+                    <text
+                      x={stop.x}
+                      y={stop.y - 7}
+                      textAnchor="middle"
+                      fill={activeStop === stop.id ? "#00B4D8" : "#A3A3A3"}
+                      fontSize="3"
+                      fontFamily="Oswald, sans-serif"
+                      style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}
+                    >
+                      {stop.name}
+                    </text>
+                  </g>
+                ))}
+                
+                {/* Location Labels */}
+                <text x="8" y="12" fill="#00B4D8" fontSize="4" fontFamily="Oswald, sans-serif" fontWeight="bold">
+                  BONDI
+                </text>
+                <text x="82" y="78" fill="#00B4D8" fontSize="4" fontFamily="Oswald, sans-serif" fontWeight="bold">
+                  BRONTE
+                </text>
+                
+                {/* Compass */}
+                <g transform="translate(90, 10)">
+                  <circle cx="0" cy="0" r="4" fill="none" stroke="#262626" strokeWidth="0.5" />
+                  <text x="0" y="-1" textAnchor="middle" fill="#A3A3A3" fontSize="2.5" fontFamily="Oswald">N</text>
+                  <line x1="0" y1="1" x2="0" y2="3" stroke="#00B4D8" strokeWidth="0.5" />
+                </g>
+              </svg>
+              
+              {/* Hover Image Display */}
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                {stops.map((stop) => (
+                  <motion.div
+                    key={stop.id}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ 
+                      opacity: activeStop === stop.id ? 1 : 0,
+                      scale: activeStop === stop.id ? 1 : 0.8
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className={`absolute inset-4 md:inset-8 ${activeStop === stop.id ? 'z-10' : 'z-0'}`}
+                  >
+                    <div className="relative w-full h-full bg-[#050505] border border-[#00B4D8] overflow-hidden">
+                      <img 
+                        src={stop.image} 
+                        alt={`Run club at ${stop.name}`}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                        <p className="font-heading text-lg uppercase text-white">{stop.name}</p>
+                        <p className="font-mono text-xs text-[#00B4D8] uppercase tracking-wider">Run Club Community</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              
+              {/* Map Legend */}
+              <div className="mt-4 flex items-center justify-center gap-6 text-xs text-neutral-500">
+                <span className="flex items-center gap-2">
+                  <span className="w-3 h-0.5 bg-[#00B4D8]" style={{ borderStyle: 'dashed' }}></span>
+                  Coastal Walk
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full border border-[#00B4D8]"></span>
+                  Hover to explore
+                </span>
+              </div>
+            </div>
+          </motion.div>
+          
+          {/* Story Text */}
+          <motion.div {...fadeUp} className="space-y-6">
+            <div className="bg-[#050505] border border-white/5 p-8">
+              <h3 className="font-heading text-2xl md:text-3xl font-bold uppercase tracking-wide mb-4">
+                Born From The<br/><span className="text-[#00B4D8]">Bondi Spirit</span>
+              </h3>
+              <p className="text-neutral-400 leading-relaxed mb-4">
+                Bondi Wave was founded by a community of dedicated run club enthusiasts who 
+                discovered something transformative along these coastal cliffs — the power of 
+                proper breathing combined with the pure, salt-kissed air of Sydney's eastern beaches.
+              </p>
+              <p className="text-neutral-400 leading-relaxed mb-4">
+                Every morning, as the sun rises over the Pacific, hundreds of runners and walkers 
+                trace this legendary 2.5km path. They come for the challenge, stay for the community, 
+                and leave with lungs full of the freshest air on earth.
+              </p>
+              <p className="text-neutral-400 leading-relaxed">
+                Our mission is simple: to help people everywhere breathe like they're running 
+                the Bondi to Bronte — freely, deeply, and with purpose.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-[#050505] border border-white/5 p-4 text-center">
+                <div className="font-heading text-2xl md:text-3xl font-bold text-[#00B4D8]">2.5</div>
+                <div className="text-xs text-neutral-500 uppercase tracking-wider">Kilometres</div>
+              </div>
+              <div className="bg-[#050505] border border-white/5 p-4 text-center">
+                <div className="font-heading text-2xl md:text-3xl font-bold text-[#00B4D8]">1M+</div>
+                <div className="text-xs text-neutral-500 uppercase tracking-wider">Yearly Visitors</div>
+              </div>
+              <div className="bg-[#050505] border border-white/5 p-4 text-center">
+                <div className="font-heading text-2xl md:text-3xl font-bold text-[#00B4D8]">∞</div>
+                <div className="text-xs text-neutral-500 uppercase tracking-wider">Ocean Views</div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Benefits Section
 const Benefits = () => {
   const sportBenefits = [
