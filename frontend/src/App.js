@@ -35,13 +35,6 @@ const fadeUp = {
   transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
 };
 
-const stagger = {
-  initial: {},
-  whileInView: {},
-  viewport: { once: true },
-  transition: { staggerChildren: 0.1 }
-};
-
 // TikTok Icon Component
 const TikTokIcon = ({ className }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
