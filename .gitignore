@@ -82,3 +82,7 @@ android-sdk/ -e
 *.env
 *.env.*
 bondi_site.zip
+-e 
+# Environment files
+*.env
+*.env.*
