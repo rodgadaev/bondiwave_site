@@ -756,12 +756,22 @@ const EmailSignup = () => {
     setLoading(true);
     
     try {
-      const response = await axios.post(`${API}/subscribe`, { email });
+      const formData = new FormData();
+      formData.append('form-name', 'waitlist');
+      formData.append('email', email);
       
-      if (response.data.success) {
-        toast.success(response.data.message);
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString(),
+      });
+      
+      if (response.ok) {
+        toast.success("Welcome to the wave! You'll be first to know when we drop.");
         setSubscribed(true);
         setEmail("");
+      } else {
+        throw new Error('Form submission failed');
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
