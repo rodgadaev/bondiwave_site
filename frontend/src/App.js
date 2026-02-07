@@ -790,9 +790,17 @@ const EmailSignup = () => {
               <p className="text-neutral-400">We'll notify you when we launch.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+            <form 
+              name="waitlist"
+              method="POST"
+              data-netlify="true"
+              onSubmit={handleSubmit} 
+              className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto"
+            >
+              <input type="hidden" name="form-name" value="waitlist" />
               <input
                 type="email"
+                name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
