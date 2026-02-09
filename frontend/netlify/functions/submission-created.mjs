@@ -19,10 +19,7 @@ export default async (req, context) => {
       from: 'hello@bondiwaveaustralia.com',
       to: email,
       subject: 'Welcome to Bondi Wave',
-      react: null,
-      html: null,
-      text: null,
-      template_id: 'welcome',
+      template: 'welcome',
     });
 
     if (error) {
