@@ -16,10 +16,10 @@ export default async (req, context) => {
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'hello@bondiwaveaustralia.com',
+      from: 'Bondi Wave <hello@bondiwaveaustralia.com>',
       to: email,
       subject: 'Welcome to Bondi Wave',
-      template: 'welcome',
+      template: { id: 'welcome' },
     });
 
     if (error) {
