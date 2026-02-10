@@ -20,6 +20,10 @@ export default async (req, context) => {
       to: email,
       subject: 'Welcome to Bondi Wave',
       template: { id: 'welcome' },
+      headers: {
+        'List-Unsubscribe': '<{{{RESEND_UNSUBSCRIBE_URL}}}>',
+        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click'
+      },
     });
 
     if (error) {
