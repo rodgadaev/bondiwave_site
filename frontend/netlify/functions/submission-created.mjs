@@ -25,7 +25,7 @@ export default async (req, context) => {
       const profileTemplates = {
         'A': 'profile_a-2',
         'B': 'profile_b',
-        'C': 'profile c',
+        'C': 'profile_c',
       };
       templateId = profileTemplates[profile] || 'welcome';
       subject = 'Your Breathing Profile Results - Bondi Wave';
