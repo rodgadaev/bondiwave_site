@@ -262,7 +262,7 @@ const AssessmentModal = ({ isOpen, onClose }) => {
                   className="text-center"
                 >
                   <h2 className="font-heading text-3xl md:text-4xl font-bold uppercase tracking-tight mb-4">
-                    Trouble breathing during <span className="text-[#00BFFF]">sleep or sport?</span>
+                    Difficulty <span className="text-[#00BFFF]">breathing?</span>
                   </h2>
                   <p className="text-neutral-400 mb-8">
                     Take the 60-second Airflow Assessment to discover your specific breathing bottleneck.
