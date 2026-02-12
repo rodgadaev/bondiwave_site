@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Wind, Moon, Zap, Heart, Shield, Droplets, 
   Instagram, Facebook, ShoppingBag, ArrowRight,
-  Check, ChevronDown
+  Check, ChevronDown, X, Loader2
 } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
