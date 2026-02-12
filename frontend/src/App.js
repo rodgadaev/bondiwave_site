@@ -962,6 +962,7 @@ function App() {
           },
         }}
       />
+      <PromoBanner />
       <Navigation />
       <Hero />
       <Marquee />
