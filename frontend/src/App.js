@@ -448,7 +448,7 @@ const useAssessmentModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   
   useEffect(() => {
-    // Check if user has already taken assessment
+    // Check if user has already seen/closed the assessment
     if (localStorage.getItem('hasTakenAssessment')) return;
     
     // Auto-trigger after 5 seconds
@@ -456,22 +456,17 @@ const useAssessmentModal = () => {
       setIsOpen(true);
     }, 5000);
     
-    // Exit intent trigger
-    const handleMouseLeave = (e) => {
-      if (e.clientY <= 0 && !localStorage.getItem('hasTakenAssessment')) {
-        setIsOpen(true);
-      }
-    };
-    
-    document.addEventListener('mouseleave', handleMouseLeave);
-    
     return () => {
       clearTimeout(timer);
-      document.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
   
-  return { isOpen, setIsOpen };
+  const closeModal = () => {
+    setIsOpen(false);
+    localStorage.setItem('hasTakenAssessment', 'true');
+  };
+  
+  return { isOpen, setIsOpen, closeModal };
 };
 
 // TikTok Icon Component
