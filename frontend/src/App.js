@@ -549,10 +549,10 @@ const Navigation = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass' : 'bg-transparent'}`}
+      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass' : 'bg-[#050505]'}`}
       data-testid="navigation"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex items-center justify-between">
         <a href="/" data-testid="logo-link">
           <img src={ASSETS.logo} alt="Bondi Wave" className="h-12 md:h-16 lg:h-20" />
         </a>
