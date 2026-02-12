@@ -18,6 +18,12 @@
             <input type="text" name="bot-field" />
             <input type="email" name="email" />
         </form>
+        <!-- Hidden form for Assessment Modal -->
+        <form name="assessment" netlify netlify-honeypot="bot-field" hidden>
+            <input type="text" name="bot-field" />
+            <input type="email" name="email" />
+            <input type="text" name="profile" />
+        </form>
         <div id="root"></div>
     </body>
 </html>
