@@ -1384,7 +1384,7 @@ const PromoBanner = () => {
 
 // Main App
 function App() {
-  const { isOpen, setIsOpen } = useAssessmentModal();
+  const { isOpen, closeModal } = useAssessmentModal();
   
   return (
     <div className="min-h-screen bg-[#050505]">
@@ -1398,7 +1398,7 @@ function App() {
           },
         }}
       />
-      <AssessmentModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <AssessmentModal isOpen={isOpen} onClose={closeModal} />
       <PromoBanner />
       <Navigation />
       <Hero />
