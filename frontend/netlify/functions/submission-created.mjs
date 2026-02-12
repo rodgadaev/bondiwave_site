@@ -5,7 +5,8 @@ export default async (req, context) => {
 
   try {
     const { payload } = await req.json();
-    const { email } = payload.data;
+    const { email, profile } = payload.data;
+    const formName = payload.form_name;
 
     if (!email) {
       console.error('No email address found in submission');
@@ -15,11 +16,26 @@ export default async (req, context) => {
       });
     }
 
+    // Determine which template to use based on form and profile
+    let templateId = 'welcome'; // Default for waitlist form
+    let subject = 'Welcome to Bondi Wave';
+
+    if (formName === 'assessment' && profile) {
+      // Map profile to template ID
+      const profileTemplates = {
+        'A': 'profile_a-2',
+        'B': 'profile_b',
+        'C': 'profile c',
+      };
+      templateId = profileTemplates[profile] || 'welcome';
+      subject = 'Your Breathing Profile Results - Bondi Wave';
+    }
+
     const { data, error } = await resend.emails.send({
       from: 'Bondi Wave <hello@bondiwaveaustralia.com>',
       to: email,
-      subject: 'Welcome to Bondi Wave',
-      template: { id: 'welcome' },
+      subject: subject,
+      template: { id: templateId },
       headers: {
         'List-Unsubscribe': '<{{{RESEND_UNSUBSCRIBE_URL}}}>',
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click'
