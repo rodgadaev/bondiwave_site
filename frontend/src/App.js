@@ -923,6 +923,31 @@ const Footer = () => {
   );
 };
 
+// Promo Banner Component
+const PromoBanner = () => {
+  const promoItems = [
+    "JOIN THE WAITLIST — GET 30% OFF YOUR FIRST ORDER",
+    "EXCLUSIVE EARLY ACCESS + FREE SHIPPING",
+    "LIMITED TIME OFFER — DON'T MISS OUT",
+  ];
+  
+  return (
+    <a 
+      href="#waitlist"
+      className="block bg-[#00B4D8] py-2 overflow-hidden cursor-pointer hover:bg-[#00a0c0] transition-colors"
+      data-testid="promo-banner"
+    >
+      <div className="animate-marquee flex whitespace-nowrap">
+        {[...promoItems, ...promoItems, ...promoItems, ...promoItems].map((item, i) => (
+          <span key={i} className="font-heading text-xs md:text-sm uppercase tracking-[0.2em] text-black font-bold mx-8">
+            {item} <span className="mx-4">★</span>
+          </span>
+        ))}
+      </div>
+    </a>
+  );
+};
+
 // Main App
 function App() {
   return (
