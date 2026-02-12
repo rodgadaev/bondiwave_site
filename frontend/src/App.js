@@ -429,8 +429,7 @@ const AssessmentModal = ({ isOpen, onClose }) => {
                       className="inline-flex items-center justify-center gap-2 w-full bg-[#00BFFF] text-black font-bold uppercase tracking-wider py-4 px-8 hover:bg-white transition-colors"
                       data-testid="shop-bondi-wave"
                     >
-                      <ShoppingBag size={18} />
-                      Shop Bondi Wave
+                      Coming Soon
                     </a>
                   </div>
                 </motion.div>
