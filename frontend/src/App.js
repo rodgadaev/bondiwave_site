@@ -1224,7 +1224,67 @@ const FAQ = () => {
 
 // Reviews Section
 const Reviews = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef(null);
+  const isUserScrolling = useRef(false);
+  const scrollTimeout = useRef(null);
+
+  // Slow auto-scroll, pauses on user interaction
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    let animId;
+    const speed = 0.5; // pixels per frame
+
+    const autoScroll = () => {
+      if (!isUserScrolling.current && el) {
+        el.scrollLeft += speed;
+        // Loop back when reaching the end
+        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
+          el.scrollLeft = 0;
+        }
+      }
+      animId = requestAnimationFrame(autoScroll);
+    };
+
+    const handleInteractionStart = () => {
+      isUserScrolling.current = true;
+      clearTimeout(scrollTimeout.current);
+    };
+
+    const handleInteractionEnd = () => {
+      clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => {
+        isUserScrolling.current = false;
+      }, 2000);
+    };
+
+    el.addEventListener('mousedown', handleInteractionStart);
+    el.addEventListener('mouseup', handleInteractionEnd);
+    el.addEventListener('mouseleave', handleInteractionEnd);
+    el.addEventListener('touchstart', handleInteractionStart);
+    el.addEventListener('touchend', handleInteractionEnd);
+    el.addEventListener('wheel', handleInteractionStart);
+    el.addEventListener('scroll', () => {
+      handleInteractionStart();
+      clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => {
+        isUserScrolling.current = false;
+      }, 2000);
+    });
+
+    animId = requestAnimationFrame(autoScroll);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      clearTimeout(scrollTimeout.current);
+      el.removeEventListener('mousedown', handleInteractionStart);
+      el.removeEventListener('mouseup', handleInteractionEnd);
+      el.removeEventListener('mouseleave', handleInteractionEnd);
+      el.removeEventListener('touchstart', handleInteractionStart);
+      el.removeEventListener('touchend', handleInteractionEnd);
+    };
+  }, []);
 
   const reviews = [
     { name: "Sarah M.", location: "Sydney, AU", stars: 5, category: "Sleep", text: "I couldn't believe how much better I slept the very first night. Less tossing and turning, more restful sleep, and I finally wake up feeling energised instead of groggy." },
@@ -1240,14 +1300,6 @@ const Reviews = () => {
     { name: "Grace F.", location: "Cronulla, AU", stars: 5, category: "Congestion", text: "I was worried about my skin because I'm quite sensitive, but these are gentle and don't leave any irritation after I peel them off in the shower." },
     { name: "Tom A.", location: "Wollongong, AU", stars: 4, category: "Sleep", text: "Simple to use and bloody effective. If you feel like you aren't getting enough air, especially at night, this is the most immediate solution I've found." },
   ];
-
-  // Auto-rotate reviews
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % reviews.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [reviews.length]);
 
   return (
     <section className="py-8 md:py-10 bg-[#0A0A0A]" data-testid="reviews-section" itemScope itemType="https://schema.org/Product">
@@ -1270,61 +1322,45 @@ const Reviews = () => {
           </div>
         </motion.div>
 
-        <div className="relative overflow-hidden">
-          <motion.div
-            className="flex gap-4"
-            animate={{ x: `calc(-${activeIndex * (100 / 3)}% - ${activeIndex * 16}px)` }}
-            transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
-          >
-            {reviews.concat(reviews.slice(0, 3)).map((review, i) => (
-              <motion.div
-                key={i}
-                className="min-w-[calc(33.333%-11px)] bg-[#050505] border border-white/5 p-6 md:p-8 flex flex-col justify-between"
-                itemScope
-                itemProp="review"
-                itemType="https://schema.org/Review"
-                data-testid={`review-card-${i}`}
-              >
-                <div>
-                  <div className="flex items-center gap-1 mb-4">
-                    {[...Array(5)].map((_, s) => (
-                      <Star
-                        key={s}
-                        size={14}
-                        className={s < review.stars ? "text-[#00B4D8] fill-[#00B4D8]" : "text-neutral-700"}
-                      />
-                    ))}
-                    <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-wider ml-2">{review.category}</span>
-                  </div>
-                  <p itemProp="reviewBody" className="text-neutral-300 text-sm leading-relaxed mb-6">
-                    "{review.text}"
-                  </p>
-                </div>
-                <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-                  <div className="w-9 h-9 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center flex-shrink-0">
-                    <span className="font-heading text-sm font-bold text-[#00B4D8]">{review.name.charAt(0)}</span>
-                  </div>
-                  <div>
-                    <p itemProp="author" className="text-white text-sm font-bold">{review.name}</p>
-                    <p className="text-neutral-500 text-xs">{review.location}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Navigation dots */}
-        <div className="flex justify-center gap-1.5 mt-6">
-          {reviews.map((_, i) => (
-            <button
+        <div
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto pb-4 reviews-scroll cursor-grab active:cursor-grabbing"
+          style={{ scrollBehavior: 'smooth' }}
+        >
+          {reviews.map((review, i) => (
+            <div
               key={i}
-              onClick={() => setActiveIndex(i)}
-              className={`h-1 rounded-full transition-all duration-500 ${
-                i >= activeIndex && i < activeIndex + 3 ? 'w-5 bg-[#00B4D8]' : 'w-1.5 bg-white/15'
-              }`}
-              data-testid={`review-dot-${i}`}
-            />
+              className="w-[320px] md:w-[380px] bg-[#050505] border border-white/5 p-6 md:p-8 flex flex-col justify-between flex-shrink-0"
+              itemScope
+              itemProp="review"
+              itemType="https://schema.org/Review"
+              data-testid={`review-card-${i}`}
+            >
+              <div>
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, s) => (
+                    <Star
+                      key={s}
+                      size={14}
+                      className={s < review.stars ? "text-[#00B4D8] fill-[#00B4D8]" : "text-neutral-700"}
+                    />
+                  ))}
+                  <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-wider ml-2">{review.category}</span>
+                </div>
+                <p itemProp="reviewBody" className="text-neutral-300 text-sm leading-relaxed mb-6">
+                  "{review.text}"
+                </p>
+              </div>
+              <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+                <div className="w-9 h-9 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center flex-shrink-0">
+                  <span className="font-heading text-sm font-bold text-[#00B4D8]">{review.name.charAt(0)}</span>
+                </div>
+                <div>
+                  <p itemProp="author" className="text-white text-sm font-bold">{review.name}</p>
+                  <p className="text-neutral-500 text-xs">{review.location}</p>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>

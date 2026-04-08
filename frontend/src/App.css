@@ -117,3 +117,28 @@ a {
   scrollbar-width: thin;
   scrollbar-color: #00B4D8 #0A0A0A;
 }
+
+
+/* Reviews horizontal scroll */
+.reviews-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.reviews-scroll::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+
+.reviews-scroll::-webkit-scrollbar-thumb {
+  background: #00B4D8;
+  border-radius: 2px;
+}
+
+.reviews-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #00B4D8 #0A0A0A;
+}
+
+@keyframes reviews-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
