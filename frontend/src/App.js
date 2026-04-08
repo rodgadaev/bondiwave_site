@@ -675,8 +675,6 @@ const ProductGallery = () => {
     { label: "Recover Better, Sleep Quieter", text: "Reduces snoring and improves sleep quality by facilitating deep nasal breathing, helping you wake up refreshed" },
     { label: "Active-Hold Adhesive", text: "Engineered with extra-strength, sweat-resistant adhesive that stays secure through intense gym sessions and humid nights" },
     { label: "Sleek Matte Black Design", text: "Premium matte black strips designed for athletes who care about performance and aesthetics" },
-    { label: "Hypoallergenic & Latex-Free", text: "Gentle on the skin but tough on the hold, suitable for all-night wear without irritation" },
-    { label: "30 Pack Value", text: "Includes 30 premium nasal strips providing a full month supply for consistent performance enhancement" },
   ];
 
   // Auto-cycle images
@@ -768,8 +766,8 @@ const ProductGallery = () => {
 
             </div>
 
-            {/* Trust Icons */}
-            <div className="flex justify-evenly gap-4 mt-4 py-4 border border-white/5 bg-[#0A0A0A]">
+            {/* Trust Icons - aligned with main image */}
+            <div className="flex justify-evenly gap-4 mt-4 py-4 border border-white/5 bg-[#0A0A0A] ml-[76px] md:ml-[96px]">
               <div className="flex flex-col items-center gap-2">
                 <div className="w-14 h-14 border border-[#00B4D8]/20 bg-[#00B4D8]/5 flex items-center justify-center">
                   <Lock size={28} className="text-[#00B4D8]" />
