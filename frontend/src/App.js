@@ -668,6 +668,22 @@ const ProductGallery = () => {
       src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/9o82bugn_6.png",
       alt: "Bondi Wave Nose Strips - Lifestyle"
     },
+    {
+      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/fdkzlofh_1.png",
+      alt: "Bondi Wave - Increase Airflow by 35%"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/kvr3eima_2.png",
+      alt: "Bondi Wave vs Other Nose Strips"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/4vitb6g4_3.png",
+      alt: "Bondi Wave - Advanced Layer Technology"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/h55duslj_5.png",
+      alt: "Bondi Wave - From Bondi to Bronte to Deep Sleep"
+    },
   ];
 
   const bulletPoints = [
@@ -701,14 +717,14 @@ const ProductGallery = () => {
           <motion.div {...fadeUp} className="self-start space-y-3">
             <div className="flex gap-3 md:gap-4">
             {/* Thumbnail Column */}
-            <div className="flex flex-col gap-2 w-16 md:w-20 flex-shrink-0">
+            <div className="flex flex-col gap-2 w-16 md:w-20 flex-shrink-0 max-h-[500px] overflow-y-auto scrollbar-hide">
               {galleryImages.map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveIndex(i)}
                   onMouseEnter={() => { setActiveIndex(i); setIsHovering(true); }}
                   onMouseLeave={() => setIsHovering(false)}
-                  className={`relative w-16 h-16 md:w-20 md:h-20 border-2 overflow-hidden transition-all duration-300 bg-[#0A0A0A] ${
+                  className={`relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0 border-2 overflow-hidden transition-all duration-300 bg-[#0A0A0A] ${
                     activeIndex === i
                       ? 'border-[#00B4D8] shadow-[0_0_12px_rgba(0,180,216,0.3)]'
                       : 'border-white/10 hover:border-white/30'
