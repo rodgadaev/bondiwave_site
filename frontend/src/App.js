@@ -724,7 +724,7 @@ const ProductGallery = () => {
                   onClick={() => setActiveIndex(i)}
                   onMouseEnter={() => { setActiveIndex(i); setIsHovering(true); }}
                   onMouseLeave={() => setIsHovering(false)}
-                  className={`relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0 border-2 overflow-hidden transition-all duration-300 bg-[#0A0A0A] ${
+                  className={`relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0 border-2 overflow-hidden transition-all duration-300 bg-[#0A0A0A] aspect-square ${
                     activeIndex === i
                       ? 'border-[#00B4D8] shadow-[0_0_12px_rgba(0,180,216,0.3)]'
                       : 'border-white/10 hover:border-white/30'
@@ -741,24 +741,25 @@ const ProductGallery = () => {
             </div>
 
             {/* Main Image */}
-            <div
-              className="flex-1 relative bg-[#0A0A0A] border border-white/10 overflow-hidden aspect-square"
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-              data-testid="gallery-main-image"
-            >
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={activeIndex}
-                  src={galleryImages[activeIndex].src}
-                  alt={galleryImages[activeIndex].alt}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="w-full h-full object-contain absolute inset-0"
-                />
-              </AnimatePresence>
+            <div className="flex-1">
+              <div
+                className="relative bg-[#0A0A0A] border border-white/10 overflow-hidden w-full aspect-square"
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+                data-testid="gallery-main-image"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={activeIndex}
+                    src={galleryImages[activeIndex].src}
+                    alt={galleryImages[activeIndex].alt}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </AnimatePresence>
 
               {/* Image counter */}
               <div className="absolute bottom-3 right-3 bg-black/70 backdrop-blur-sm border border-white/10 px-3 py-1">
@@ -778,8 +779,8 @@ const ProductGallery = () => {
                   />
                 ))}
               </div>
+              </div>
             </div>
-
             </div>
 
             {/* Trust Icons - aligned with main image */}
