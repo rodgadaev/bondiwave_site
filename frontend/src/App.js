@@ -952,107 +952,111 @@ const Benefits = () => {
     "Reduces breathing effort during cardio",
     "Helps maintain nasal breathing under stress",
     "Improves oxygen delivery to muscles",
-    "Reduces mouth breathing and dry throat"
   ];
   
   const sleepBenefits = [
     "Reduces snoring intensity",
-    "Promotes nasal breathing for deeper sleep",
-    "May help with mild sleep apnea symptoms",
+    "Promotes deeper, restorative sleep",
     "Reduces morning dry mouth",
-    "Helps maintain optimal sleep position"
+    "Helps maintain optimal sleep breathing",
   ];
   
   return (
     <section id="benefits" className="py-8 md:py-10" data-testid="benefits-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div {...fadeUp} className="text-center mb-6">
+        <motion.div {...fadeUp} className="text-center mb-10">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">The Science</p>
           <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tight">
             Why Nose<br/>Strips Work
           </h2>
         </motion.div>
         
-        {/* Benefits Image */}
-        <motion.div {...fadeUp} className="flex justify-center mb-8">
-          <div className="relative">
-            <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
-            <img 
-              src="https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/gkt75uwm_BREETHE%20FREELY%20-%20Display%20Cases%20%282%29.svg"
-              alt="Bondi Wave Nose Strips - How They Work"
-              className="relative z-10 w-full max-w-3xl"
-              data-testid="benefits-image"
-            />
+        {/* Interactive Product Diagram */}
+        <motion.div {...fadeUp} className="relative max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-0 items-center">
+            
+            {/* Left - Sleep Benefits */}
+            <div className="flex justify-end" data-testid="sleep-benefits">
+              <div className="max-w-xs w-full text-right pr-6 lg:pr-0">
+                <div className="flex items-center justify-end gap-3 mb-5">
+                  <div>
+                    <p className="font-mono text-xs uppercase tracking-widest text-[#00B4D8]">Recovery</p>
+                    <h3 className="font-heading text-2xl font-bold uppercase">For Sleep</h3>
+                  </div>
+                  <div className="w-10 h-10 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center flex-shrink-0">
+                    <Moon className="w-5 h-5 text-[#00B4D8]" />
+                  </div>
+                </div>
+                <ul className="space-y-3">
+                  {sleepBenefits.map((benefit, i) => (
+                    <li key={i} className="flex items-center justify-end gap-2">
+                      <span className="text-neutral-300 text-sm">{benefit}</span>
+                      <Check className="w-4 h-4 text-[#00B4D8] flex-shrink-0" />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Center - Nose Strip with connector lines */}
+            <div className="relative hidden lg:flex items-center justify-center px-4" style={{ minWidth: '360px' }}>
+              {/* Left connector line */}
+              <svg className="absolute left-0 top-1/3" width="60" height="2" style={{ transform: 'translateX(-30px)' }}>
+                <line x1="0" y1="1" x2="50" y2="1" stroke="#00B4D8" strokeWidth="1.5" />
+                <circle cx="0" cy="1" r="4" fill="#00B4D8" />
+              </svg>
+
+              {/* Right connector line */}
+              <svg className="absolute right-0 top-2/3" width="60" height="2" style={{ transform: 'translateX(30px)' }}>
+                <line x1="10" y1="1" x2="60" y2="1" stroke="#00B4D8" strokeWidth="1.5" />
+                <circle cx="60" cy="1" r="4" fill="#00B4D8" />
+              </svg>
+
+              {/* Nose strip image */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-[#00B4D8]/15 blur-[60px] rounded-full" />
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/yjztc40y_actual%20product%20image.png"
+                  alt="Bondi Wave Nose Strip"
+                  className="relative z-10 w-72 drop-shadow-2xl"
+                  data-testid="benefits-image"
+                />
+              </div>
+            </div>
+
+            {/* Mobile-only nose strip */}
+            <div className="lg:hidden flex justify-center my-6">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/yjztc40y_actual%20product%20image.png"
+                alt="Bondi Wave Nose Strip"
+                className="w-48"
+              />
+            </div>
+
+            {/* Right - Sport Benefits */}
+            <div className="flex justify-start" data-testid="sport-benefits">
+              <div className="max-w-xs w-full pl-6 lg:pl-0">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center flex-shrink-0">
+                    <Zap className="w-5 h-5 text-[#00B4D8]" />
+                  </div>
+                  <div>
+                    <p className="font-mono text-xs uppercase tracking-widest text-[#00B4D8]">Performance</p>
+                    <h3 className="font-heading text-2xl font-bold uppercase">For Sport</h3>
+                  </div>
+                </div>
+                <ul className="space-y-3">
+                  {sportBenefits.map((benefit, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <Check className="w-4 h-4 text-[#00B4D8] flex-shrink-0" />
+                      <span className="text-neutral-300 text-sm">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </motion.div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Sport Benefits */}
-          <motion.div 
-            {...fadeUp}
-            className="bg-[#0A0A0A] border border-white/5 p-8 md:p-12"
-            data-testid="sport-benefits"
-          >
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-14 h-14 bg-[#00B4D8]/10 flex items-center justify-center">
-                <Zap className="w-7 h-7 text-[#00B4D8]" />
-              </div>
-              <div>
-                <p className="font-mono text-xs uppercase tracking-widest text-[#00B4D8]">Performance</p>
-                <h3 className="font-heading text-2xl font-bold uppercase">For Sport</h3>
-              </div>
-            </div>
-            
-            <ul className="space-y-4">
-              {sportBenefits.map((benefit, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-[#00B4D8] mt-0.5 flex-shrink-0" />
-                  <span className="text-neutral-300">{benefit}</span>
-                </li>
-              ))}
-            </ul>
-            
-            <div className="mt-8 pt-8 border-t border-white/10">
-              <p className="text-sm text-neutral-500 italic">
-                "Nasal breathing during exercise can improve nitric oxide production by up to 15%, 
-                enhancing oxygen uptake and athletic performance."
-              </p>
-            </div>
-          </motion.div>
-          
-          {/* Sleep Benefits */}
-          <motion.div 
-            {...fadeUp}
-            className="bg-[#0A0A0A] border border-white/5 p-8 md:p-12"
-            data-testid="sleep-benefits"
-          >
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-14 h-14 bg-[#00B4D8]/10 flex items-center justify-center">
-                <Moon className="w-7 h-7 text-[#00B4D8]" />
-              </div>
-              <div>
-                <p className="font-mono text-xs uppercase tracking-widest text-[#00B4D8]">Recovery</p>
-                <h3 className="font-heading text-2xl font-bold uppercase">For Sleep</h3>
-              </div>
-            </div>
-            
-            <ul className="space-y-4">
-              {sleepBenefits.map((benefit, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-[#00B4D8] mt-0.5 flex-shrink-0" />
-                  <span className="text-neutral-300">{benefit}</span>
-                </li>
-              ))}
-            </ul>
-            
-            <div className="mt-8 pt-8 border-t border-white/10">
-              <p className="text-sm text-neutral-500 italic">
-                "Studies show that nasal breathing during sleep increases parasympathetic activity, 
-                promoting deeper and more restorative sleep cycles."
-              </p>
-            </div>
-          </motion.div>
-        </div>
       </div>
     </section>
   );
