@@ -1234,7 +1234,7 @@ const Reviews = () => {
     if (!el) return;
 
     let animId;
-    const speed = 0.3; // pixels per frame — slow continuous drift
+    const speed = 1; // pixels per frame — visible continuous drift
 
     const autoScroll = () => {
       if (!isUserScrolling.current && el) {
