@@ -20,17 +20,20 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 
 ## What's Been Implemented
 **Date: February 6, 2026**
-- ✅ Landing page with hero section, countdown timer
-- ✅ Navigation with logo, Instagram link, Shop button
-- ✅ Animated marquee with product features
-- ✅ Features section (Medical Grade, Sweat Proof, Hypo Allergenic, Instant Results)
-- ✅ Benefits section (Sport & Sleep benefits with scientific quotes)
-- ✅ Product showcase with pricing ($29.95 AUD, $1.00/strip)
-- ✅ Email subscription form with MongoDB storage
-- ✅ Footer with social links and quick links
-- ✅ Framer Motion animations throughout
-- ✅ Responsive design for mobile/desktop
-- ✅ Brand assets integrated (logo, product box images)
+- Landing page with hero section, "Now Available" badge, Shop Now CTA
+- Navigation with logo, Instagram link, Shop button (Amazon)
+- Animated marquee with product features
+- Features section (Medical Grade, Sweat Proof, Hypo Allergenic, Instant Results)
+- Benefits section (Sport & Sleep benefits with scientific quotes)
+- Product showcase with pricing ($29.95 AUD, $1.00/strip)
+- Email subscription form (newsletter/offers) with Netlify Forms
+- Footer with social links (Instagram, TikTok) and quick links
+- Framer Motion animations throughout
+- Responsive design for mobile/desktop
+- Brand assets integrated (logo, product box images)
+- Airflow Assessment lead gen modal with profile-based Resend emails
+- Promo banner linking to Amazon storefront
+- Site updated from pre-launch (waitlist/countdown) to launched state (Shop Now, available)
 
 ## Architecture
 - **Frontend**: React + Tailwind CSS + Framer Motion
@@ -50,7 +53,8 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 ### P1 (High Priority) - Future
 - [x] Add actual Instagram URL (https://www.instagram.com/thebondiwave/)
 - [x] Add actual Amazon storefront URL (https://www.amazon.com.au/dp/B0GR5HX9PJ)
-- [ ] Add actual Facebook & TikTok URLs when accounts are created
+- [x] Transition site from pre-launch to launched state
+- [ ] Add actual TikTok URL when account is created
 - [ ] Email verification system
 - [ ] Admin dashboard to view/export subscribers
 

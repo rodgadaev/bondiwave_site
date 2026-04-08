@@ -331,7 +331,7 @@ const AssessmentModal = ({ isOpen, onClose }) => {
                     Your Breathing Profile is <span className="text-[#00BFFF]">Ready.</span>
                   </h2>
                   <p className="text-neutral-400 mb-8">
-                    Enter your email to unlock your personalized sleep & airflow report + secure your <span className="text-[#00BFFF] font-bold">30% OFF</span> Early Bird code.
+                    Enter your email to unlock your personalized sleep & airflow report + receive an exclusive <span className="text-[#00BFFF] font-bold">discount code</span>.
                   </p>
                   <form onSubmit={handleEmailSubmit} className="space-y-4">
                     <input
@@ -418,7 +418,7 @@ const AssessmentModal = ({ isOpen, onClose }) => {
                       Welcome to the Inner Circle.
                     </h3>
                     <p className="text-neutral-400 text-sm mb-6">
-                      Your <span className="text-[#00BFFF] font-bold">30% OFF</span> code is locked in for launch day. Check your inbox for your full report.
+                      Check your inbox for your full report and exclusive discount code.
                     </p>
                     <a
                       href={SOCIAL_LINKS.amazon}
@@ -428,7 +428,8 @@ const AssessmentModal = ({ isOpen, onClose }) => {
                       className="inline-flex items-center justify-center gap-2 w-full bg-[#00BFFF] text-black font-bold uppercase tracking-wider py-4 px-8 hover:bg-white transition-colors"
                       data-testid="shop-bondi-wave"
                     >
-                      Coming Soon
+                      <ShoppingBag size={18} />
+                      Shop Now
                     </a>
                   </div>
                 </motion.div>
@@ -473,48 +474,6 @@ const TikTokIcon = ({ className }) => (
     <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
   </svg>
 );
-
-// Countdown Component
-const Countdown = () => {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  
-  useEffect(() => {
-    const targetDate = new Date('2026-03-01T00:00:00');
-    
-    const calculateTime = () => {
-      const now = new Date();
-      const diff = targetDate - now;
-      
-      if (diff > 0) {
-        setTimeLeft({
-          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((diff / (1000 * 60)) % 60),
-          seconds: Math.floor((diff / 1000) % 60)
-        });
-      }
-    };
-    
-    calculateTime();
-    const interval = setInterval(calculateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
-  
-  return (
-    <div className="flex gap-4 md:gap-6" data-testid="countdown">
-      {Object.entries(timeLeft).map(([label, value]) => (
-        <div key={label} className="text-center">
-          <div className="font-heading text-3xl md:text-5xl font-bold text-[#00B4D8]">
-            {String(value).padStart(2, '0')}
-          </div>
-          <div className="font-mono text-xs uppercase tracking-widest text-neutral-500 mt-1">
-            {label}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
 
 // Marquee Component
 const Marquee = () => {
@@ -599,7 +558,7 @@ const Hero = () => {
               transition={{ delay: 0.2 }}
               className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4"
             >
-              Coming March 2026
+              Now Available
             </motion.p>
             <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tight leading-[0.9]">
               <span className="tracking-[0.02em]">Breathe</span><br/>
@@ -613,11 +572,14 @@ const Hero = () => {
           
           <div className="flex flex-col sm:flex-row gap-4">
             <a 
-              href="#waitlist"
+              href={SOCIAL_LINKS.amazon}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-[#00B4D8] text-black font-bold uppercase tracking-wider px-8 py-4 hover:bg-white transition-all duration-300 group"
               data-testid="hero-cta"
             >
-              Join the Waitlist
+              <ShoppingBag size={18} />
+              Shop Now
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </a>
             <a 
@@ -628,10 +590,6 @@ const Hero = () => {
               Learn More
               <ChevronDown size={18} />
             </a>
-          </div>
-          
-          <div className="pt-4">
-            <Countdown />
           </div>
         </motion.div>
         
@@ -1199,7 +1157,7 @@ const EmailSignup = () => {
       });
       
       if (response.ok) {
-        toast.success("Welcome to the wave! You'll be first to know when we drop.");
+        toast.success("Welcome to the wave! Check your inbox for an exclusive offer.");
         setSubscribed(true);
         setEmail("");
       } else {
@@ -1214,22 +1172,22 @@ const EmailSignup = () => {
   };
   
   return (
-    <section id="waitlist" className="py-16 md:py-20" data-testid="waitlist-section">
+    <section id="signup" className="py-16 md:py-20" data-testid="waitlist-section">
       <div className="max-w-3xl mx-auto px-6 md:px-12 text-center">
         <motion.div {...fadeUp}>
-          <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Be First</p>
+          <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Stay Connected</p>
           <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tight mb-6">
-            Join The<br/>Waitlist
+            Get Exclusive<br/>Offers
           </h2>
           <p className="text-neutral-400 text-lg mb-12 max-w-xl mx-auto">
-            Get exclusive early access, launch discounts, and be the first to know when Bondi Wave drops.
+            Sign up for exclusive discounts, breathing tips, and be the first to know about new drops.
           </p>
           
           {subscribed ? (
             <div className="bg-[#0A0A0A] border border-[#00B4D8] p-8" data-testid="success-message">
               <Check className="w-12 h-12 text-[#00B4D8] mx-auto mb-4" />
               <h3 className="font-heading text-2xl font-bold uppercase mb-2">You're In!</h3>
-              <p className="text-neutral-400">We'll notify you when we launch.</p>
+              <p className="text-neutral-400">Check your inbox for your welcome offer.</p>
             </div>
           ) : (
             <form 
@@ -1256,7 +1214,7 @@ const EmailSignup = () => {
                 className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider px-8 py-4 hover:bg-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 data-testid="subscribe-btn"
               >
-                {loading ? "..." : "Notify Me"}
+                {loading ? "..." : "Sign Up"}
               </button>
             </form>
           )}
@@ -1290,8 +1248,8 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#waitlist" className="text-neutral-400 hover:text-[#00B4D8] transition-colors text-sm">
-                  Join Waitlist
+                <a href="#signup" className="text-neutral-400 hover:text-[#00B4D8] transition-colors text-sm">
+                  Get Offers
                 </a>
               </li>
               <li>
@@ -1335,7 +1293,7 @@ const Footer = () => {
         
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-neutral-600 text-sm">
-            © 2025 Bondi Wave. All rights reserved.
+            © 2026 Bondi Wave. All rights reserved.
           </p>
           <p className="text-neutral-600 text-sm">
             Made with <Wind className="inline w-4 h-4 text-[#00B4D8]" /> in Australia
@@ -1349,14 +1307,16 @@ const Footer = () => {
 // Promo Banner Component
 const PromoBanner = () => {
   const promoItems = [
-    "JOIN THE WAITLIST — GET 30% OFF YOUR FIRST ORDER",
-    "EXCLUSIVE EARLY ACCESS + FREE SHIPPING",
-    "LIMITED TIME OFFER — DON'T MISS OUT",
+    "NOW AVAILABLE — SHOP ON AMAZON",
+    "FREE SHIPPING ON YOUR FIRST ORDER",
+    "30 PREMIUM STRIPS — JUST $29.95 AUD",
   ];
   
   return (
     <a 
-      href="#waitlist"
+      href={SOCIAL_LINKS.amazon}
+      target="_blank"
+      rel="noopener noreferrer"
       className="block bg-[#00B4D8] py-2 overflow-hidden cursor-pointer hover:bg-[#00a0c0] transition-colors"
       data-testid="promo-banner"
     >
