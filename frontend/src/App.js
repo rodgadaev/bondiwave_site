@@ -800,7 +800,7 @@ const ProductGallery = () => {
                 <div className="w-14 h-14 border border-[#00B4D8]/20 bg-[#00B4D8]/5 flex items-center justify-center">
                   <Lock size={28} className="text-[#00B4D8]" />
                 </div>
-                <span className="font-mono text-xs text-neutral-400 uppercase tracking-wider">Secure</span>
+                <span className="font-mono text-xs text-neutral-400 uppercase tracking-wider">Secure<br/>Transaction</span>
               </div>
               <div className="flex flex-col items-center gap-2">
                 <div className="w-14 h-14 border border-[#00B4D8]/20 bg-[#00B4D8]/5 flex items-center justify-center">
@@ -1596,6 +1596,10 @@ function App() {
       <Footer />
     </div>
   );
+}
+
+export default App;
+ );
 }
 
 export default App;
