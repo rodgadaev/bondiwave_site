@@ -544,11 +544,11 @@ const Navigation = () => {
 // Hero Section
 const Hero = () => {
   return (
-    <section className="min-h-[80vh] relative flex items-center" data-testid="hero-section">
+    <section className="relative flex items-center" data-testid="hero-section">
       {/* Background Glow */}
       <div className="absolute inset-0 hero-glow" />
       
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-6 pb-16 md:pt-8 md:pb-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
         <motion.div {...fadeUp} className="space-y-8">
           <div>
