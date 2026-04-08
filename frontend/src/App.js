@@ -1121,10 +1121,6 @@ const SleepRecovery = () => {
           className="w-full block"
         />
         <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#0A0A0A]/60 to-transparent" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-20 flex items-end justify-end absolute inset-0">
-          <motion.div {...fadeUp} className="mb-[-40px]">
-          </motion.div>
-        </div>
       </div>
     </section>
   );
