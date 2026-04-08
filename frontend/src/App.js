@@ -1234,12 +1234,14 @@ const Reviews = () => {
     if (!el) return;
 
     let animId;
-    const speed = 1; // pixels per frame — visible continuous drift
+    let isProgrammaticScroll = false;
+    const speed = 1;
 
     const autoScroll = () => {
       if (!isUserScrolling.current && el) {
+        isProgrammaticScroll = true;
         el.scrollLeft += speed;
-        // Loop back when reaching the end
+        isProgrammaticScroll = false;
         if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
           el.scrollLeft = 0;
         }
@@ -1247,42 +1249,27 @@ const Reviews = () => {
       animId = requestAnimationFrame(autoScroll);
     };
 
-    const handleInteractionStart = () => {
+    const pauseAutoScroll = () => {
+      if (isProgrammaticScroll) return;
       isUserScrolling.current = true;
       clearTimeout(scrollTimeout.current);
-    };
-
-    const handleInteractionEnd = () => {
-      clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => {
         isUserScrolling.current = false;
       }, 2000);
     };
 
-    el.addEventListener('mousedown', handleInteractionStart);
-    el.addEventListener('mouseup', handleInteractionEnd);
-    el.addEventListener('mouseleave', handleInteractionEnd);
-    el.addEventListener('touchstart', handleInteractionStart);
-    el.addEventListener('touchend', handleInteractionEnd);
-    el.addEventListener('wheel', handleInteractionStart);
-    el.addEventListener('scroll', () => {
-      handleInteractionStart();
-      clearTimeout(scrollTimeout.current);
-      scrollTimeout.current = setTimeout(() => {
-        isUserScrolling.current = false;
-      }, 2000);
-    });
+    el.addEventListener('mousedown', pauseAutoScroll);
+    el.addEventListener('wheel', pauseAutoScroll);
+    el.addEventListener('touchstart', pauseAutoScroll);
 
     animId = requestAnimationFrame(autoScroll);
 
     return () => {
       cancelAnimationFrame(animId);
       clearTimeout(scrollTimeout.current);
-      el.removeEventListener('mousedown', handleInteractionStart);
-      el.removeEventListener('mouseup', handleInteractionEnd);
-      el.removeEventListener('mouseleave', handleInteractionEnd);
-      el.removeEventListener('touchstart', handleInteractionStart);
-      el.removeEventListener('touchend', handleInteractionEnd);
+      el.removeEventListener('mousedown', pauseAutoScroll);
+      el.removeEventListener('wheel', pauseAutoScroll);
+      el.removeEventListener('touchstart', pauseAutoScroll);
     };
   }, []);
 
