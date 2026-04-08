@@ -1000,18 +1000,6 @@ const Benefits = () => {
 
             {/* Center - Nose Strip with connector lines */}
             <div className="relative hidden lg:flex items-center justify-center px-4" style={{ minWidth: '360px' }}>
-              {/* Left connector line */}
-              <svg className="absolute left-0 top-1/3" width="60" height="2" style={{ transform: 'translateX(-30px)' }}>
-                <line x1="0" y1="1" x2="50" y2="1" stroke="#00B4D8" strokeWidth="1.5" />
-                <circle cx="0" cy="1" r="4" fill="#00B4D8" />
-              </svg>
-
-              {/* Right connector line */}
-              <svg className="absolute right-0 top-2/3" width="60" height="2" style={{ transform: 'translateX(30px)' }}>
-                <line x1="10" y1="1" x2="60" y2="1" stroke="#00B4D8" strokeWidth="1.5" />
-                <circle cx="60" cy="1" r="4" fill="#00B4D8" />
-              </svg>
-
               {/* Nose strip image */}
               <div className="relative">
                 <div className="absolute inset-0 bg-[#00B4D8]/15 blur-[60px] rounded-full" />
