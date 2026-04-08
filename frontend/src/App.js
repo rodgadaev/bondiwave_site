@@ -544,11 +544,11 @@ const Navigation = () => {
 // Hero Section
 const Hero = () => {
   return (
-    <section className="min-h-screen relative overflow-hidden flex items-center" data-testid="hero-section">
+    <section className="min-h-[80vh] relative overflow-hidden flex items-center" data-testid="hero-section">
       {/* Background Glow */}
       <div className="absolute inset-0 hero-glow" />
       
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
         <motion.div {...fadeUp} className="space-y-8">
           <div>
@@ -625,7 +625,7 @@ const Features = () => {
   ];
   
   return (
-    <section className="py-16 md:py-20 bg-[#0A0A0A]" data-testid="features-section">
+    <section className="py-8 md:py-10 bg-[#0A0A0A]" data-testid="features-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div {...fadeUp} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, i) => (
@@ -689,9 +689,9 @@ const StorySection = () => {
   ];
   
   return (
-    <section className="py-16 md:py-20 bg-[#0A0A0A]" data-testid="story-section">
+    <section className="py-8 md:py-10 bg-[#0A0A0A]" data-testid="story-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div {...fadeUp} className="text-center mb-10">
+        <motion.div {...fadeUp} className="text-center mb-6">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Our Origin</p>
           <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tight mb-6">
             The Bondi Wave<br/>Story
@@ -975,9 +975,9 @@ const Benefits = () => {
   ];
   
   return (
-    <section id="benefits" className="py-16 md:py-20" data-testid="benefits-section">
+    <section id="benefits" className="py-8 md:py-10" data-testid="benefits-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div {...fadeUp} className="text-center mb-10">
+        <motion.div {...fadeUp} className="text-center mb-6">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">The Science</p>
           <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tight">
             Why Nose<br/>Strips Work
@@ -985,7 +985,7 @@ const Benefits = () => {
         </motion.div>
         
         {/* Benefits Image */}
-        <motion.div {...fadeUp} className="flex justify-center mb-16">
+        <motion.div {...fadeUp} className="flex justify-center mb-8">
           <div className="relative">
             <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
             <img 
@@ -1072,7 +1072,7 @@ const Benefits = () => {
 // Product Showcase
 const ProductShowcase = () => {
   return (
-    <section className="py-16 md:py-20 bg-[#0A0A0A]" data-testid="product-section">
+    <section className="py-8 md:py-10 bg-[#0A0A0A]" data-testid="product-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div {...fadeUp}>
