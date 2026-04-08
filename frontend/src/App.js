@@ -583,7 +583,7 @@ const Hero = () => {
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </a>
             <a 
-              href="#benefits"
+              href="#product-gallery"
               className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 hover:border-[#00B4D8] hover:text-[#00B4D8] transition-all duration-300"
               data-testid="hero-learn-more"
             >
@@ -715,7 +715,7 @@ const ProductGallery = () => {
   }, [activeIndex]);
 
   return (
-    <section className="py-8 md:py-10 bg-[#050505]" data-testid="product-gallery-section">
+    <section id="product-gallery" className="py-8 md:py-10 bg-[#050505]" data-testid="product-gallery-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div {...fadeUp} className="text-center mb-6">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Up Close</p>
