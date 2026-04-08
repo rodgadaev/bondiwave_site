@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   Wind, Moon, Zap, Heart, Shield, Droplets, 
   Instagram, ShoppingBag, ArrowRight,
-  Check, ChevronDown, X, Loader2
+  Check, ChevronDown, X, Loader2, Lock, RotateCcw
 } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
@@ -764,9 +764,33 @@ const ProductGallery = () => {
                 ))}
               </div>
             </div>
-          </motion.div>
 
-          {/* Right: Product Info */}
+            {/* Trust Icons */}
+            <div className="flex justify-center gap-6 mt-3">
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="w-9 h-9 border border-white/10 flex items-center justify-center">
+                  <Lock size={16} className="text-[#00B4D8]" />
+                </div>
+                <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-wider">Secure</span>
+              </div>
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="w-9 h-9 border border-white/10 flex items-center justify-center">
+                  <RotateCcw size={16} className="text-[#00B4D8]" />
+                </div>
+                <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-wider">Returns</span>
+              </div>
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="w-9 h-9 border border-white/10 flex items-center justify-center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5" />
+                    <path d="M2 12l10 5 10-5" />
+                  </svg>
+                </div>
+                <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-wider text-center leading-tight">Designed in<br/>Australia</span>
+              </div>
+            </div>
+          </motion.div>
           <motion.div {...fadeUp} className="space-y-6">
             <div>
               <h3 className="font-heading text-2xl md:text-3xl font-bold uppercase tracking-tight mb-2">
