@@ -1234,7 +1234,7 @@ const Reviews = () => {
     if (!el) return;
 
     let animId;
-    const speed = 0.5; // pixels per frame
+    const speed = 0.3; // pixels per frame — slow continuous drift
 
     const autoScroll = () => {
       if (!isUserScrolling.current && el) {
@@ -1325,7 +1325,6 @@ const Reviews = () => {
         <div
           ref={scrollRef}
           className="flex gap-4 overflow-x-auto pb-4 reviews-scroll cursor-grab active:cursor-grabbing"
-          style={{ scrollBehavior: 'smooth' }}
         >
           {reviews.map((review, i) => (
             <div

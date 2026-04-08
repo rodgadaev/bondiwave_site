@@ -119,23 +119,14 @@ a {
 }
 
 
-/* Reviews horizontal scroll */
+/* Reviews horizontal scroll - hide scrollbar for clean carousel feel */
 .reviews-scroll::-webkit-scrollbar {
-  height: 4px;
-}
-
-.reviews-scroll::-webkit-scrollbar-track {
-  background: #0A0A0A;
-}
-
-.reviews-scroll::-webkit-scrollbar-thumb {
-  background: #00B4D8;
-  border-radius: 2px;
+  display: none;
 }
 
 .reviews-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: #00B4D8 #0A0A0A;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 @keyframes reviews-slide {
