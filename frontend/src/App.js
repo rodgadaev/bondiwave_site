@@ -769,28 +769,28 @@ const ProductGallery = () => {
             </div>
 
             {/* Trust Icons */}
-            <div className="flex justify-center gap-6 mt-3">
-              <div className="flex flex-col items-center gap-1.5">
-                <div className="w-9 h-9 border border-white/10 flex items-center justify-center">
-                  <Lock size={16} className="text-[#00B4D8]" />
+            <div className="flex justify-evenly gap-4 mt-4 py-4 border border-white/5 bg-[#0A0A0A]">
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-14 h-14 border border-[#00B4D8]/20 bg-[#00B4D8]/5 flex items-center justify-center">
+                  <Lock size={28} className="text-[#00B4D8]" />
                 </div>
-                <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-wider">Secure</span>
+                <span className="font-mono text-xs text-neutral-400 uppercase tracking-wider">Secure</span>
               </div>
-              <div className="flex flex-col items-center gap-1.5">
-                <div className="w-9 h-9 border border-white/10 flex items-center justify-center">
-                  <RotateCcw size={16} className="text-[#00B4D8]" />
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-14 h-14 border border-[#00B4D8]/20 bg-[#00B4D8]/5 flex items-center justify-center">
+                  <RotateCcw size={28} className="text-[#00B4D8]" />
                 </div>
-                <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-wider">Returns</span>
+                <span className="font-mono text-xs text-neutral-400 uppercase tracking-wider">Returns</span>
               </div>
-              <div className="flex flex-col items-center gap-1.5">
-                <div className="w-9 h-9 border border-white/10 flex items-center justify-center">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-14 h-14 border border-[#00B4D8]/20 bg-[#00B4D8]/5 flex items-center justify-center">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2L2 7l10 5 10-5-10-5z" />
                     <path d="M2 17l10 5 10-5" />
                     <path d="M2 12l10 5 10-5" />
                   </svg>
                 </div>
-                <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-wider text-center leading-tight">Designed in<br/>Australia</span>
+                <span className="font-mono text-xs text-neutral-400 uppercase tracking-wider text-center leading-tight">Designed in<br/>Australia</span>
               </div>
             </div>
           </motion.div>
