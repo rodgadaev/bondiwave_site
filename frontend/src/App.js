@@ -1110,6 +1110,26 @@ const ProductShowcase = () => {
   );
 };
 
+// Sleep Recovery Section
+const SleepRecovery = () => {
+  return (
+    <section className="relative" data-testid="sleep-section">
+      <div className="relative w-full overflow-hidden" style={{ minHeight: '600px' }}>
+        <img
+          src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/ncmok1tl_A%2B%20Basic%20Content%20%28A4%20%28Landscape%29%29%20%282%29.png"
+          alt="Recover Faster, Sleep Deeper - Bondi Wave"
+          className="w-full h-full object-cover absolute inset-0"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#0A0A0A]/60" />
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-20 flex items-end justify-end" style={{ minHeight: '600px' }}>
+          <motion.div {...fadeUp} className="mb-[-40px]">
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Email Signup Section
 const EmailSignup = () => {
   const [email, setEmail] = useState("");
@@ -1338,6 +1358,7 @@ function App() {
       <StorySection />
       <Benefits />
       <ProductShowcase />
+      <SleepRecovery />
       <EmailSignup />
       <Footer />
     </div>
