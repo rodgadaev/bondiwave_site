@@ -1099,7 +1099,7 @@ const ProductShowcase = () => {
               <img 
                 src={ASSETS.display1} 
                 alt="Bondi Wave Display Case" 
-                className="relative z-10 w-full max-w-xl mx-auto"
+                className="relative z-10 w-full max-w-2xl mx-auto"
                 data-testid="product-display"
               />
             </div>
