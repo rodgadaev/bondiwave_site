@@ -97,3 +97,23 @@ a {
 .overflow-hidden::-webkit-scrollbar {
   display: none;
 }
+
+
+/* Gallery thumbnail scrollbar - brand blue */
+.gallery-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.gallery-scrollbar::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+
+.gallery-scrollbar::-webkit-scrollbar-thumb {
+  background: #00B4D8;
+  border-radius: 2px;
+}
+
+.gallery-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #00B4D8 #0A0A0A;
+}

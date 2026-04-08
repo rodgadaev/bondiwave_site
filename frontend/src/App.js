@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Wind, Moon, Zap, Heart, Shield, Droplets, 
@@ -650,6 +650,7 @@ const Features = () => {
 const ProductGallery = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const thumbColumnRef = useRef(null);
 
   const galleryImages = [
     {
@@ -702,6 +703,16 @@ const ProductGallery = () => {
     return () => clearInterval(interval);
   }, [isHovering, galleryImages.length]);
 
+  // Auto-scroll thumbnail column to keep active thumb visible
+  useEffect(() => {
+    const container = thumbColumnRef.current;
+    if (!container) return;
+    const thumb = container.children[activeIndex];
+    if (thumb) {
+      thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [activeIndex]);
+
   return (
     <section className="py-8 md:py-10 bg-[#050505]" data-testid="product-gallery-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -717,7 +728,7 @@ const ProductGallery = () => {
           <motion.div {...fadeUp} className="self-start space-y-3">
             <div className="flex gap-3 md:gap-4">
             {/* Thumbnail Column */}
-            <div className="flex flex-col gap-2 w-16 md:w-20 flex-shrink-0 max-h-[500px] overflow-y-auto scrollbar-hide">
+            <div ref={thumbColumnRef} className="flex flex-col gap-2 w-16 md:w-20 flex-shrink-0 max-h-[500px] overflow-y-auto gallery-scrollbar">
               {galleryImages.map((img, i) => (
                 <button
                   key={i}
