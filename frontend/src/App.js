@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Wind, Moon, Zap, Heart, Shield, Droplets, 
-  Instagram, Facebook, ShoppingBag, ArrowRight,
+  Instagram, ShoppingBag, ArrowRight,
   Check, ChevronDown, X, Loader2
 } from "lucide-react";
 import { Toaster, toast } from "sonner";
@@ -22,7 +22,6 @@ const ASSETS = {
 // Social Links
 const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/thebondiwave/",
-  facebook: "https://facebook.com/bondiwave",
   tiktok: "https://tiktok.com/@thebondiwave",
   amazon: "https://www.amazon.com.au/dp/B0GR5HX9PJ",
 };
@@ -1320,15 +1319,6 @@ const Footer = () => {
                 data-testid="footer-instagram"
               >
                 <Instagram size={18} />
-              </a>
-              <a 
-                href={SOCIAL_LINKS.facebook} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-[#0A0A0A] border border-white/10 flex items-center justify-center text-neutral-400 hover:text-[#00B4D8] hover:border-[#00B4D8] transition-all"
-                data-testid="footer-facebook"
-              >
-                <Facebook size={18} />
               </a>
               <a 
                 href={SOCIAL_LINKS.tiktok} 
