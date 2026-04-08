@@ -1173,7 +1173,7 @@ const EmailSignup = () => {
   };
   
   return (
-    <section id="signup" className="pt-2 pb-16 md:pt-3 md:pb-20" data-testid="waitlist-section">
+    <section id="signup" className="pt-0 pb-16 md:pt-1 md:pb-20" data-testid="waitlist-section">
       <div className="max-w-3xl mx-auto px-6 md:px-12 text-center">
         <motion.div {...fadeUp}>
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Stay Connected</p>
