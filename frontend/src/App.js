@@ -1120,7 +1120,7 @@ const SleepRecovery = () => {
           alt="Recover Faster, Sleep Deeper - Bondi Wave"
           className="w-full h-full object-cover absolute inset-0"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#0A0A0A]/60" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#0A0A0A]/60 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-20 flex items-end justify-end" style={{ minHeight: '600px' }}>
           <motion.div {...fadeUp} className="mb-[-40px]">
           </motion.div>
