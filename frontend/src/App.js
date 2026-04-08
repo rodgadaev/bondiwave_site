@@ -727,7 +727,7 @@ const ProductGallery = () => {
 
             {/* Main Image */}
             <div
-              className="flex-1 relative bg-[#0A0A0A] border border-white/10 overflow-hidden"
+              className="flex-1 relative bg-[#0A0A0A] border border-white/10 overflow-hidden aspect-square"
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
               data-testid="gallery-main-image"
@@ -741,7 +741,7 @@ const ProductGallery = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="w-full h-full object-contain aspect-square"
+                  className="w-full h-full object-cover"
                 />
               </AnimatePresence>
 
