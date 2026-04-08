@@ -700,7 +700,8 @@ const ProductGallery = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left: Image Gallery */}
-          <motion.div {...fadeUp} className="flex gap-3 md:gap-4 self-start">
+          <motion.div {...fadeUp} className="self-start space-y-3">
+            <div className="flex gap-3 md:gap-4">
             {/* Thumbnail Column */}
             <div className="flex flex-col gap-2 w-16 md:w-20 flex-shrink-0">
               {galleryImages.map((img, i) => (
@@ -765,6 +766,8 @@ const ProductGallery = () => {
               </div>
             </div>
 
+            </div>
+
             {/* Trust Icons */}
             <div className="flex justify-center gap-6 mt-3">
               <div className="flex flex-col items-center gap-1.5">
@@ -791,6 +794,7 @@ const ProductGallery = () => {
               </div>
             </div>
           </motion.div>
+          {/* Right: Product Info */}
           <motion.div {...fadeUp} className="space-y-6">
             <div>
               <h3 className="font-heading text-2xl md:text-3xl font-bold uppercase tracking-tight mb-2">
