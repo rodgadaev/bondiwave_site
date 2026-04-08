@@ -15,7 +15,7 @@ const API = `${BACKEND_URL}/api`;
 // Brand Assets
 const ASSETS = {
   logo: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/9rfimotz_Bondi%20Wave%20Logo.svg",
-  heroProduct: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/lft90t9z_BREATHE%20BETTER..png",
+  heroProduct: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/b62x8g1r_BREATHE%20BETTER.%20%281%29.png",
   display1: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/qdbr08jk_BREETHE%20FREELY%20-%20Display%20Cases.svg",
 };
 
