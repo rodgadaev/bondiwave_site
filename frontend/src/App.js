@@ -709,7 +709,8 @@ const ProductGallery = () => {
     if (!container) return;
     const thumb = container.children[activeIndex];
     if (thumb) {
-      thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      const thumbTop = thumb.offsetTop - container.offsetTop;
+      container.scrollTo({ top: thumbTop - 8, behavior: 'smooth' });
     }
   }, [activeIndex]);
 
