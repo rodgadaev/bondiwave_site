@@ -890,7 +890,7 @@ const StorySection = () => {
         <motion.div {...fadeUp} className="text-center mb-8">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Our Origin</p>
           <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tight mb-6">
-            The Bondi Wave<br/>Story
+            The <span className="text-[#00B4D8]">Bondi Wave</span><br/>Story
           </h2>
           <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
             Born on the shores of Bondi Beach, built for athletes everywhere.
@@ -906,7 +906,7 @@ const StorySection = () => {
             { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/955gy3x6_Muita%20sorte%20morar%20em%20um%20lugar%20que%20tem%20essas%20praias%20pertinho%20de%20casa%20e%20uma%20do%20lado%20da%20outra%2C%20com%20.mp4", alt: "Bondi Beach lifestyle" },
             { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/4kt0nt6x_Welcome%20to%E2%80%A6This%20is%20the%20classic%20Bronte%20to%20Bondi%20costal%20walk%20in%20Sydney%20it%E2%80%99s%20one%20of%20the%20most%20iconic.mp4", alt: "Bronte to Bondi coastal walk" },
           ].map((video, i) => (
-            <div key={i} className="rounded-xl overflow-hidden border-2 border-[#00B4D8]/30 aspect-[9/16]">
+            <div key={i} className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8]/50 aspect-[9/16]">
               <video
                 src={video.src}
                 autoPlay
