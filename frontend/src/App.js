@@ -512,7 +512,7 @@ const Navigation = () => {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex items-center justify-between">
         <a href="/" data-testid="logo-link">
-          <img src={ASSETS.logo} alt="Bondi Wave" className="h-12 md:h-16 lg:h-20" />
+          <img src={ASSETS.logo} alt="Bondi Wave" className="h-16 md:h-24 lg:h-28" />
         </a>
         
         <div className="flex items-center gap-4 md:gap-6">
