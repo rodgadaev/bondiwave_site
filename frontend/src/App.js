@@ -700,7 +700,7 @@ const ProductGallery = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left: Image Gallery */}
-          <motion.div {...fadeUp} className="flex gap-3 md:gap-4">
+          <motion.div {...fadeUp} className="flex gap-3 md:gap-4 self-start">
             {/* Thumbnail Column */}
             <div className="flex flex-col gap-2 w-16 md:w-20 flex-shrink-0">
               {galleryImages.map((img, i) => (
@@ -741,7 +741,7 @@ const ProductGallery = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover absolute inset-0"
                 />
               </AnimatePresence>
 
