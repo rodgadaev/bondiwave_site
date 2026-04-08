@@ -21,10 +21,10 @@ const ASSETS = {
 
 // Social Links
 const SOCIAL_LINKS = {
-  instagram: "https://instagram.com/thebondiwave",
+  instagram: "https://www.instagram.com/thebondiwave/",
   facebook: "https://facebook.com/bondiwave",
   tiktok: "https://tiktok.com/@thebondiwave",
-  amazon: "https://amazon.com.au/bondiwave",
+  amazon: "https://www.amazon.com.au/dp/B0GR5HX9PJ",
 };
 
 // Animation variants

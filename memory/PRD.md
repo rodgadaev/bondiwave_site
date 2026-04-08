@@ -48,8 +48,9 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - All P0 features delivered
 
 ### P1 (High Priority) - Future
-- [ ] Add actual social media URLs when accounts are created
-- [ ] Add actual Amazon storefront URL
+- [x] Add actual Instagram URL (https://www.instagram.com/thebondiwave/)
+- [x] Add actual Amazon storefront URL (https://www.amazon.com.au/dp/B0GR5HX9PJ)
+- [ ] Add actual Facebook & TikTok URLs when accounts are created
 - [ ] Email verification system
 - [ ] Admin dashboard to view/export subscribers
 
