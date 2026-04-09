@@ -632,12 +632,12 @@ const Features = () => {
             <motion.div 
               key={i}
               variants={fadeUp}
-              className="bg-[#050505] border border-white/5 p-8 hover:border-[#00B4D8]/50 transition-colors duration-500 group"
+              className="bg-[#00B4D8] p-8 hover:bg-[#00a0c0] transition-colors duration-500 group"
               data-testid={`feature-card-${i}`}
             >
-              <feature.icon className="w-10 h-10 text-[#00B4D8] mb-6 group-hover:scale-110 transition-transform" />
-              <h3 className="font-heading text-xl font-bold uppercase tracking-wide mb-3">{feature.title}</h3>
-              <p className="text-neutral-400 text-sm leading-relaxed">{feature.desc}</p>
+              <feature.icon className="w-10 h-10 text-black mb-6 group-hover:scale-110 transition-transform" />
+              <h3 className="font-heading text-xl font-bold uppercase tracking-wide mb-3 text-white">{feature.title}</h3>
+              <p className="text-white/80 text-sm leading-relaxed">{feature.desc}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -654,7 +654,7 @@ const ProductGallery = () => {
 
   const galleryImages = [
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/gxfhc3hc_MAIN%20IMAGE%20%289%29.png",
+      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/wj96o5ay_MAIN%20IMAGE%20%2815%29.png",
       alt: "Bondi Wave Nose Strips - Product Box & Strips"
     },
     {
