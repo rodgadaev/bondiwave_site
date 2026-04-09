@@ -617,12 +617,20 @@ const Hero = () => {
 
 // Features Section
 const Features = () => {
+  const [activeFeature, setActiveFeature] = useState(0);
   const features = [
     { icon: Shield, title: "Medical Grade", desc: "Hospital-quality adhesive that's gentle on skin" },
     { icon: Droplets, title: "Sweat Proof", desc: "Stays put during intense workouts and humid nights" },
     { icon: Heart, title: "Hypo Allergenic", desc: "Safe for sensitive skin, latex-free formula" },
     { icon: Zap, title: "Instant Results", desc: "Feel the difference with your first breath" },
   ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveFeature((prev) => (prev + 1) % features.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [features.length]);
   
   return (
     <section className="py-8 md:py-10 bg-[#0A0A0A]" data-testid="features-section">
@@ -632,12 +640,22 @@ const Features = () => {
             <motion.div 
               key={i}
               variants={fadeUp}
-              className="bg-[#00B4D8] p-8 hover:bg-[#00a0c0] transition-colors duration-500 group"
+              className={`p-8 transition-all duration-500 group ${
+                activeFeature === i
+                  ? 'bg-[#00B4D8] border-2 border-[#00B4D8]'
+                  : 'bg-[#050505] border-2 border-[#00B4D8]/40'
+              }`}
               data-testid={`feature-card-${i}`}
             >
-              <feature.icon className="w-10 h-10 text-black mb-6 group-hover:scale-110 transition-transform" />
-              <h3 className="font-heading text-xl font-bold uppercase tracking-wide mb-3 text-white">{feature.title}</h3>
-              <p className="text-white/80 text-sm leading-relaxed">{feature.desc}</p>
+              <feature.icon className={`w-10 h-10 mb-6 group-hover:scale-110 transition-all duration-500 ${
+                activeFeature === i ? 'text-black' : 'text-[#00B4D8]'
+              }`} />
+              <h3 className={`font-heading text-xl font-bold uppercase tracking-wide mb-3 transition-colors duration-500 ${
+                activeFeature === i ? 'text-white' : 'text-white'
+              }`}>{feature.title}</h3>
+              <p className={`text-sm leading-relaxed transition-colors duration-500 ${
+                activeFeature === i ? 'text-white/80' : 'text-neutral-400'
+              }`}>{feature.desc}</p>
             </motion.div>
           ))}
         </motion.div>
