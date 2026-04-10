@@ -755,6 +755,8 @@ const ProductGallery = () => {
                   onMouseEnter={() => { setActiveIndex(i); setIsHovering(true); }}
                   onMouseLeave={() => setIsHovering(false)}
                   className={`relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0 border-2 overflow-hidden transition-all duration-300 bg-[#0A0A0A] aspect-square ${
+                    i > 3 ? 'hidden md:block' : ''
+                  } ${
                     activeIndex === i
                       ? 'border-[#00B4D8] shadow-[0_0_12px_rgba(0,180,216,0.3)]'
                       : 'border-white/10 hover:border-white/30'
