@@ -1003,7 +1003,7 @@ const Benefits = () => {
   ];
   
   return (
-    <section id="benefits" className="py-8 md:py-10" data-testid="benefits-section">
+    <section id="benefits" className="py-8 md:py-10 border-t-2 border-b-2 border-[#00B4D8]/30" data-testid="benefits-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div {...fadeUp} className="text-center mb-8">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">The Science</p>
