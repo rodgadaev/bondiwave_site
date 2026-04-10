@@ -477,7 +477,7 @@ const TikTokIcon = ({ className }) => (
 
 // Marquee Component
 const Marquee = () => {
-  const items = ["LATEX FREE", "HYPO ALLERGENIC", "MEDICAL GRADE", "SWEAT PROOF", "12HR USE", "INSTANT RESULTS"];
+  const items = ["LATEX FREE", "HYPO ALLERGENIC", "MEDICAL GRADE", "SWEAT PROOF", "12HR USE", "INSTANT RESULTS", "NEXT DAY DELIVERY"];
   
   return (
     <div className="border-y border-white/10 py-4 overflow-hidden bg-[#0A0A0A]">
@@ -598,7 +598,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.9, x: 50 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-          className="relative flex justify-center lg:justify-end mb-[-80px] z-20"
+          className="relative flex justify-center lg:justify-end mb-0 lg:mb-[-80px] z-20"
         >
           <div className="relative">
             <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
@@ -814,7 +814,7 @@ const ProductGallery = () => {
             </div>
 
             {/* Trust Icons - aligned with main image */}
-            <div className="flex justify-evenly gap-4 mt-4 py-4 border border-white/5 bg-[#0A0A0A] ml-[76px] md:ml-[96px]">
+            <div className="flex justify-evenly gap-4 mt-2 md:mt-4 py-4 border border-white/5 bg-[#0A0A0A] ml-0 md:ml-[96px]">
               <div className="flex flex-col items-center gap-2">
                 <div className="w-14 h-14 border border-[#00B4D8]/20 bg-[#00B4D8]/5 flex items-center justify-center">
                   <Lock size={28} className="text-[#00B4D8]" />
@@ -966,24 +966,8 @@ const StorySection = () => {
 // Benefits Section
 const Benefits = () => {
   const [openPanel, setOpenPanel] = useState(null);
+  // Mobile: removed auto-open, user clicks to open
   const mobileSectionRef = useRef(null);
-
-  // Mobile: auto-open when section comes into view
-  useEffect(() => {
-    const el = mobileSectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setOpenPanel('sleep');
-          setTimeout(() => setOpenPanel('both'), 1500);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
 
   const isSleepOpen = openPanel === 'sleep' || openPanel === 'both';
   const isSportOpen = openPanel === 'sport' || openPanel === 'both';
@@ -1181,9 +1165,43 @@ const Benefits = () => {
 };
 
 // Product Showcase
+// Animated Counter Hook
+const useCountUp = (end, duration = 1500) => {
+  const [value, setValue] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasStarted) {
+          setHasStarted(true);
+          const start = performance.now();
+          const animate = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setValue(eased * end);
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [end, duration, hasStarted]);
+
+  return { value, ref };
+};
+
 const ProductShowcase = () => {
+  const price = useCountUp(29.95, 1200);
+  const perStrip = useCountUp(1.00, 1200);
   return (
-    <section className="py-8 md:py-10 bg-[#0A0A0A]" data-testid="product-section">
+    <section className="py-4 md:py-8 md:py-10 bg-[#0A0A0A]" data-testid="product-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div {...fadeUp}>
@@ -1196,13 +1214,13 @@ const ProductShowcase = () => {
               Designed for both sleep and sport, so you're covered 24/7.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <div ref={price.ref} className="flex flex-col sm:flex-row gap-4 mb-8">
               <div className="bg-[#050505] border border-white/10 px-6 py-4">
-                <div className="font-heading text-3xl font-bold text-[#00B4D8]">$29.95</div>
+                <div className="font-heading text-3xl font-bold text-[#00B4D8]">${price.value.toFixed(2)}</div>
                 <div className="text-sm text-neutral-500">AUD / box</div>
               </div>
-              <div className="bg-[#050505] border border-white/10 px-6 py-4">
-                <div className="font-heading text-3xl font-bold">$1.00</div>
+              <div ref={perStrip.ref} className="bg-[#050505] border border-white/10 px-6 py-4">
+                <div className="font-heading text-3xl font-bold">${perStrip.value.toFixed(2)}</div>
                 <div className="text-sm text-neutral-500">per strip</div>
               </div>
             </div>
@@ -1225,11 +1243,11 @@ const ProductShowcase = () => {
             className="relative"
           >
             <div className="relative flex justify-center">
-              <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
+              <div className="absolute -inset-10 md:inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
               <img 
                 src={ASSETS.display1} 
                 alt="Bondi Wave Display Case" 
-                className="relative z-10 w-full max-w-2xl mx-auto"
+                className="relative z-10 w-full max-w-[90vw] md:max-w-2xl mx-auto"
                 data-testid="product-display"
               />
             </div>
@@ -1250,7 +1268,7 @@ const SleepRecovery = () => {
           alt="Recover Faster, Sleep Deeper - Bondi Wave"
           className="w-full block"
         />
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#0A0A0A]/60 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-0" />
       </div>
     </section>
   );
@@ -1709,6 +1727,12 @@ function App() {
       <Marquee />
       <Features />
       <ProductGallery />
+      {/* Delivery Banner */}
+      <div className="bg-[#00B4D8] py-3 text-center" data-testid="delivery-banner">
+        <p className="text-black font-bold uppercase tracking-wider text-sm md:text-base">
+          Same Day & Next Day Delivery with Amazon Prime — While Stocks Last!
+        </p>
+      </div>
       <StorySection />
       <Benefits />
       <ProductShowcase />
