@@ -745,17 +745,17 @@ const ProductGallery = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left: Image Gallery */}
           <motion.div {...fadeUp} className="self-start space-y-3">
-            <div className="flex gap-2 md:gap-4 items-stretch">
+            <div className="grid grid-cols-[1fr_5fr] md:flex gap-1 md:gap-4">
             {/* Thumbnail Column - 5 on mobile, 6 on desktop */}
-            <div ref={thumbColumnRef} className="flex flex-col gap-1 md:gap-2 w-12 md:w-20 flex-shrink-0 overflow-hidden">
+            <div ref={thumbColumnRef} className="flex flex-col gap-1 md:gap-2 md:w-20 md:flex-shrink-0 overflow-hidden">
               {galleryImages.slice(0, 6).map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveIndex(i)}
                   onMouseEnter={() => { setActiveIndex(i); setIsHovering(true); }}
                   onMouseLeave={() => setIsHovering(false)}
-                  className={`relative w-12 md:w-20 md:h-20 flex-shrink-0 md:flex-shrink-0 border-2 overflow-hidden transition-all duration-300 bg-[#0A0A0A] ${
-                    i > 4 ? 'hidden md:block md:aspect-square' : 'flex-1 md:flex-none md:aspect-square'
+                  className={`relative aspect-square md:w-20 md:h-20 border-2 overflow-hidden transition-all duration-300 bg-[#0A0A0A] ${
+                    i > 4 ? 'hidden md:block' : ''
                   } ${
                     activeIndex === i
                       ? 'border-[#00B4D8] shadow-[0_0_12px_rgba(0,180,216,0.3)]'
