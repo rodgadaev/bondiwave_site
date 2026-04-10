@@ -1364,13 +1364,13 @@ const ProductShowcase = () => {
 const SleepRecovery = () => {
   return (
     <section className="relative md:-mt-8" data-testid="sleep-section">
-      <div className="relative w-full overflow-visible">
+      <div className="relative w-full overflow-hidden">
         <img
           src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/mb1jkgvz_A%2B%20Basic%20Content.svg"
           alt="Recover Faster, Sleep Deeper - Bondi Wave"
-          className="w-full block"
+          className="w-full block object-cover"
+          style={{ width: '100%', display: 'block' }}
         />
-        <div className="absolute inset-x-0 top-0 h-0" />
       </div>
     </section>
   );
