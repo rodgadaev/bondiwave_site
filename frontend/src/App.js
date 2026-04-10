@@ -1255,7 +1255,7 @@ const ProductShowcase = () => {
   const price = useCountUp(29.95, 1200);
   const perStrip = useCountUp(1.00, 1200);
   return (
-    <section className="pt-4 md:pt-10 md:pb-8 bg-[#0A0A0A] overflow-visible relative" data-testid="product-section">
+    <section className="pt-4 md:pt-10 md:pb-8 bg-[#0A0A0A] overflow-hidden relative" data-testid="product-section">
       {/* Full-width bottom glow to bridge to next section - desktop only */}
       <div className="hidden md:block absolute bottom-0 left-0 right-0 h-40 bg-[#00B4D8]/10 blur-[80px] pointer-events-none" />
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
