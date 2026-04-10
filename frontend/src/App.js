@@ -745,17 +745,17 @@ const ProductGallery = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left: Image Gallery */}
           <motion.div {...fadeUp} className="self-start space-y-3">
-            <div className="flex gap-3 md:gap-4">
-            {/* Thumbnail Column */}
-            <div ref={thumbColumnRef} className="flex flex-col gap-2 w-16 md:w-20 flex-shrink-0 max-h-[500px] overflow-y-auto gallery-scrollbar">
-              {galleryImages.map((img, i) => (
+            <div className="flex gap-2 md:gap-4">
+            {/* Thumbnail Column - 5 on mobile, 6 on desktop */}
+            <div ref={thumbColumnRef} className="flex flex-col gap-1 md:gap-2 w-[52px] md:w-20 flex-shrink-0 overflow-hidden">
+              {galleryImages.slice(0, 6).map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveIndex(i)}
                   onMouseEnter={() => { setActiveIndex(i); setIsHovering(true); }}
                   onMouseLeave={() => setIsHovering(false)}
-                  className={`relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0 border-2 overflow-hidden transition-all duration-300 bg-[#0A0A0A] aspect-square ${
-                    i > 3 ? 'hidden md:block' : ''
+                  className={`relative w-[52px] h-[52px] md:w-20 md:h-20 flex-shrink-0 border-2 overflow-hidden transition-all duration-300 bg-[#0A0A0A] aspect-square ${
+                    i > 4 ? 'hidden md:block' : ''
                   } ${
                     activeIndex === i
                       ? 'border-[#00B4D8] shadow-[0_0_12px_rgba(0,180,216,0.3)]'
