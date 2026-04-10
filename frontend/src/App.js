@@ -966,6 +966,27 @@ const StorySection = () => {
 // Benefits Section
 const Benefits = () => {
   const [openPanel, setOpenPanel] = useState(null);
+  const mobileSectionRef = useRef(null);
+
+  // Mobile: auto-open when section comes into view
+  useEffect(() => {
+    const el = mobileSectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setOpenPanel('sleep');
+          setTimeout(() => setOpenPanel('both'), 1500);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const isSleepOpen = openPanel === 'sleep' || openPanel === 'both';
+  const isSportOpen = openPanel === 'sport' || openPanel === 'both';
 
   const sportBenefits = [
     "Increases airflow by up to 35%",
@@ -994,7 +1015,12 @@ const Benefits = () => {
         {/* Desktop: 3-column layout */}
         <motion.div {...fadeUp} className="hidden lg:grid grid-cols-[1fr_auto_1fr] gap-6 items-start">
           {/* Left - Sleep */}
-          <div className="border border-white/10 self-center" data-testid="sleep-benefits-desktop">
+          <div
+            className="border border-white/10 self-center"
+            data-testid="sleep-benefits-desktop"
+            onMouseEnter={() => setOpenPanel(prev => prev === 'sport' ? 'both' : 'sleep')}
+            onMouseLeave={() => setOpenPanel(prev => prev === 'both' ? 'sport' : null)}
+          >
             <button
               onClick={() => setOpenPanel(openPanel === 'sleep' ? null : 'sleep')}
               className="w-full flex items-center justify-between p-5 group"
@@ -1008,11 +1034,11 @@ const Benefits = () => {
                   <h3 className="font-heading text-lg font-bold uppercase">For Sleep</h3>
                 </div>
               </div>
-              <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-300 ${openPanel === 'sleep' ? 'bg-[#00B4D8] border-[#00B4D8] rotate-45' : 'group-hover:border-[#00B4D8]'}`}>
-                <span className={`text-lg leading-none ${openPanel === 'sleep' ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
+              <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-300 ${isSleepOpen ? 'bg-[#00B4D8] border-[#00B4D8] rotate-45' : 'group-hover:border-[#00B4D8]'}`}>
+                <span className={`text-lg leading-none ${isSleepOpen ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
               </div>
             </button>
-            <div className={`overflow-hidden transition-all duration-300 ${openPanel === 'sleep' ? 'max-h-60 pb-5 px-5' : 'max-h-0'}`}>
+            <div className={`overflow-hidden transition-all duration-300 ${isSleepOpen ? 'max-h-60 pb-5 px-5' : 'max-h-0'}`}>
               <ul className="space-y-3 pl-[52px]">
                 {sleepBenefits.map((benefit, i) => (
                   <li key={i} className="flex items-center gap-2">
@@ -1038,7 +1064,12 @@ const Benefits = () => {
           </div>
 
           {/* Right - Sport */}
-          <div className="border border-white/10 self-center" data-testid="sport-benefits-desktop">
+          <div
+            className="border border-white/10 self-center"
+            data-testid="sport-benefits-desktop"
+            onMouseEnter={() => setOpenPanel(prev => prev === 'sleep' ? 'both' : 'sport')}
+            onMouseLeave={() => setOpenPanel(prev => prev === 'both' ? 'sleep' : null)}
+          >
             <button
               onClick={() => setOpenPanel(openPanel === 'sport' ? null : 'sport')}
               className="w-full flex items-center justify-between p-5 group"
@@ -1052,11 +1083,11 @@ const Benefits = () => {
                   <h3 className="font-heading text-lg font-bold uppercase">For Sport</h3>
                 </div>
               </div>
-              <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-300 ${openPanel === 'sport' ? 'bg-[#00B4D8] border-[#00B4D8] rotate-45' : 'group-hover:border-[#00B4D8]'}`}>
-                <span className={`text-lg leading-none ${openPanel === 'sport' ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
+              <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-300 ${isSportOpen ? 'bg-[#00B4D8] border-[#00B4D8] rotate-45' : 'group-hover:border-[#00B4D8]'}`}>
+                <span className={`text-lg leading-none ${isSportOpen ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
               </div>
             </button>
-            <div className={`overflow-hidden transition-all duration-300 ${openPanel === 'sport' ? 'max-h-60 pb-5 px-5' : 'max-h-0'}`}>
+            <div className={`overflow-hidden transition-all duration-300 ${isSportOpen ? 'max-h-60 pb-5 px-5' : 'max-h-0'}`}>
               <ul className="space-y-3 pl-[52px]">
                 {sportBenefits.map((benefit, i) => (
                   <li key={i} className="flex items-center gap-2">
@@ -1070,7 +1101,7 @@ const Benefits = () => {
         </motion.div>
 
         {/* Mobile: stacked layout */}
-        <div className="lg:hidden">
+        <div className="lg:hidden" ref={mobileSectionRef}>
           <motion.div {...fadeUp} className="flex justify-center mb-8">
             <div className="relative">
               <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[80px] rounded-full scale-150" />
@@ -1084,7 +1115,7 @@ const Benefits = () => {
           <motion.div {...fadeUp} className="space-y-3">
             <div className="border border-white/10" data-testid="sleep-benefits">
               <button
-                onClick={() => setOpenPanel(openPanel === 'sleep' ? null : 'sleep')}
+                onClick={() => setOpenPanel(isSleepOpen && !isSportOpen ? null : isSleepOpen && isSportOpen ? 'sport' : 'sleep')}
                 className="w-full flex items-center justify-between p-5 group"
                 data-testid="sleep-toggle"
               >
@@ -1097,11 +1128,11 @@ const Benefits = () => {
                     <h3 className="font-heading text-lg font-bold uppercase">For Sleep</h3>
                   </div>
                 </div>
-                <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-300 ${openPanel === 'sleep' ? 'bg-[#00B4D8] border-[#00B4D8] rotate-45' : 'group-hover:border-[#00B4D8]'}`}>
-                  <span className={`text-lg leading-none ${openPanel === 'sleep' ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
+                <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-300 ${isSleepOpen ? 'bg-[#00B4D8] border-[#00B4D8] rotate-45' : 'group-hover:border-[#00B4D8]'}`}>
+                  <span className={`text-lg leading-none ${isSleepOpen ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
                 </div>
               </button>
-              <div className={`overflow-hidden transition-all duration-300 ${openPanel === 'sleep' ? 'max-h-60 pb-5 px-5' : 'max-h-0'}`}>
+              <div className={`overflow-hidden transition-all duration-300 ${isSleepOpen ? 'max-h-60 pb-5 px-5' : 'max-h-0'}`}>
                 <ul className="space-y-3 pl-[52px]">
                   {sleepBenefits.map((benefit, i) => (
                     <li key={i} className="flex items-center gap-2">
@@ -1114,7 +1145,7 @@ const Benefits = () => {
             </div>
             <div className="border border-white/10" data-testid="sport-benefits">
               <button
-                onClick={() => setOpenPanel(openPanel === 'sport' ? null : 'sport')}
+                onClick={() => setOpenPanel(isSportOpen && !isSleepOpen ? null : isSportOpen && isSleepOpen ? 'sleep' : 'sport')}
                 className="w-full flex items-center justify-between p-5 group"
                 data-testid="sport-toggle"
               >
@@ -1127,11 +1158,11 @@ const Benefits = () => {
                     <h3 className="font-heading text-lg font-bold uppercase">For Sport</h3>
                   </div>
                 </div>
-                <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-300 ${openPanel === 'sport' ? 'bg-[#00B4D8] border-[#00B4D8] rotate-45' : 'group-hover:border-[#00B4D8]'}`}>
-                  <span className={`text-lg leading-none ${openPanel === 'sport' ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
+                <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-300 ${isSportOpen ? 'bg-[#00B4D8] border-[#00B4D8] rotate-45' : 'group-hover:border-[#00B4D8]'}`}>
+                  <span className={`text-lg leading-none ${isSportOpen ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
                 </div>
               </button>
-              <div className={`overflow-hidden transition-all duration-300 ${openPanel === 'sport' ? 'max-h-60 pb-5 px-5' : 'max-h-0'}`}>
+              <div className={`overflow-hidden transition-all duration-300 ${isSportOpen ? 'max-h-60 pb-5 px-5' : 'max-h-0'}`}>
                 <ul className="space-y-3 pl-[52px]">
                   {sportBenefits.map((benefit, i) => (
                     <li key={i} className="flex items-center gap-2">
