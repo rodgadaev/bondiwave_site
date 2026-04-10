@@ -680,10 +680,6 @@ const ProductGallery = () => {
       alt: "Bondi Wave Nose Strips - Sweat Proof on Water"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/mx0gspt5_MAIN%20IMAGE%20%2812%29.png",
-      alt: "Bondi Wave Nose Strips - Product Detail"
-    },
-    {
       src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/9o82bugn_6.png",
       alt: "Bondi Wave Nose Strips - Lifestyle"
     },
