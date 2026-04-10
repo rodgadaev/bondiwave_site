@@ -1255,7 +1255,7 @@ const ProductShowcase = () => {
   const price = useCountUp(29.95, 1200);
   const perStrip = useCountUp(1.00, 1200);
   return (
-    <section className="py-4 md:py-8 md:py-10 bg-[#0A0A0A]" data-testid="product-section">
+    <section className="pt-4 md:pt-10 pb-0 bg-[#0A0A0A]" data-testid="product-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Desktop Layout - unchanged */}
         <div className="hidden lg:grid grid-cols-2 gap-12 items-center">
