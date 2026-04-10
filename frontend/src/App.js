@@ -647,14 +647,14 @@ const Features = () => {
               }`}
               data-testid={`feature-card-${i}`}
             >
-              <feature.icon className={`w-6 h-6 md:w-10 md:h-10 md:mb-6 flex-shrink-0 group-hover:scale-110 transition-all duration-500 ${
+              <feature.icon className={`w-8 h-8 md:w-10 md:h-10 md:mb-6 flex-shrink-0 group-hover:scale-110 transition-all duration-500 ${
                 activeFeature === i ? 'text-black' : 'text-[#00B4D8]'
               }`} />
               <div>
                 <h3 className={`font-heading text-sm md:text-xl font-bold uppercase tracking-wide md:mb-3 transition-colors duration-500 ${
                   activeFeature === i ? 'text-white' : 'text-white'
                 }`}>{feature.title}</h3>
-                <p className={`text-xs md:text-sm leading-relaxed transition-colors duration-500 hidden md:block ${
+                <p className={`text-xs md:text-sm leading-relaxed transition-colors duration-500 md:block ${
                   activeFeature === i ? 'text-white/80' : 'text-neutral-400'
                 }`}>{feature.desc}</p>
               </div>
