@@ -1255,8 +1255,10 @@ const ProductShowcase = () => {
   const price = useCountUp(29.95, 1200);
   const perStrip = useCountUp(1.00, 1200);
   return (
-    <section className="pt-4 md:pt-10 pb-0 bg-[#0A0A0A]" data-testid="product-section">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <section className="pt-4 md:pt-10 pb-0 bg-[#0A0A0A] overflow-visible relative" data-testid="product-section">
+      {/* Full-width bottom glow to bridge to next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-[#00B4D8]/10 blur-[80px] pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Desktop Layout - unchanged */}
         <div className="hidden lg:grid grid-cols-2 gap-12 items-center">
           <motion.div {...fadeUp}>
@@ -1295,7 +1297,7 @@ const ProductShowcase = () => {
           
           <motion.div {...fadeUp} className="relative">
             <div className="relative flex justify-center">
-              <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
+              <div className="absolute -inset-10 -bottom-40 bg-[#00B4D8]/20 blur-[120px] rounded-full" />
               <img 
                 src={ASSETS.display1} 
                 alt="Bondi Wave Display Case" 
