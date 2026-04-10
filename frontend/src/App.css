@@ -14,6 +14,10 @@
   animation: marquee 30s linear infinite;
 }
 
+.animate-marquee-reverse {
+  animation: marquee 30s linear infinite reverse;
+}
+
 /* Glass morphism */
 .glass {
   backdrop-filter: blur(16px);

@@ -1743,13 +1743,17 @@ function App() {
       <Hero />
       <Marquee />
       <Features />
-      <ProductGallery />
-      {/* Delivery Banner */}
-      <div className="bg-[#00B4D8] py-3 text-center" data-testid="delivery-banner">
-        <p className="text-black font-bold uppercase tracking-wider text-sm md:text-base">
-          Same Day & Next Day Delivery with Amazon Prime — While Stocks Last!
-        </p>
+      {/* Delivery Marquee Banner */}
+      <div className="border-y border-[#00B4D8]/30 py-4 overflow-hidden bg-[#00B4D8]" data-testid="delivery-banner">
+        <div className="animate-marquee-reverse flex whitespace-nowrap">
+          {[...Array(4)].flatMap((_, j) => [
+            <span key={`a${j}`} className="font-heading text-sm md:text-base uppercase tracking-[0.3em] text-black font-bold mx-8">SAME DAY DELIVERY <span className="text-white">★</span></span>,
+            <span key={`b${j}`} className="font-heading text-sm md:text-base uppercase tracking-[0.3em] text-black font-bold mx-8">NEXT DAY WITH AMAZON PRIME <span className="text-white">★</span></span>,
+            <span key={`c${j}`} className="font-heading text-sm md:text-base uppercase tracking-[0.3em] text-black font-bold mx-8">WHILE STOCKS LAST <span className="text-white">★</span></span>,
+          ])}
+        </div>
       </div>
+      <ProductGallery />
       <StorySection />
       <Benefits />
       <ProductShowcase />
