@@ -1255,7 +1255,7 @@ const ProductShowcase = () => {
   const price = useCountUp(29.95, 1200);
   const perStrip = useCountUp(1.00, 1200);
   return (
-    <section className="pt-4 md:pt-10 pb-0 bg-[#0A0A0A] overflow-visible relative" data-testid="product-section">
+    <section className="pt-4 md:pt-10 md:pb-8 bg-[#0A0A0A] overflow-visible relative" data-testid="product-section">
       {/* Full-width bottom glow to bridge to next section */}
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-[#00B4D8]/10 blur-[80px] pointer-events-none" />
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
@@ -1363,7 +1363,7 @@ const ProductShowcase = () => {
 // Sleep Recovery Section
 const SleepRecovery = () => {
   return (
-    <section className="relative" data-testid="sleep-section">
+    <section className="relative -mt-4 md:-mt-8" data-testid="sleep-section">
       <div className="relative w-full overflow-visible">
         <img
           src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/hdcikd5m_A%2B%20Basic%20Content%20%28A4%20%28Landscape%29%29%20%286%29.png"
