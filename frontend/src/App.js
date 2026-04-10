@@ -674,10 +674,10 @@ const MobileKeyBenefits = ({ bulletPoints }) => {
     <div className="md:hidden border border-white/5" data-testid="mobile-key-benefits">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 bg-[#0A0A0A] hover:bg-[#111] transition-colors"
+        className="w-full flex items-center justify-center gap-3 p-4 bg-[#0A0A0A] hover:bg-[#111] transition-colors"
         data-testid="mobile-key-benefits-toggle"
       >
-        <span className="font-heading text-sm font-bold uppercase tracking-wide text-white">Key Benefits</span>
+        <span className="font-heading text-base font-bold uppercase tracking-wide text-white">Key Benefits</span>
         <ChevronDown size={18} className={`text-[#00B4D8] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[600px]' : 'max-h-0'}`}>
@@ -864,6 +864,8 @@ const ProductGallery = () => {
             </div>
             </div>
 
+            {/* Mobile: collapsible key benefits */}
+            <MobileKeyBenefits bulletPoints={bulletPoints} />
             {/* Trust Icons - aligned with main image */}
             <div className="flex justify-evenly gap-4 mt-1 py-3 border border-white/5 bg-[#0A0A0A]">
               <div className="flex flex-col items-center gap-2">
@@ -932,8 +934,6 @@ const ProductGallery = () => {
                 </div>
               ))}
             </div>
-            {/* Mobile: collapsible */}
-            <MobileKeyBenefits bulletPoints={bulletPoints} />
 
             {/* CTA */}
             <a
