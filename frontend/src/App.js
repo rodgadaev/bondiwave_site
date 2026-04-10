@@ -1363,7 +1363,7 @@ const ProductShowcase = () => {
 // Sleep Recovery Section
 const SleepRecovery = () => {
   return (
-    <section className="relative md:-mt-8" data-testid="sleep-section">
+    <section className="relative mt-8 md:mt-0" data-testid="sleep-section">
       <div className="relative w-full overflow-hidden">
         <img
           src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/mb1jkgvz_A%2B%20Basic%20Content.svg"
