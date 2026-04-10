@@ -965,6 +965,8 @@ const StorySection = () => {
 
 // Benefits Section
 const Benefits = () => {
+  const [openPanel, setOpenPanel] = useState(null);
+
   const sportBenefits = [
     "Increases airflow by up to 35%",
     "Reduces breathing effort during cardio",
@@ -981,85 +983,90 @@ const Benefits = () => {
   
   return (
     <section id="benefits" className="py-8 md:py-10" data-testid="benefits-section">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div {...fadeUp} className="text-center mb-10">
+      <div className="max-w-3xl mx-auto px-6 md:px-12">
+        <motion.div {...fadeUp} className="text-center mb-8">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">The Science</p>
           <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tight">
             Why Nose<br/>Strips Work
           </h2>
         </motion.div>
         
-        {/* Interactive Product Diagram */}
-        <motion.div {...fadeUp} className="relative max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-0 items-center">
-            
-            {/* Left - Sleep Benefits */}
-            <div className="flex justify-end" data-testid="sleep-benefits">
-              <div className="max-w-xs w-full text-right pr-6 lg:pr-0">
-                <div className="flex items-center justify-end gap-3 mb-5">
-                  <div>
-                    <p className="font-mono text-xs uppercase tracking-widest text-[#00B4D8]">Recovery</p>
-                    <h3 className="font-heading text-2xl font-bold uppercase">For Sleep</h3>
-                  </div>
-                  <div className="w-10 h-10 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center flex-shrink-0">
-                    <Moon className="w-5 h-5 text-[#00B4D8]" />
-                  </div>
+        {/* Nose strip with glow */}
+        <motion.div {...fadeUp} className="flex justify-center mb-8">
+          <div className="relative">
+            <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[80px] rounded-full scale-150" />
+            <img 
+              src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/yjztc40y_actual%20product%20image.png"
+              alt="Bondi Wave Nose Strip"
+              className="relative z-10 w-64 md:w-80 drop-shadow-2xl"
+              data-testid="benefits-image"
+            />
+          </div>
+        </motion.div>
+
+        {/* Interactive accordion buttons */}
+        <motion.div {...fadeUp} className="space-y-3">
+          {/* Sleep Button */}
+          <div className="border border-white/10" data-testid="sleep-benefits">
+            <button
+              onClick={() => setOpenPanel(openPanel === 'sleep' ? null : 'sleep')}
+              className="w-full flex items-center justify-between p-5 group"
+              data-testid="sleep-toggle"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center flex-shrink-0">
+                  <Moon className="w-5 h-5 text-[#00B4D8]" />
                 </div>
-                <ul className="space-y-3">
-                  {sleepBenefits.map((benefit, i) => (
-                    <li key={i} className="flex items-center justify-end gap-2">
-                      <span className="text-neutral-300 text-sm">{benefit}</span>
-                      <Check className="w-4 h-4 text-[#00B4D8] flex-shrink-0" />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Center - Nose Strip with connector lines */}
-            <div className="relative hidden lg:flex items-center justify-center px-4" style={{ minWidth: '360px' }}>
-              {/* Nose strip image */}
-              <div className="relative">
-                <div className="absolute inset-0 bg-[#00B4D8]/15 blur-[60px] rounded-full" />
-                <img 
-                  src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/yjztc40y_actual%20product%20image.png"
-                  alt="Bondi Wave Nose Strip"
-                  className="relative z-10 w-72 drop-shadow-2xl"
-                  data-testid="benefits-image"
-                />
-              </div>
-            </div>
-
-            {/* Mobile-only nose strip */}
-            <div className="lg:hidden flex justify-center my-6">
-              <img 
-                src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/yjztc40y_actual%20product%20image.png"
-                alt="Bondi Wave Nose Strip"
-                className="w-48"
-              />
-            </div>
-
-            {/* Right - Sport Benefits */}
-            <div className="flex justify-start" data-testid="sport-benefits">
-              <div className="max-w-xs w-full pl-6 lg:pl-0">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center flex-shrink-0">
-                    <Zap className="w-5 h-5 text-[#00B4D8]" />
-                  </div>
-                  <div>
-                    <p className="font-mono text-xs uppercase tracking-widest text-[#00B4D8]">Performance</p>
-                    <h3 className="font-heading text-2xl font-bold uppercase">For Sport</h3>
-                  </div>
+                <div className="text-left">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-[#00B4D8]">Recovery</p>
+                  <h3 className="font-heading text-lg font-bold uppercase">For Sleep</h3>
                 </div>
-                <ul className="space-y-3">
-                  {sportBenefits.map((benefit, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-[#00B4D8] flex-shrink-0" />
-                      <span className="text-neutral-300 text-sm">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
+              <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-300 ${openPanel === 'sleep' ? 'bg-[#00B4D8] border-[#00B4D8] rotate-45' : 'group-hover:border-[#00B4D8]'}`}>
+                <span className={`text-lg leading-none ${openPanel === 'sleep' ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
+              </div>
+            </button>
+            <div className={`overflow-hidden transition-all duration-300 ${openPanel === 'sleep' ? 'max-h-60 pb-5 px-5' : 'max-h-0'}`}>
+              <ul className="space-y-3 pl-[52px]">
+                {sleepBenefits.map((benefit, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-[#00B4D8] flex-shrink-0" />
+                    <span className="text-neutral-300 text-sm">{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Sport Button */}
+          <div className="border border-white/10" data-testid="sport-benefits">
+            <button
+              onClick={() => setOpenPanel(openPanel === 'sport' ? null : 'sport')}
+              className="w-full flex items-center justify-between p-5 group"
+              data-testid="sport-toggle"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center flex-shrink-0">
+                  <Zap className="w-5 h-5 text-[#00B4D8]" />
+                </div>
+                <div className="text-left">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-[#00B4D8]">Performance</p>
+                  <h3 className="font-heading text-lg font-bold uppercase">For Sport</h3>
+                </div>
+              </div>
+              <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-300 ${openPanel === 'sport' ? 'bg-[#00B4D8] border-[#00B4D8] rotate-45' : 'group-hover:border-[#00B4D8]'}`}>
+                <span className={`text-lg leading-none ${openPanel === 'sport' ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
+              </div>
+            </button>
+            <div className={`overflow-hidden transition-all duration-300 ${openPanel === 'sport' ? 'max-h-60 pb-5 px-5' : 'max-h-0'}`}>
+              <ul className="space-y-3 pl-[52px]">
+                {sportBenefits.map((benefit, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-[#00B4D8] flex-shrink-0" />
+                    <span className="text-neutral-300 text-sm">{benefit}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </motion.div>
