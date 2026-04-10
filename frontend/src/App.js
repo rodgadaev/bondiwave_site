@@ -708,7 +708,7 @@ const ProductGallery = () => {
 
   const galleryImages = [
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/wj96o5ay_MAIN%20IMAGE%20%2815%29.png",
+      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/a5kp5gdz_MAIN%20IMAGE%20%2817%29.png",
       alt: "Bondi Wave Nose Strips - Product Box & Strips"
     },
     {
