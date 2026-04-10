@@ -1379,6 +1379,7 @@ const SleepRecovery = () => {
 // FAQ Section
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
+  const [showAll, setShowAll] = useState(false);
 
   const faqs = [
     {
@@ -1423,6 +1424,8 @@ const FAQ = () => {
     },
   ];
 
+  const visibleFaqs = showAll ? faqs : faqs.slice(0, 5);
+
   return (
     <section className="py-8 md:py-10" data-testid="faq-section" itemScope itemType="https://schema.org/FAQPage">
       <div className="max-w-3xl mx-auto px-6 md:px-12">
@@ -1434,7 +1437,7 @@ const FAQ = () => {
         </motion.div>
 
         <motion.div {...fadeUp} className="divide-y divide-white/10 border-t border-b border-white/10">
-          {faqs.map((faq, i) => (
+          {visibleFaqs.map((faq, i) => (
             <div
               key={i}
               itemScope
@@ -1467,6 +1470,19 @@ const FAQ = () => {
             </div>
           ))}
         </motion.div>
+
+        {!showAll && (
+          <button
+            onClick={() => setShowAll(true)}
+            className="w-full mt-4 flex items-center justify-center gap-2 py-4 border border-white/10 hover:border-[#00B4D8] transition-colors group"
+            data-testid="faq-show-more"
+          >
+            <span className="font-heading text-sm font-bold uppercase tracking-wide group-hover:text-[#00B4D8] transition-colors">
+              View More Questions ({faqs.length - 5})
+            </span>
+            <ChevronDown size={18} className="text-[#00B4D8]" />
+          </button>
+        )}
       </div>
     </section>
   );
