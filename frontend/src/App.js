@@ -745,9 +745,9 @@ const ProductGallery = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left: Image Gallery */}
           <motion.div {...fadeUp} className="self-start space-y-3">
-            <div className="grid grid-cols-[1fr_5fr] md:flex gap-1 md:gap-4">
+            <div className="grid grid-cols-[1fr_5fr] md:flex gap-x-1 gap-y-0 md:gap-4">
             {/* Thumbnail Column - 5 on mobile, 6 on desktop */}
-            <div ref={thumbColumnRef} className="flex flex-col gap-1 md:gap-2 md:w-20 md:flex-shrink-0 overflow-hidden">
+            <div ref={thumbColumnRef} className="flex flex-col gap-0 md:gap-2 md:w-20 md:flex-shrink-0 overflow-hidden">
               {galleryImages.slice(0, 6).map((img, i) => (
                 <button
                   key={i}
