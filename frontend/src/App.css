@@ -12,10 +12,12 @@
 
 .animate-marquee {
   animation: marquee 30s linear infinite;
+  will-change: transform;
 }
 
 .animate-marquee-reverse {
   animation: marquee 30s linear infinite reverse;
+  will-change: transform;
 }
 
 /* Glass morphism */

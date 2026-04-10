@@ -6,11 +6,7 @@ import {
   Check, ChevronDown, X, Loader2, Lock, RotateCcw, Star
 } from "lucide-react";
 import { Toaster, toast } from "sonner";
-import axios from "axios";
 import "@/App.css";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
 
 // Brand Assets
 const ASSETS = {
@@ -607,6 +603,8 @@ const Hero = () => {
               alt="Bondi Wave Nose Strips" 
               className="relative z-10 w-full max-w-lg lg:max-w-xl drop-shadow-2xl"
               data-testid="hero-product-image"
+              fetchpriority="high"
+              decoding="async"
             />
           </div>
         </motion.div>
@@ -816,6 +814,8 @@ const ProductGallery = () => {
                     src={img.src}
                     alt={img.alt}
                     className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </button>
               ))}
@@ -839,6 +839,8 @@ const ProductGallery = () => {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4 }}
                     className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </AnimatePresence>
 
@@ -1097,6 +1099,8 @@ const Benefits = () => {
                 alt="Bondi Wave Nose Strip"
                 className="relative z-10 w-64 md:w-80 drop-shadow-2xl"
                 data-testid="benefits-image"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -1147,6 +1151,8 @@ const Benefits = () => {
                 src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/yjztc40y_actual%20product%20image.png"
                 alt="Bondi Wave Nose Strip"
                 className="relative z-10 w-64 drop-shadow-2xl"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </motion.div>
@@ -1303,6 +1309,8 @@ const ProductShowcase = () => {
                 alt="Bondi Wave Display Case" 
                 className="relative z-10 w-full max-w-2xl mx-auto"
                 data-testid="product-display"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </motion.div>
@@ -1318,6 +1326,8 @@ const ProductShowcase = () => {
               alt="Bondi Wave Display Case" 
               className="relative z-10 w-full"
               data-testid="product-display-mobile"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 
@@ -1370,6 +1380,8 @@ const SleepRecovery = () => {
           alt="Recover Faster, Sleep Deeper - Bondi Wave"
           className="w-full block object-cover"
           style={{ width: '100%', display: 'block' }}
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </section>
