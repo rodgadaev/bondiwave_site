@@ -733,11 +733,28 @@ const ProductGallery = () => {
   return (
     <section id="product-gallery" className="py-8 md:py-10 bg-[#050505]" data-testid="product-gallery-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div {...fadeUp} className="text-center mb-6">
+        {/* Desktop title */}
+        <motion.div {...fadeUp} className="text-center mb-6 hidden md:block">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Up Close</p>
           <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tight">
             The Details
           </h2>
+        </motion.div>
+
+        {/* Mobile product header */}
+        <motion.div {...fadeUp} className="mb-4 md:hidden">
+          <h3 className="font-heading text-2xl font-bold uppercase tracking-tight mb-1">
+            Premium Nasal Strips
+          </h3>
+          <p className="text-neutral-400 text-sm">
+            Extra Strength Airflow for Sport, Performance & Deep Recovery Sleep
+          </p>
+          <div className="flex items-baseline gap-3 mt-2">
+            <span className="font-heading text-3xl font-bold text-[#00B4D8]">$29.95</span>
+            <span className="text-sm text-neutral-500">AUD</span>
+            <span className="text-neutral-600 mx-1">|</span>
+            <span className="text-sm text-neutral-400">30 Pack Matte Black</span>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -841,7 +858,7 @@ const ProductGallery = () => {
           </motion.div>
           {/* Right: Product Info */}
           <motion.div {...fadeUp} className="space-y-6">
-            <div>
+            <div className="hidden md:block">
               <h3 className="font-heading text-2xl md:text-3xl font-bold uppercase tracking-tight mb-2">
                 Premium Nasal Strips
               </h3>
