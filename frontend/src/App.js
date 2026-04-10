@@ -1729,35 +1729,58 @@ const Footer = () => {
             </p>
           </div>
           
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-heading text-sm font-bold uppercase tracking-wider mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              <li>
-                <a href="#benefits" className="text-neutral-400 hover:text-[#00B4D8] transition-colors text-sm">
-                  Benefits
-                </a>
-              </li>
-              <li>
-                <a href="#signup" className="text-neutral-400 hover:text-[#00B4D8] transition-colors text-sm">
-                  Get Offers
-                </a>
-              </li>
-              <li>
+          {/* Quick Links + Follow Us side by side on mobile */}
+          <div className="flex gap-8 md:block">
+            <div className="flex-1">
+              <h4 className="font-heading text-sm font-bold uppercase tracking-wider mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li>
+                  <a href="#benefits" className="text-neutral-400 hover:text-[#00B4D8] transition-colors text-sm">
+                    Benefits
+                  </a>
+                </li>
+                <li>
+                  <a href="#signup" className="text-neutral-400 hover:text-[#00B4D8] transition-colors text-sm">
+                    Get Offers
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={SOCIAL_LINKS.amazon} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-neutral-400 hover:text-[#00B4D8] transition-colors text-sm"
+                  >
+                    Shop on Amazon
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="md:hidden">
+              <h4 className="font-heading text-sm font-bold uppercase tracking-wider mb-4">Follow Us</h4>
+              <div className="flex gap-4">
                 <a 
-                  href={SOCIAL_LINKS.amazon} 
+                  href={SOCIAL_LINKS.instagram} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-neutral-400 hover:text-[#00B4D8] transition-colors text-sm"
+                  className="w-10 h-10 bg-[#0A0A0A] border border-white/10 flex items-center justify-center text-neutral-400 hover:text-[#00B4D8] hover:border-[#00B4D8] transition-all"
                 >
-                  Shop on Amazon
+                  <Instagram size={18} />
                 </a>
-              </li>
-            </ul>
+                <a 
+                  href={SOCIAL_LINKS.tiktok} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-[#0A0A0A] border border-white/10 flex items-center justify-center text-neutral-400 hover:text-[#00B4D8] hover:border-[#00B4D8] transition-all"
+                >
+                  <TikTokIcon className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
           </div>
           
-          {/* Social */}
-          <div>
+          {/* Social - desktop only */}
+          <div className="hidden md:block">
             <h4 className="font-heading text-sm font-bold uppercase tracking-wider mb-4">Follow Us</h4>
             <div className="flex gap-4">
               <a 
