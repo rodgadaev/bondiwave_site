@@ -548,7 +548,7 @@ const Hero = () => {
       {/* Background Glow */}
       <div className="absolute inset-0 hero-glow" />
       
-      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-6 pb-16 md:pt-8 md:pb-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-6 pb-0 md:pt-8 md:pb-20 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center relative z-10">
         {/* Left Content */}
         <motion.div {...fadeUp} className="space-y-8">
           <div>
@@ -598,7 +598,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.9, x: 50 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-          className="relative flex justify-center lg:justify-end mb-0 lg:mb-[-80px] z-20"
+          className="relative flex justify-center lg:justify-end -mb-4 lg:mb-[-80px] z-20"
         >
           <div className="relative">
             <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
@@ -1681,7 +1681,7 @@ const Footer = () => {
 const PromoBanner = () => {
   const promoItems = [
     "NOW AVAILABLE — SHOP ON AMAZON",
-    "FREE SHIPPING ON YOUR FIRST ORDER",
+    "SAME DAY DELIVERY",
     "30 PREMIUM STRIPS — JUST $29.95 AUD",
   ];
   
