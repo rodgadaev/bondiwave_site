@@ -747,14 +747,14 @@ const ProductGallery = () => {
           <motion.div {...fadeUp} className="self-start space-y-3">
             <div className="flex gap-2 md:gap-4">
             {/* Thumbnail Column - 5 on mobile, 6 on desktop */}
-            <div ref={thumbColumnRef} className="flex flex-col gap-1 md:gap-2 w-[52px] md:w-20 flex-shrink-0 overflow-hidden">
+            <div ref={thumbColumnRef} className="flex flex-col gap-1 md:gap-2 w-12 md:w-20 flex-shrink-0 overflow-hidden">
               {galleryImages.slice(0, 6).map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveIndex(i)}
                   onMouseEnter={() => { setActiveIndex(i); setIsHovering(true); }}
                   onMouseLeave={() => setIsHovering(false)}
-                  className={`relative w-[52px] h-[52px] md:w-20 md:h-20 flex-shrink-0 border-2 overflow-hidden transition-all duration-300 bg-[#0A0A0A] aspect-square ${
+                  className={`relative w-12 h-12 md:w-20 md:h-20 flex-shrink-0 border-2 overflow-hidden transition-all duration-300 bg-[#0A0A0A] aspect-square ${
                     i > 4 ? 'hidden md:block' : ''
                   } ${
                     activeIndex === i
