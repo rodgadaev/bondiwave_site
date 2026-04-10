@@ -1366,7 +1366,7 @@ const SleepRecovery = () => {
     <section className="relative md:-mt-8" data-testid="sleep-section">
       <div className="relative w-full overflow-visible">
         <img
-          src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/hdcikd5m_A%2B%20Basic%20Content%20%28A4%20%28Landscape%29%29%20%286%29.png"
+          src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/mb1jkgvz_A%2B%20Basic%20Content.svg"
           alt="Recover Faster, Sleep Deeper - Bondi Wave"
           className="w-full block"
         />
