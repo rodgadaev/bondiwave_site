@@ -598,7 +598,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.9, x: 50 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-          className="relative flex justify-center lg:justify-end -mb-4 lg:mb-[-80px] z-20"
+          className="relative flex justify-center lg:justify-end -mb-1 lg:mb-[-80px] z-20"
         >
           <div className="relative">
             <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
