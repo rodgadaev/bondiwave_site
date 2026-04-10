@@ -1257,7 +1257,8 @@ const ProductShowcase = () => {
   return (
     <section className="py-4 md:py-8 md:py-10 bg-[#0A0A0A]" data-testid="product-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Desktop Layout - unchanged */}
+        <div className="hidden lg:grid grid-cols-2 gap-12 items-center">
           <motion.div {...fadeUp}>
             <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">The Product</p>
             <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight mb-6">
@@ -1292,21 +1293,66 @@ const ProductShowcase = () => {
             </a>
           </motion.div>
           
-          <motion.div 
-            {...fadeUp}
-            className="relative"
-          >
+          <motion.div {...fadeUp} className="relative">
             <div className="relative flex justify-center">
-              <div className="absolute -inset-10 md:inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
+              <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[100px] rounded-full" />
               <img 
                 src={ASSETS.display1} 
                 alt="Bondi Wave Display Case" 
-                className="relative z-10 w-full max-w-[90vw] md:max-w-2xl mx-auto"
+                className="relative z-10 w-full max-w-2xl mx-auto"
                 data-testid="product-display"
               />
             </div>
           </motion.div>
         </div>
+
+        {/* Mobile Layout - redesigned */}
+        <motion.div {...fadeUp} className="lg:hidden">
+          {/* Display image with overlay */}
+          <div className="relative mb-4">
+            <div className="absolute -inset-4 bg-[#00B4D8]/15 blur-[80px] rounded-full" />
+            <img 
+              src={ASSETS.display1} 
+              alt="Bondi Wave Display Case" 
+              className="relative z-10 w-full"
+              data-testid="product-display-mobile"
+            />
+          </div>
+
+          {/* Product info card */}
+          <div className="relative z-10 border border-white/10 bg-[#050505] p-5">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-2">The Product</p>
+            <h2 className="font-heading text-2xl font-bold uppercase tracking-tight mb-2">
+              30 Strips. 1 Month Supply.
+            </h2>
+            <p className="text-neutral-400 text-sm leading-relaxed mb-4">
+              Each box contains 30 premium nasal strips — designed for both sleep and sport, so you're covered 24/7.
+            </p>
+            
+            <div ref={price.ref} className="flex gap-3 mb-4">
+              <div className="flex-1 bg-[#0A0A0A] border border-[#00B4D8]/20 px-4 py-3 text-center">
+                <div className="font-heading text-2xl font-bold text-[#00B4D8]">${price.value.toFixed(2)}</div>
+                <div className="text-xs text-neutral-500">AUD / box</div>
+              </div>
+              <div ref={perStrip.ref} className="flex-1 bg-[#0A0A0A] border border-white/10 px-4 py-3 text-center">
+                <div className="font-heading text-2xl font-bold">${perStrip.value.toFixed(2)}</div>
+                <div className="text-xs text-neutral-500">per strip</div>
+              </div>
+            </div>
+            
+            <a 
+              href={SOCIAL_LINKS.amazon}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 bg-[#00B4D8] text-black font-bold uppercase tracking-wider px-6 py-4 hover:bg-white transition-all duration-300 group w-full"
+              data-testid="shop-amazon-btn-mobile"
+            >
+              <ShoppingBag size={18} />
+              Shop on Amazon
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
