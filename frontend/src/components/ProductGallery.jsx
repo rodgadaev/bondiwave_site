@@ -11,31 +11,31 @@ export const ProductGallery = () => {
 
   const galleryImages = [
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/a5kp5gdz_MAIN%20IMAGE%20%2817%29.png",
+      src: "/images/MAIN IMAGE (17).webp",
       alt: "Bondi Wave Nose Strips - Product Box & Strips"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/35il9p3e_MAIN%20IMAGE%20%2811%29.png",
+      src: "/images/MAIN IMAGE (11).webp",
       alt: "Bondi Wave Nose Strips - Sweat Proof on Water"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/9o82bugn_6.png",
+      src: "/images/6.webp",
       alt: "Bondi Wave Nose Strips - Lifestyle"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/fdkzlofh_1.png",
+      src: "/images/1.webp",
       alt: "Bondi Wave - Increase Airflow by 35%"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/kvr3eima_2.png",
+      src: "/images/2.webp",
       alt: "Bondi Wave vs Other Nose Strips"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/4vitb6g4_3.png",
+      src: "/images/3.webp",
       alt: "Bondi Wave - Advanced Layer Technology"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/h55duslj_5.png",
+      src: "/images/5.webp",
       alt: "Bondi Wave - From Bondi to Bronte to Deep Sleep"
     },
   ];
