@@ -39,7 +39,7 @@ export const Navigation = () => {
             href={SOCIAL_LINKS.amazon} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="hidden md:flex items-center gap-2 bg-[#00B4D8] text-black font-bold text-sm uppercase tracking-wider px-5 py-2 hover:bg-white transition-colors"
+            className="flex items-center gap-2 bg-[#00B4D8] text-black font-bold text-sm uppercase tracking-wider px-5 py-2 hover:bg-white transition-colors"
             data-testid="nav-amazon"
           >
             <ShoppingBag size={16} />
