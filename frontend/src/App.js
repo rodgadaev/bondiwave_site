@@ -442,26 +442,14 @@ const AssessmentModal = ({ isOpen, onClose }) => {
 const useAssessmentModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   
-  useEffect(() => {
-    // Check if user has already seen/closed the assessment
-    if (localStorage.getItem('hasTakenAssessment')) return;
-    
-    // Auto-trigger after 5 seconds
-    const timer = setTimeout(() => {
-      setIsOpen(true);
-    }, 5000);
-    
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
+  const openModal = () => setIsOpen(true);
   
   const closeModal = () => {
     setIsOpen(false);
     localStorage.setItem('hasTakenAssessment', 'true');
   };
   
-  return { isOpen, setIsOpen, closeModal };
+  return { isOpen, openModal, closeModal };
 };
 
 // TikTok Icon Component
@@ -538,7 +526,7 @@ const Navigation = () => {
 };
 
 // Hero Section
-const Hero = () => {
+const Hero = ({ onTakeQuiz }) => {
   return (
     <section className="relative flex items-center" data-testid="hero-section">
       {/* Background Glow */}
@@ -578,14 +566,14 @@ const Hero = () => {
               Shop Now
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </a>
-            <a 
-              href="#product-gallery"
+            <button 
+              onClick={onTakeQuiz}
               className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 hover:border-[#00B4D8] hover:text-[#00B4D8] transition-all duration-300"
-              data-testid="hero-learn-more"
+              data-testid="hero-take-quiz"
             >
-              Learn More
-              <ChevronDown size={18} />
-            </a>
+              Take The Quiz
+              <ArrowRight size={18} />
+            </button>
           </div>
         </motion.div>
         
@@ -1859,7 +1847,7 @@ const PromoBanner = () => {
 
 // Main App
 function App() {
-  const { isOpen, closeModal } = useAssessmentModal();
+  const { isOpen, openModal, closeModal } = useAssessmentModal();
   
   return (
     <div className="min-h-screen bg-[#050505]">
@@ -1876,7 +1864,7 @@ function App() {
       <AssessmentModal isOpen={isOpen} onClose={closeModal} />
       <PromoBanner />
       <Navigation />
-      <Hero />
+      <Hero onTakeQuiz={openModal} />
       <Marquee />
       <Features />
       {/* Delivery Marquee Banner */}
