@@ -21,12 +21,42 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - [x] Interactive product gallery, reviews carousel, FAQ, science accordion
 - [x] Animated pricing counters ($29.95 and $1/strip)
 - [x] Amazon Prime delivery marquee banner
+- [x] Modular component architecture (App.js refactored)
 
 ## Architecture
-- **Frontend**: React + Tailwind CSS + Framer Motion
+- **Frontend**: React + Tailwind CSS + Framer Motion (modular component structure)
 - **Backend**: Netlify Functions (serverless) + Resend API for emails
 - **Database**: N/A (leads pushed to Resend)
 - **Fonts**: Oswald (headings), Manrope (body), JetBrains Mono (accents)
+
+## Component Architecture (Refactored Apr 2026)
+```
+/app/frontend/src/
+├── App.js                    # Thin orchestrator (~57 lines)
+├── App.css                   # Custom CSS animations
+├── index.css                 # Tailwind configuration
+├── constants.js              # ASSETS, SOCIAL_LINKS, fadeUp
+├── hooks.js                  # useAssessmentModal, useCountUp
+└── components/
+    ├── AssessmentModal.jsx   # Multi-step quiz modal
+    ├── Benefits.jsx          # Sleep/Sport science accordions
+    ├── DeliveryBanner.jsx    # Blue reverse-scrolling marquee
+    ├── EmailSignup.jsx       # Newsletter signup form
+    ├── FAQ.jsx               # Collapsible FAQ with show more
+    ├── Features.jsx          # 4 auto-cycling feature cards
+    ├── Footer.jsx            # 3-column footer
+    ├── Hero.jsx              # Hero section with CTAs
+    ├── Marquee.jsx           # Feature keywords marquee
+    ├── MobileKeyBenefits.jsx # Mobile-only collapsible benefits
+    ├── Navigation.jsx        # Sticky nav with glass effect
+    ├── ProductGallery.jsx    # Amazon-style image gallery
+    ├── ProductShowcase.jsx   # Price display with counters
+    ├── PromoBanner.jsx       # Top promo scrolling banner
+    ├── Reviews.jsx           # Auto-scrolling reviews carousel
+    ├── SleepRecovery.jsx     # Full-width SVG image section
+    ├── StorySection.jsx      # Brand story with videos
+    └── TikTokIcon.jsx        # Custom TikTok SVG icon
+```
 
 ## What's Been Implemented
 - Full landing page: Hero, Marquee, Features, Product Gallery, Story Section, Science/Benefits, Product Showcase, Sleep Recovery, FAQ, Reviews, Email Signup, Footer
@@ -37,10 +67,14 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - Mobile-optimized: hand image positioning, thumbnail gallery (5 square 1:1 thumbs), thin feature cards (icon left, text right), collapsible Key Benefits, footer Quick Links + Follow Us side by side
 - Desktop: 6 square thumbnails in gallery, hover-activated science accordion, blue glow transition to sleep section, sticky nav
 - Animated pricing counters with IntersectionObserver on always-visible section refs
-- Performance optimizations: lazy loading, preconnect, preload hero, GPU-accelerated marquees, removed noise overlay, removed unused imports
+- Performance optimizations: lazy loading, preconnect, preload hero, GPU-accelerated marquees, removed noise overlay
+- **COMPLETED: Full component refactoring** - App.js reduced from ~1900 lines to ~57 lines, split into 18 components + constants + hooks
 
 ## Key Files
-- `/app/frontend/src/App.js` - Monolithic React component (~1900 lines)
+- `/app/frontend/src/App.js` - Thin orchestrator importing all components
+- `/app/frontend/src/constants.js` - Shared constants (ASSETS, SOCIAL_LINKS, fadeUp)
+- `/app/frontend/src/hooks.js` - Custom hooks (useAssessmentModal, useCountUp)
+- `/app/frontend/src/components/` - 18 modular component files
 - `/app/frontend/netlify/functions/submission-created.mjs` - Serverless email logic
 - `/app/frontend/src/App.css` - Custom animations
 - `/app/frontend/src/index.css` - Tailwind config
@@ -49,7 +83,7 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 ## Prioritized Backlog
 
 ### P1 (High Priority)
-- [ ] Refactor App.js into smaller components (Hero, ProductGallery, Reviews, FAQ, Benefits, etc.)
+- [x] Refactor App.js into smaller components (completed Apr 2026)
 - [ ] Add actual TikTok URL when account is created
 
 ### P2 (Nice to Have)
