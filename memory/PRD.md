@@ -8,7 +8,7 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 2. **Sleep Quality Seekers** - People experiencing snoring or poor sleep quality
 3. **Health-Conscious Consumers** - Interested in medical-grade, hypoallergenic products
 
-## Core Requirements (Static)
+## Core Requirements
 - [x] Premium, minimalistic design matching Nike/Under Armour aesthetic
 - [x] Dark mode only with brand colors (Black #050505, Cyan #00B4D8)
 - [x] Email collection for waitlist/pre-orders
@@ -20,7 +20,7 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - [x] List-Unsubscribe headers on all Resend email calls
 - [x] Interactive product gallery, reviews carousel, FAQ, science accordion
 - [x] Animated pricing counters ($29.95 and $1/strip)
-- [x] Amazon Prime delivery banner
+- [x] Amazon Prime delivery marquee banner
 
 ## Architecture
 - **Frontend**: React + Tailwind CSS + Framer Motion
@@ -31,16 +31,20 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 ## What's Been Implemented
 - Full landing page: Hero, Marquee, Features, Product Gallery, Story Section, Science/Benefits, Product Showcase, Sleep Recovery, FAQ, Reviews, Email Signup, Footer
 - Promo banner with rotating text (Now Available, Same Day Delivery, 30 Premium Strips)
-- Airflow Assessment lead gen modal (profiles A, B, C) with Resend email automation
+- Blue delivery marquee (reverse direction) above product gallery
+- Airflow Assessment lead gen modal triggered by "Take The Quiz" hero button (no auto-popup)
 - List-Unsubscribe headers on Resend API calls
-- Mobile-optimized: hand image positioning, touch interactions, responsive layouts
-- Desktop: hover-activated science accordion, overlapping hero hand, sticky nav
+- Mobile-optimized: hand image positioning, thumbnail gallery (5 square 1:1 thumbs), thin feature cards (icon left, text right), collapsible Key Benefits, footer Quick Links + Follow Us side by side
+- Desktop: 6 square thumbnails in gallery, hover-activated science accordion, blue glow transition to sleep section, sticky nav
+- Animated pricing counters with IntersectionObserver on always-visible section refs
+- Performance optimizations: lazy loading, preconnect, preload hero, GPU-accelerated marquees, removed noise overlay, removed unused imports
 
 ## Key Files
-- `/app/frontend/src/App.js` - Monolithic React component (~1750 lines)
+- `/app/frontend/src/App.js` - Monolithic React component (~1900 lines)
 - `/app/frontend/netlify/functions/submission-created.mjs` - Serverless email logic
 - `/app/frontend/src/App.css` - Custom animations
 - `/app/frontend/src/index.css` - Tailwind config
+- `/app/frontend/public/index.html` - Base HTML with preconnect/preload hints
 
 ## Prioritized Backlog
 
