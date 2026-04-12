@@ -7,7 +7,7 @@ export const ProductShowcase = () => {
   const price = useCountUp(29.95, 1200);
   const perStrip = useCountUp(1.00, 1200);
   return (
-    <section ref={price.ref} className="pt-4 md:pt-10 md:pb-8 bg-[#0A0A0A] overflow-visible md:overflow-hidden relative" data-testid="product-section">
+    <section ref={price.ref} className="pt-4 md:pt-10 md:pb-8 bg-[#0A0A0A] overflow-visible md:overflow-hidden relative md:border-b-2 md:border-[#00B4D8]" data-testid="product-section">
       <div className="absolute -bottom-16 md:bottom-0 left-0 right-0 h-56 md:h-40 bg-[#00B4D8]/20 md:bg-[#00B4D8]/10 blur-[60px] md:blur-[80px] pointer-events-none md:translate-y-0" />
       <div ref={perStrip.ref} className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Desktop Layout */}
