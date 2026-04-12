@@ -127,7 +127,7 @@ export const ProductGallery = () => {
                 onMouseLeave={() => setIsHovering(false)}
                 data-testid="gallery-main-image"
               >
-                <AnimatePresence mode="wait">
+                <AnimatePresence>
                   <motion.img
                     key={activeIndex}
                     src={galleryImages[activeIndex].src}
@@ -135,7 +135,7 @@ export const ProductGallery = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.4 }}
+                    transition={{ duration: 0.6 }}
                     className="absolute inset-0 w-full h-full object-cover"
                     loading="lazy"
                     decoding="async"
