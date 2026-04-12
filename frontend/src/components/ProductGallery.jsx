@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ShoppingBag, ArrowRight, Lock, RotateCcw } from "lucide-react";
 import { SOCIAL_LINKS, fadeUp } from "@/constants";
 import { MobileKeyBenefits } from "@/components/MobileKeyBenefits";
@@ -127,20 +127,17 @@ export const ProductGallery = () => {
                 onMouseLeave={() => setIsHovering(false)}
                 data-testid="gallery-main-image"
               >
-                <AnimatePresence>
-                  <motion.img
-                    key={activeIndex}
-                    src={galleryImages[activeIndex].src}
-                    alt={galleryImages[activeIndex].alt}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="absolute inset-0 w-full h-full object-cover"
+                {galleryImages.map((img, i) => (
+                  <img
+                    key={i}
+                    src={img.src}
+                    alt={img.alt}
+                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+                    style={{ opacity: activeIndex === i ? 1 : 0 }}
                     loading="lazy"
                     decoding="async"
                   />
-                </AnimatePresence>
+                ))}
 
               <div className="absolute bottom-3 right-3 bg-black/70 backdrop-blur-sm border border-white/10 px-3 py-1">
                 <span className="font-mono text-xs text-[#00B4D8]">{activeIndex + 1}</span>
