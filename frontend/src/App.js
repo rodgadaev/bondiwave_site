@@ -1228,7 +1228,7 @@ const Benefits = () => {
 // Animated Counter Hook
 const useCountUp = (end, duration = 1500) => {
   const [value, setValue] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
+  const hasStartedRef = useRef(false);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -1236,8 +1236,8 @@ const useCountUp = (end, duration = 1500) => {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !hasStarted) {
-          setHasStarted(true);
+        if (entry.isIntersecting && !hasStartedRef.current) {
+          hasStartedRef.current = true;
           const start = performance.now();
           const animate = (now) => {
             const progress = Math.min((now - start) / duration, 1);
@@ -1248,11 +1248,11 @@ const useCountUp = (end, duration = 1500) => {
           requestAnimationFrame(animate);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.1 }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [end, duration, hasStarted]);
+  }, [end, duration]);
 
   return { value, ref };
 };
@@ -1261,10 +1261,10 @@ const ProductShowcase = () => {
   const price = useCountUp(29.95, 1200);
   const perStrip = useCountUp(1.00, 1200);
   return (
-    <section className="pt-4 md:pt-10 md:pb-8 bg-[#0A0A0A] overflow-visible md:overflow-hidden relative" data-testid="product-section">
+    <section ref={price.ref} className="pt-4 md:pt-10 md:pb-8 bg-[#0A0A0A] overflow-visible md:overflow-hidden relative" data-testid="product-section">
       {/* Full-width bottom glow - mobile extends into gap, desktop stays clipped */}
       <div className="absolute -bottom-16 md:bottom-0 left-0 right-0 h-56 md:h-40 bg-[#00B4D8]/20 md:bg-[#00B4D8]/10 blur-[60px] md:blur-[80px] pointer-events-none md:translate-y-0" />
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div ref={perStrip.ref} className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Desktop Layout - unchanged */}
         <div className="hidden lg:grid grid-cols-2 gap-12 items-center">
           <motion.div {...fadeUp}>
@@ -1277,12 +1277,12 @@ const ProductShowcase = () => {
               Designed for both sleep and sport, so you're covered 24/7.
             </p>
             
-            <div ref={price.ref} className="flex flex-col sm:flex-row gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <div className="bg-[#050505] border border-white/10 px-6 py-4">
                 <div className="font-heading text-3xl font-bold text-[#00B4D8]">${price.value.toFixed(2)}</div>
                 <div className="text-sm text-neutral-500">AUD / box</div>
               </div>
-              <div ref={perStrip.ref} className="bg-[#050505] border border-white/10 px-6 py-4">
+              <div className="bg-[#050505] border border-white/10 px-6 py-4">
                 <div className="font-heading text-3xl font-bold">${perStrip.value.toFixed(2)}</div>
                 <div className="text-sm text-neutral-500">per strip</div>
               </div>
@@ -1341,12 +1341,12 @@ const ProductShowcase = () => {
               Each box contains 30 premium nasal strips — designed for both sleep and sport, so you're covered 24/7.
             </p>
             
-            <div ref={price.ref} className="flex gap-3 mb-4">
+            <div className="flex gap-3 mb-4">
               <div className="flex-1 bg-[#0A0A0A] border border-[#00B4D8]/20 px-4 py-3 text-center">
                 <div className="font-heading text-2xl font-bold text-[#00B4D8]">${price.value.toFixed(2)}</div>
                 <div className="text-xs text-neutral-500">AUD / box</div>
               </div>
-              <div ref={perStrip.ref} className="flex-1 bg-[#0A0A0A] border border-white/10 px-4 py-3 text-center">
+              <div className="flex-1 bg-[#0A0A0A] border border-white/10 px-4 py-3 text-center">
                 <div className="font-heading text-2xl font-bold">${perStrip.value.toFixed(2)}</div>
                 <div className="text-xs text-neutral-500">per strip</div>
               </div>
