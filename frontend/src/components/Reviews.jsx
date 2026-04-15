@@ -120,8 +120,8 @@ export const Reviews = () => {
                 <div className="w-9 h-9 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center flex-shrink-0">
                   <span className="font-heading text-sm font-bold text-[#00B4D8]">{review.name.charAt(0)}</span>
                 </div>
-                <div>
-                  <p itemProp="author" className="text-white text-sm font-bold">{review.name}</p>
+                <div itemProp="author" itemScope itemType="https://schema.org/Person">
+                  <p itemProp="name" className="text-white text-sm font-bold">{review.name}</p>
                   <p className="text-neutral-500 text-xs">{review.location}</p>
                 </div>
               </div>
