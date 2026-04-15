@@ -31,12 +31,20 @@ export const ProductGallery = () => {
       alt: "Bondi Wave vs Other Nose Strips"
     },
     {
-      src: "/images/3.webp",
-      alt: "Bondi Wave - Advanced Layer Technology"
+      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/9uah00ir_3.webp",
+      alt: "Bondi Wave vs Other Nose Strips - Comparison"
     },
     {
-      src: "/images/5.webp",
-      alt: "Bondi Wave - From Bondi to Bronte to Deep Sleep"
+      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/mgn9m8rd_10.webp",
+      alt: "Bondi Wave - Increase Airflow by 35%"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/8hmytwxu_11.webp",
+      alt: "Bondi Wave - How To Apply"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/hoq7qimk_9.webp",
+      alt: "Bondi Wave - Strip on Sand"
     },
   ];
 
