@@ -35,7 +35,7 @@ export const ProductGallery = () => {
       alt: "Bondi Wave vs Other Nose Strips - Comparison"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/mgn9m8rd_10.webp",
+      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/vi0feag3_10.webp",
       alt: "Bondi Wave - Increase Airflow by 35%"
     },
     {
