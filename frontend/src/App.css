@@ -47,8 +47,8 @@
   clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
 }
 
-/* Smooth transitions - exclude grid accordion panels */
-*:not([style*="grid-template-rows"]) {
+/* Smooth transitions - applied to interactive elements only */
+a, button {
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
