@@ -132,7 +132,7 @@ export default function CreatorsHub() {
       </nav>
 
       {/* Hero */}
-      <section className="py-12 md:py-20">
+      <section className="pt-8 pb-4 md:pt-12 md:pb-6">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div {...fadeUp} className="text-center mb-10">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Exclusive Access</p>
@@ -200,6 +200,51 @@ export default function CreatorsHub() {
           <motion.p {...fadeUp} className="text-center text-neutral-500 text-sm mt-8 max-w-xl mx-auto">
             All options are completely optional. Zero strings. Our priority is that you try these strips and they actually make a difference for you.
           </motion.p>
+        </div>
+      </section>
+
+      {/* Blue divider line */}
+      <div className="border-t-2 border-[#00B4D8]" />
+
+      {/* Creator Examples */}
+      <section className="py-12 md:py-16 bg-[#0A0A0A]">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div {...fadeUp} className="text-center mb-10">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-4">From Our Creators</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold uppercase tracking-tight">
+              Real Examples
+            </h2>
+          </motion.div>
+
+          {/* Selfie examples */}
+          <motion.div {...fadeUp} className="mb-10">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-6 text-center">Selfie Examples</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+              {[
+                { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/9d3qjg2f_viktoria%20review.png", alt: "Viktoria review" },
+                { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/uhirouvb_hilda%20review.png", alt: "Hilda review" },
+                { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/ny4bmom8_Joey%20review.png", alt: "Joey review" },
+                { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/8sw44fvo_Rod%20review.png", alt: "Rod review" },
+              ].map((img, i) => (
+                <motion.div key={i} {...stagger(i)} className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8]">
+                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover" loading="lazy" />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Review video example */}
+          <motion.div {...fadeUp}>
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-6 text-center">Review Video Example</p>
+            <div className="max-w-sm mx-auto rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16]">
+              <video
+                src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/39196nf4_joey%20review%20video.MP4"
+                controls
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </motion.div>
         </div>
       </section>
 
