@@ -51,7 +51,7 @@ const HeroVideo = () => {
       <div className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] relative">
         <video
           ref={videoRef}
-          src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/fhto022v_Captions_5D06D0%20%281%29.mp4"
+          src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/fhto022v_Captions_5D06D0%20%281%29.mp4#t=0.1"
           playsInline
           muted
           preload="metadata"
@@ -239,7 +239,7 @@ export default function CreatorsHub() {
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-6 text-center">Review Video Example</p>
             <div className="max-w-sm mx-auto rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16]">
               <video
-                src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/39196nf4_joey%20review%20video.MP4"
+                src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/39196nf4_joey%20review%20video.MP4#t=0.1"
                 controls
                 playsInline
                 preload="metadata"
