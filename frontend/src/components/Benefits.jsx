@@ -163,9 +163,9 @@ export const Benefits = () => {
                 </div>
               </button>
               {isSleepOpen && (
-                <ul className="space-y-3 pl-[52px] pb-5 px-5">
+                <ul key={Date.now()} className="space-y-3 pl-[52px] pb-5 px-5">
                   {sleepBenefits.map((benefit, i) => (
-                    <li key={i} className="flex items-center gap-2">
+                    <li key={i} className="flex items-center gap-2 animate-fade-in" style={{ animationDelay: `${i * 80}ms` }}>
                       <Check className="w-4 h-4 text-[#00B4D8] flex-shrink-0" />
                       <span className="text-neutral-300 text-sm">{benefit}</span>
                     </li>
@@ -193,7 +193,7 @@ export const Benefits = () => {
                 </div>
               </button>
               {isSportOpen && (
-                <ul className="space-y-3 pl-[52px] pb-5 px-5">
+                <ul key={Date.now()} className="space-y-3 pl-[52px] pb-5 px-5">
                   {sportBenefits.map((benefit, i) => (
                     <li key={i} className="flex items-center gap-2 animate-fade-in" style={{ animationDelay: `${i * 80}ms` }}>
                       <Check className="w-4 h-4 text-[#00B4D8] flex-shrink-0" />
