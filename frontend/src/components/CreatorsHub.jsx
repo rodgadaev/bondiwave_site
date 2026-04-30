@@ -54,6 +54,7 @@ const HeroVideo = () => {
           src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/fhto022v_Captions_5D06D0%20%281%29.mp4"
           playsInline
           muted
+          preload="metadata"
           className="w-full h-full object-cover"
           onEnded={() => setIsPlaying(false)}
         />
@@ -241,6 +242,7 @@ export default function CreatorsHub() {
                 src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/39196nf4_joey%20review%20video.MP4"
                 controls
                 playsInline
+                preload="metadata"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -317,7 +319,7 @@ export default function CreatorsHub() {
               <div className="border border-white/10 bg-[#0A0A0A] p-4 mb-6 text-left">
                 <p className="font-mono text-[10px] uppercase tracking-widest text-[#00B4D8] mb-2">TVC Opportunity</p>
                 <p className="text-neutral-400 text-sm leading-relaxed">
-                  Fully paid, MEAA Tier 1 minimums, shooting in Sydney. If you're not based here, we'll fly you out. Working with Rod and a professional crew. This is a great chance for us to see you and the product together.
+                  Fully paid, MEAA Tier 1 minimums, shooting in Sydney. If you're not based here, we'll fly you out. Working with Rod and a professional crew. Any content you send in with the samples is a great chance for us to see you and the product together.
                 </p>
               </div>
               <a
