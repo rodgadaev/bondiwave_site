@@ -59,10 +59,11 @@ const HeroVideo = () => {
           onEnded={() => setIsPlaying(false)}
         />
         {!isPlaying && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 gap-3">
             <div className="w-20 h-20 bg-[#00B4D8] rounded-full flex items-center justify-center">
               <Play size={36} className="text-black ml-1" />
             </div>
+            <span className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider text-xs px-4 py-1.5">Watch First</span>
           </div>
         )}
       </div>
