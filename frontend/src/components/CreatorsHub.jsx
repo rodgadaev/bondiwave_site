@@ -46,8 +46,9 @@ const HeroVideo = () => {
   };
 
   return (
-    <div className="relative max-w-2xl mx-auto cursor-pointer group" onClick={togglePlay}>
-      <div className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] md:aspect-video relative">
+    <div className="relative max-w-sm mx-auto cursor-pointer group" onClick={togglePlay}>
+      <div className="absolute -inset-6 bg-[#00B4D8]/15 blur-[80px] rounded-full pointer-events-none" />
+      <div className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] relative">
         <video
           ref={videoRef}
           src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/fhto022v_Captions_5D06D0%20%281%29.mp4"
@@ -91,15 +92,15 @@ const contentOptions = [
   },
   {
     icon: Film,
-    title: "A UGC Video",
-    desc: "30 seconds. You, the product, your world. A review, a clip in your element — sport, fashion, a walk. Don't make an ad. Just make it yours. We'll put paid spend behind it.",
+    title: "30 Second Talking Head",
+    desc: "A quick 30-second video review. Just you talking to camera about your experience with the strips. Honest, natural, authentic.",
     effort: "Medium effort",
   },
   {
     icon: Image,
-    title: "TVC Opportunity",
-    desc: "We've got a TVC coming up. Fully paid, MEAA Tier 1 minimums, shooting in Sydney. If you're not based here, we'll fly you out.",
-    effort: "High reward",
+    title: "UGC Video",
+    desc: "You, the product, your world. A clip in your element — sport, fashion, a walk. Don't make an ad. Just make it yours. We'll put paid spend behind it.",
+    effort: "High impact",
   },
 ];
 
@@ -169,6 +170,9 @@ export default function CreatorsHub() {
           </div>
         </div>
       </section>
+
+      {/* Blue divider line */}
+      <div className="border-t-2 border-[#00B4D8]" />
 
       {/* Content Options */}
       <section className="py-12 md:py-16">
@@ -262,9 +266,15 @@ export default function CreatorsHub() {
             <div className="text-center md:text-left">
               <h3 className="font-heading text-2xl font-bold uppercase mb-1">Roderick Gadaev</h3>
               <p className="font-mono text-xs uppercase tracking-widest text-[#00B4D8] mb-4">Filmmaker & Co-Founder</p>
-              <p className="text-neutral-400 text-sm leading-relaxed mb-6">
-                Nearly a decade in advertising and filmmaking. If you're interested in the TVC opportunity, check out some comparable work below.
+              <p className="text-neutral-400 text-sm leading-relaxed mb-4">
+                Nearly a decade in advertising and filmmaking. Rod directs all Bondi Wave creative and is heading up an upcoming TVC shoot.
               </p>
+              <div className="border border-white/10 bg-[#0A0A0A] p-4 mb-6 text-left">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-[#00B4D8] mb-2">TVC Opportunity</p>
+                <p className="text-neutral-400 text-sm leading-relaxed">
+                  Fully paid, MEAA Tier 1 minimums, shooting in Sydney. If you're not based here, we'll fly you out. Working with Rod and a professional crew. This is a great chance for us to see you and the product together.
+                </p>
+              </div>
               <a
                 href="https://www.roderickgadaev.com"
                 target="_blank"
