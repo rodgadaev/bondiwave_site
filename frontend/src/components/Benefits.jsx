@@ -162,9 +162,8 @@ export const Benefits = () => {
                   <span className={`text-lg leading-none ${isSleepOpen ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
                 </div>
               </button>
-              <div className="grid" style={{ gridTemplateRows: isSleepOpen ? '1fr' : '0fr', transition: 'grid-template-rows 300ms ease' }}>
-                <div className="overflow-hidden">
-                  <ul className="space-y-3 pl-[52px] pb-5 px-5">
+              {isSleepOpen && (
+                <ul className="space-y-3 pl-[52px] pb-5 px-5">
                   {sleepBenefits.map((benefit, i) => (
                     <li key={i} className="flex items-center gap-2">
                       <Check className="w-4 h-4 text-[#00B4D8] flex-shrink-0" />
@@ -172,8 +171,7 @@ export const Benefits = () => {
                     </li>
                   ))}
                 </ul>
-                </div>
-              </div>
+              )}
             </div>
             <div className="border border-white/10" data-testid="sport-benefits">
               <button
@@ -194,9 +192,8 @@ export const Benefits = () => {
                   <span className={`text-lg leading-none ${isSportOpen ? 'text-black' : 'text-[#00B4D8]'}`}>+</span>
                 </div>
               </button>
-              <div className="grid" style={{ gridTemplateRows: isSportOpen ? '1fr' : '0fr', transition: 'grid-template-rows 300ms ease' }}>
-                <div className="overflow-hidden">
-                  <ul className="space-y-3 pl-[52px] pb-5 px-5">
+              {isSportOpen && (
+                <ul className="space-y-3 pl-[52px] pb-5 px-5">
                   {sportBenefits.map((benefit, i) => (
                     <li key={i} className="flex items-center gap-2">
                       <Check className="w-4 h-4 text-[#00B4D8] flex-shrink-0" />
@@ -204,8 +201,7 @@ export const Benefits = () => {
                     </li>
                   ))}
                 </ul>
-                </div>
-              </div>
+              )}
             </div>
           </motion.div>
         </div>
