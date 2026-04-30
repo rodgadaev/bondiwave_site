@@ -262,16 +262,16 @@ export default function CreatorsHub() {
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            {/* Video placeholder */}
+            {/* How to apply video */}
             <motion.div {...fadeUp}>
-              <div className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] md:aspect-square bg-[#111] flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="w-20 h-20 bg-[#00B4D8]/10 border border-[#00B4D8]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Play size={32} className="text-[#00B4D8] ml-1" />
-                  </div>
-                  <p className="font-heading text-lg font-bold uppercase mb-2">Application Video</p>
-                  <p className="text-neutral-500 text-sm">Coming Soon</p>
-                </div>
+              <div className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16]">
+                <video
+                  src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/bey3g113_how%20to%20apply.mp4#t=0.1"
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </motion.div>
 
