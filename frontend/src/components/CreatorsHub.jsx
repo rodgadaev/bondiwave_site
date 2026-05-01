@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Instagram, Camera, Film, Image, Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { ASSETS, SOCIAL_LINKS } from "@/constants";
 import "@/App.css";
@@ -114,8 +114,37 @@ const applySteps = [
 ];
 
 export default function CreatorsHub() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2200);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-[#050505] text-white">
+    <>
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            key="loader"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-[200] bg-[#050505] flex flex-col items-center justify-center"
+          >
+            <img src={ASSETS.logo} alt="Bondi Wave" className="h-16 md:h-20 mb-8 opacity-80" />
+            <div className="flex gap-1.5">
+              {[0, 1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="w-2 h-2 bg-[#00B4D8] rounded-full animate-pulse"
+                  style={{ animationDelay: `${i * 150}ms` }}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    <div className={`min-h-screen bg-[#050505] text-white ${loading ? 'overflow-hidden max-h-screen' : ''}`}>
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-[#050505] border-b border-white/5">
         <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
@@ -369,5 +398,6 @@ export default function CreatorsHub() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
