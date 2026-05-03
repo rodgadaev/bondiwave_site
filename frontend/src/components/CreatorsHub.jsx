@@ -229,27 +229,34 @@ export default function CreatorsHub() {
             ))}
           </div>
 
-          <motion.div {...fadeUp} className="mt-10 text-center max-w-lg mx-auto">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Your Card</p>
-            <p className="text-neutral-400 text-sm leading-relaxed mb-6">
-              Enter the custom code found on your card to receive your personalised content ideas.
-            </p>
-            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6">
-              <input
-                type="text"
-                placeholder="Enter your code"
-                className="flex-1 bg-[#050505] border border-white/10 text-white placeholder:text-neutral-600 focus:border-[#00B4D8] focus:outline-none py-4 px-4 font-mono text-sm uppercase tracking-wider"
-                data-testid="creator-code-input"
-              />
-              <button
-                type="submit"
-                className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider text-sm px-6 py-4 hover:bg-white transition-colors"
-                data-testid="creator-code-submit"
-              >
-                Submit
-              </button>
-            </form>
-            <p className="text-neutral-500 text-sm max-w-xl mx-auto">
+          <motion.div {...fadeUp} className="mt-10 max-w-md mx-auto">
+            <div className="border border-white/10 bg-[#0A0A0A] p-6">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center">
+                  <span className="font-mono text-xs text-[#00B4D8] font-bold">ID</span>
+                </div>
+                <div>
+                  <h3 className="font-heading text-base font-bold uppercase">Unlock Your Brief</h3>
+                  <p className="text-neutral-500 text-xs leading-relaxed mt-1">Enter the code from your card for personalised content ideas.</p>
+                </div>
+              </div>
+              <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Enter code"
+                  className="flex-1 bg-[#050505] border border-white/10 text-white placeholder:text-neutral-600 focus:border-[#00B4D8] focus:outline-none py-3 px-4 font-mono text-sm uppercase tracking-wider"
+                  data-testid="creator-code-input"
+                />
+                <button
+                  type="submit"
+                  className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider text-xs px-5 py-3 hover:bg-white transition-colors flex-shrink-0"
+                  data-testid="creator-code-submit"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+            <p className="text-neutral-500 text-sm mt-6 text-center max-w-xl mx-auto">
               All options are completely optional. Zero strings. Our priority is that you try these strips and they actually make a difference for you.
             </p>
           </motion.div>
