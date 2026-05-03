@@ -234,6 +234,33 @@ export default function CreatorsHub() {
         </div>
       </section>
 
+      {/* Custom Code Section */}
+      <section className="py-12 md:py-16 bg-[#0A0A0A]">
+        <div className="max-w-lg mx-auto px-6">
+          <motion.div {...fadeUp} className="text-center">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Your Card</p>
+            <p className="text-neutral-400 text-sm leading-relaxed mb-8">
+              Enter the custom code found on your card to receive your personalised content ideas.
+            </p>
+            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <input
+                type="text"
+                placeholder="Enter your code"
+                className="flex-1 bg-[#050505] border border-white/10 text-white placeholder:text-neutral-600 focus:border-[#00B4D8] focus:outline-none py-4 px-4 font-mono text-sm uppercase tracking-wider"
+                data-testid="creator-code-input"
+              />
+              <button
+                type="submit"
+                className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider text-sm px-6 py-4 hover:bg-white transition-colors"
+                data-testid="creator-code-submit"
+              >
+                Submit
+              </button>
+            </form>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Blue divider line */}
       <div className="border-t-2 border-[#00B4D8]" />
 
