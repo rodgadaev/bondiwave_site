@@ -115,11 +115,60 @@ const applySteps = [
 
 export default function CreatorsHub() {
   const [loading, setLoading] = useState(true);
+  const [code, setCode] = useState("");
+  const [lookupLoading, setLookupLoading] = useState(false);
+  const [lookupResult, setLookupResult] = useState(null);
+  const [lookupError, setLookupError] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 4000);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleCodeSubmit = async (e) => {
+    e.preventDefault();
+    const trimmed = code.trim();
+    if (!trimmed) return;
+
+    setLookupLoading(true);
+    setLookupError("");
+    setLookupResult(null);
+
+    try {
+      const sheetId = "1OwQnCgwKggs2TfBK8ZStKV8nqHSzyHHggoL2PKYCCfc";
+      const tabName = "Sample Sendouts";
+      const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(tabName)}`;
+
+      const res = await fetch(url);
+      const text = await res.text();
+      const json = JSON.parse(text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1));
+
+      const rows = json.table.rows;
+      const input = trimmed.toLowerCase().replace(/^@/, "");
+
+      let found = null;
+      for (const row of rows) {
+        const handle = (row.c[0]?.v || "").toString().toLowerCase().replace(/^@/, "");
+        if (handle === input) {
+          found = {
+            name: row.c[1]?.v || "",
+            ideas: (row.c[8]?.v || "").split(/\n+/).filter(line => line.trim()),
+          };
+          break;
+        }
+      }
+
+      if (found) {
+        setLookupResult(found);
+      } else {
+        setLookupError("We couldn't find that code. Double-check the handle on your card and try again.");
+      }
+    } catch {
+      setLookupError("Something went wrong. Please try again in a moment.");
+    } finally {
+      setLookupLoading(false);
+    }
+  };
 
   return (
     <>
@@ -237,21 +286,32 @@ export default function CreatorsHub() {
                         <p className="text-neutral-500 text-xs leading-relaxed mt-0.5">Enter the code from your card for personalised content ideas.</p>
                       </div>
                     </div>
-                    <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
-                      <input
-                        type="text"
-                        placeholder="Enter code"
-                        className="flex-1 bg-[#050505] border border-white/10 text-white placeholder:text-neutral-600 focus:border-[#00B4D8] focus:outline-none py-3 px-3 font-mono text-sm uppercase tracking-wider"
-                        data-testid="creator-code-input-mobile"
-                      />
-                      <button
-                        type="submit"
-                        className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider text-xs px-4 py-3 hover:bg-white transition-colors flex-shrink-0"
-                        data-testid="creator-code-submit-mobile"
-                      >
-                        Submit
-                      </button>
-                    </form>
+                    {!lookupResult ? (
+                      <>
+                        <form onSubmit={handleCodeSubmit} className="flex gap-2">
+                          <input
+                            type="text"
+                            value={code}
+                            onChange={(e) => setCode(e.target.value)}
+                            placeholder="Enter code"
+                            className="flex-1 bg-[#050505] border border-white/10 text-white placeholder:text-neutral-600 focus:border-[#00B4D8] focus:outline-none py-3 px-3 font-mono text-sm uppercase tracking-wider"
+                            data-testid="creator-code-input-mobile"
+                            disabled={lookupLoading}
+                          />
+                          <button
+                            type="submit"
+                            disabled={lookupLoading}
+                            className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider text-xs px-4 py-3 hover:bg-white transition-colors flex-shrink-0 disabled:opacity-50"
+                            data-testid="creator-code-submit-mobile"
+                          >
+                            {lookupLoading ? "..." : "Submit"}
+                          </button>
+                        </form>
+                        {lookupError && <p className="text-red-400 text-xs mt-3">{lookupError}</p>}
+                      </>
+                    ) : (
+                      <p className="text-[#00B4D8] text-xs font-mono uppercase tracking-wider">Brief unlocked below</p>
+                    )}
                   </div>
                 )}
               </motion.div>
@@ -270,26 +330,75 @@ export default function CreatorsHub() {
                   <p className="text-neutral-500 text-xs leading-relaxed mt-1">Enter the code from your card for personalised content ideas.</p>
                 </div>
               </div>
-              <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Enter code"
-                  className="flex-1 bg-[#050505] border border-white/10 text-white placeholder:text-neutral-600 focus:border-[#00B4D8] focus:outline-none py-3 px-4 font-mono text-sm uppercase tracking-wider"
-                  data-testid="creator-code-input"
-                />
-                <button
-                  type="submit"
-                  className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider text-xs px-5 py-3 hover:bg-white transition-colors flex-shrink-0"
-                  data-testid="creator-code-submit"
-                >
-                  Submit
-                </button>
-              </form>
+              {!lookupResult ? (
+                <>
+                  <form onSubmit={handleCodeSubmit} className="flex gap-2">
+                    <input
+                      type="text"
+                      value={code}
+                      onChange={(e) => setCode(e.target.value)}
+                      placeholder="Enter code"
+                      className="flex-1 bg-[#050505] border border-white/10 text-white placeholder:text-neutral-600 focus:border-[#00B4D8] focus:outline-none py-3 px-4 font-mono text-sm uppercase tracking-wider"
+                      data-testid="creator-code-input"
+                      disabled={lookupLoading}
+                    />
+                    <button
+                      type="submit"
+                      disabled={lookupLoading}
+                      className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider text-xs px-5 py-3 hover:bg-white transition-colors flex-shrink-0 disabled:opacity-50"
+                      data-testid="creator-code-submit"
+                    >
+                      {lookupLoading ? "..." : "Submit"}
+                    </button>
+                  </form>
+                  {lookupError && <p className="text-red-400 text-xs mt-3">{lookupError}</p>}
+                </>
+              ) : (
+                <p className="text-[#00B4D8] text-xs font-mono uppercase tracking-wider">Brief unlocked below</p>
+              )}
             </div>
             <p className="text-neutral-500 text-sm mt-6 text-center max-w-xl mx-auto">
               All options are completely optional. Zero strings. Our priority is that you try these strips and they actually make a difference for you.
             </p>
           </motion.div>
+
+          {/* Results display */}
+          {lookupResult && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mt-10 max-w-3xl mx-auto"
+            >
+              <div className="text-center mb-8">
+                <h2 className="font-heading text-2xl md:text-3xl font-bold uppercase tracking-tight">
+                  Hey {lookupResult.name}, here are<br/>your <span className="text-[#00B4D8]">ideas.</span>
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {lookupResult.ideas.map((idea, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: i * 0.15 }}
+                    className="border border-white/10 bg-[#0A0A0A] p-5"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-8 h-8 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center flex-shrink-0">
+                        <span className="font-mono text-xs text-[#00B4D8] font-bold">{String(i + 1).padStart(2, '0')}</span>
+                      </div>
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-[#00B4D8]">Idea {i + 1}</span>
+                    </div>
+                    <p className="text-neutral-300 text-sm leading-relaxed">{idea}</p>
+                  </motion.div>
+                ))}
+              </div>
+              <p className="text-neutral-500 text-sm italic text-center max-w-2xl mx-auto leading-relaxed">
+                These are just a springboard — feel free to go in a completely different direction. The most important thing is that your content feels organic to your page and genuinely reflects your experience with a product you love.
+              </p>
+            </motion.div>
+          )}
         </div>
       </section>
 
