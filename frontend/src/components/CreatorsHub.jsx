@@ -228,21 +228,13 @@ export default function CreatorsHub() {
               </motion.div>
             ))}
           </div>
-          <motion.p {...fadeUp} className="text-center text-neutral-500 text-sm mt-8 max-w-xl mx-auto">
-            All options are completely optional. Zero strings. Our priority is that you try these strips and they actually make a difference for you.
-          </motion.p>
-        </div>
-      </section>
 
-      {/* Custom Code Section */}
-      <section className="py-12 md:py-16 bg-[#0A0A0A]">
-        <div className="max-w-lg mx-auto px-6">
-          <motion.div {...fadeUp} className="text-center">
+          <motion.div {...fadeUp} className="mt-10 text-center max-w-lg mx-auto">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Your Card</p>
-            <p className="text-neutral-400 text-sm leading-relaxed mb-8">
+            <p className="text-neutral-400 text-sm leading-relaxed mb-6">
               Enter the custom code found on your card to receive your personalised content ideas.
             </p>
-            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6">
               <input
                 type="text"
                 placeholder="Enter your code"
@@ -257,6 +249,9 @@ export default function CreatorsHub() {
                 Submit
               </button>
             </form>
+            <p className="text-neutral-500 text-sm max-w-xl mx-auto">
+              All options are completely optional. Zero strings. Our priority is that you try these strips and they actually make a difference for you.
+            </p>
           </motion.div>
         </div>
       </section>
