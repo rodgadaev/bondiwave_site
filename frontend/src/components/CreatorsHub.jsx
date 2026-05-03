@@ -216,7 +216,7 @@ export default function CreatorsHub() {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {contentOptions.map((opt, i) => (
-              <motion.div key={i} {...stagger(i)} className="border border-white/10 p-6 bg-[#0A0A0A] flex flex-col">
+              <motion.div key={i} {...stagger(i)} className={`border border-white/10 p-6 bg-[#0A0A0A] flex flex-col ${i === 2 ? 'md:pb-6' : ''}`}>
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-12 h-12 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center">
                     <opt.icon className="w-6 h-6 text-[#00B4D8]" />
@@ -225,11 +225,41 @@ export default function CreatorsHub() {
                 </div>
                 <h3 className="font-heading text-xl font-bold uppercase mb-3">{opt.title}</h3>
                 <p className="text-neutral-400 text-sm leading-relaxed flex-1">{opt.desc}</p>
+                {/* Code box attached to UGC card on mobile */}
+                {i === 2 && (
+                  <div className="md:hidden mt-6 pt-6 border-t border-white/10">
+                    <div className="flex items-start gap-3 mb-4">
+                      <div className="flex-shrink-0 w-8 h-8 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center">
+                        <span className="font-mono text-[10px] text-[#00B4D8] font-bold">ID</span>
+                      </div>
+                      <div>
+                        <h4 className="font-heading text-sm font-bold uppercase">Unlock Your Brief</h4>
+                        <p className="text-neutral-500 text-xs leading-relaxed mt-0.5">Enter the code from your card for personalised content ideas.</p>
+                      </div>
+                    </div>
+                    <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
+                      <input
+                        type="text"
+                        placeholder="Enter code"
+                        className="flex-1 bg-[#050505] border border-white/10 text-white placeholder:text-neutral-600 focus:border-[#00B4D8] focus:outline-none py-3 px-3 font-mono text-sm uppercase tracking-wider"
+                        data-testid="creator-code-input-mobile"
+                      />
+                      <button
+                        type="submit"
+                        className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider text-xs px-4 py-3 hover:bg-white transition-colors flex-shrink-0"
+                        data-testid="creator-code-submit-mobile"
+                      >
+                        Submit
+                      </button>
+                    </form>
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>
 
-          <motion.div {...fadeUp} className="mt-10 max-w-md mx-auto">
+          {/* Desktop code box */}
+          <motion.div {...fadeUp} className="mt-10 max-w-md mx-auto hidden md:block">
             <div className="border border-white/10 bg-[#0A0A0A] p-6">
               <div className="flex items-start gap-4 mb-5">
                 <div className="flex-shrink-0 w-10 h-10 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center">
