@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "https://bondiwaveaustralia.com/*"
+  to = "https://bondiwave.com.au/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.bondiwaveaustralia.com/*"
+  to = "https://bondiwave.com.au/:splat"
+  status = 301
+  force = true
