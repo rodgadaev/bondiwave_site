@@ -276,42 +276,44 @@ export default function CreatorsHub() {
                 <p className="text-neutral-400 text-sm leading-relaxed flex-1">{opt.desc}</p>
                 {/* Code box attached to UGC card on mobile */}
                 {i === 2 && (
-                  <div className="md:hidden mt-6 pt-6 border-t border-white/10">
-                    <div className="flex items-start gap-3 mb-4">
-                      <div className="flex-shrink-0 w-8 h-8 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center">
-                        <span className="font-mono text-[10px] text-[#00B4D8] font-bold">ID</span>
+                  <div className="md:hidden mt-6 pt-6 border-t border-[#00B4D8]/30">
+                    <div className="bg-[#00B4D8] p-4">
+                      <div className="flex items-start gap-3 mb-4">
+                        <div className="flex-shrink-0 w-8 h-8 bg-black/20 flex items-center justify-center">
+                          <span className="font-mono text-[10px] text-white font-bold">ID</span>
+                        </div>
+                        <div>
+                          <h4 className="font-heading text-sm font-bold uppercase text-black">Unlock Your Brief</h4>
+                          <p className="text-black/60 text-xs leading-relaxed mt-0.5">Enter the code from your card for personalised content ideas.</p>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className="font-heading text-sm font-bold uppercase">Unlock Your Brief</h4>
-                        <p className="text-neutral-500 text-xs leading-relaxed mt-0.5">Enter the code from your card for personalised content ideas.</p>
-                      </div>
+                      {!lookupResult ? (
+                        <>
+                          <form onSubmit={handleCodeSubmit} className="flex gap-2">
+                            <input
+                              type="text"
+                              value={code}
+                              onChange={(e) => setCode(e.target.value)}
+                              placeholder="Enter code"
+                              className="flex-1 bg-black/20 border border-black/10 text-white placeholder:text-white/40 focus:border-white focus:outline-none py-3 px-3 font-mono text-sm uppercase tracking-wider"
+                              data-testid="creator-code-input-mobile"
+                              disabled={lookupLoading}
+                            />
+                            <button
+                              type="submit"
+                              disabled={lookupLoading}
+                              className="bg-black text-[#00B4D8] font-bold uppercase tracking-wider text-xs px-4 py-3 hover:bg-[#050505] transition-colors flex-shrink-0 disabled:opacity-50"
+                              data-testid="creator-code-submit-mobile"
+                            >
+                              {lookupLoading ? "..." : "Submit"}
+                            </button>
+                          </form>
+                          {lookupError && <p className="text-red-900 text-xs mt-3 font-bold">{lookupError}</p>}
+                        </>
+                      ) : (
+                        <p className="text-black text-xs font-mono uppercase tracking-wider font-bold">Brief unlocked below</p>
+                      )}
                     </div>
-                    {!lookupResult ? (
-                      <>
-                        <form onSubmit={handleCodeSubmit} className="flex gap-2">
-                          <input
-                            type="text"
-                            value={code}
-                            onChange={(e) => setCode(e.target.value)}
-                            placeholder="Enter code"
-                            className="flex-1 bg-[#050505] border border-white/10 text-white placeholder:text-neutral-600 focus:border-[#00B4D8] focus:outline-none py-3 px-3 font-mono text-sm uppercase tracking-wider"
-                            data-testid="creator-code-input-mobile"
-                            disabled={lookupLoading}
-                          />
-                          <button
-                            type="submit"
-                            disabled={lookupLoading}
-                            className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider text-xs px-4 py-3 hover:bg-white transition-colors flex-shrink-0 disabled:opacity-50"
-                            data-testid="creator-code-submit-mobile"
-                          >
-                            {lookupLoading ? "..." : "Submit"}
-                          </button>
-                        </form>
-                        {lookupError && <p className="text-red-400 text-xs mt-3">{lookupError}</p>}
-                      </>
-                    ) : (
-                      <p className="text-[#00B4D8] text-xs font-mono uppercase tracking-wider">Brief unlocked below</p>
-                    )}
                   </div>
                 )}
               </motion.div>
@@ -320,14 +322,14 @@ export default function CreatorsHub() {
 
           {/* Desktop code box */}
           <motion.div {...fadeUp} className="mt-10 max-w-md mx-auto hidden md:block">
-            <div className="border border-white/10 bg-[#0A0A0A] p-6">
+            <div className="bg-[#00B4D8] p-6">
               <div className="flex items-start gap-4 mb-5">
-                <div className="flex-shrink-0 w-10 h-10 bg-[#00B4D8]/10 border border-[#00B4D8]/20 flex items-center justify-center">
-                  <span className="font-mono text-xs text-[#00B4D8] font-bold">ID</span>
+                <div className="flex-shrink-0 w-10 h-10 bg-black/20 flex items-center justify-center">
+                  <span className="font-mono text-xs text-white font-bold">ID</span>
                 </div>
                 <div>
-                  <h3 className="font-heading text-base font-bold uppercase">Unlock Your Brief</h3>
-                  <p className="text-neutral-500 text-xs leading-relaxed mt-1">Enter the code from your card for personalised content ideas.</p>
+                  <h3 className="font-heading text-base font-bold uppercase text-black">Unlock Your Brief</h3>
+                  <p className="text-black/60 text-xs leading-relaxed mt-1">Enter the code from your card for personalised content ideas.</p>
                 </div>
               </div>
               {!lookupResult ? (
@@ -338,23 +340,23 @@ export default function CreatorsHub() {
                       value={code}
                       onChange={(e) => setCode(e.target.value)}
                       placeholder="Enter code"
-                      className="flex-1 bg-[#050505] border border-white/10 text-white placeholder:text-neutral-600 focus:border-[#00B4D8] focus:outline-none py-3 px-4 font-mono text-sm uppercase tracking-wider"
+                      className="flex-1 bg-black/20 border border-black/10 text-white placeholder:text-white/40 focus:border-white focus:outline-none py-3 px-4 font-mono text-sm uppercase tracking-wider"
                       data-testid="creator-code-input"
                       disabled={lookupLoading}
                     />
                     <button
                       type="submit"
                       disabled={lookupLoading}
-                      className="bg-[#00B4D8] text-black font-bold uppercase tracking-wider text-xs px-5 py-3 hover:bg-white transition-colors flex-shrink-0 disabled:opacity-50"
+                      className="bg-black text-[#00B4D8] font-bold uppercase tracking-wider text-xs px-5 py-3 hover:bg-[#050505] transition-colors flex-shrink-0 disabled:opacity-50"
                       data-testid="creator-code-submit"
                     >
                       {lookupLoading ? "..." : "Submit"}
                     </button>
                   </form>
-                  {lookupError && <p className="text-red-400 text-xs mt-3">{lookupError}</p>}
+                  {lookupError && <p className="text-red-900 text-xs mt-3 font-bold">{lookupError}</p>}
                 </>
               ) : (
-                <p className="text-[#00B4D8] text-xs font-mono uppercase tracking-wider">Brief unlocked below</p>
+                <p className="text-black text-xs font-mono uppercase tracking-wider font-bold">Brief unlocked below</p>
               )}
             </div>
             <p className="text-neutral-500 text-sm mt-6 text-center max-w-xl mx-auto">
