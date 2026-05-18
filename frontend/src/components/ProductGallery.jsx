@@ -11,40 +11,36 @@ export const ProductGallery = () => {
 
   const galleryImages = [
     {
-      src: "/images/MAIN IMAGE (17).webp",
-      alt: "Bondi Wave Nose Strips - Product Box & Strips"
-    },
-    {
-      src: "/images/MAIN IMAGE (11).webp",
-      alt: "Bondi Wave Nose Strips - Sweat Proof on Water"
-    },
-    {
-      src: "/images/6.webp",
-      alt: "Bondi Wave Nose Strips - Lifestyle"
-    },
-    {
       src: "/images/1.webp",
-      alt: "Bondi Wave - Increase Airflow by 35%"
+      alt: "Bondi Wave - How It Works"
     },
     {
       src: "/images/2.webp",
+      alt: "Bondi Wave - Move Faster, Train Longer"
+    },
+    {
+      src: "/images/3.webp",
+      alt: "Bondi Wave - Sweat, Rain, Shower & Sleep Proof"
+    },
+    {
+      src: "/images/4.webp",
       alt: "Bondi Wave vs Other Nose Strips"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/9uah00ir_3.webp",
-      alt: "Bondi Wave vs Other Nose Strips - Comparison"
+      src: "/images/5.webp",
+      alt: "Bondi Wave - Recover Faster, Sleep Deeper"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/vi0feag3_10.webp",
-      alt: "Bondi Wave - Increase Airflow by 35%"
+      src: "/images/6.webp",
+      alt: "Bondi Wave - Layer Technology"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/8hmytwxu_11.webp",
-      alt: "Bondi Wave - How To Apply"
+      src: "/images/7.webp",
+      alt: "Bondi Wave - 12 Hour Hold, Medical Grade Adhesive"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/hoq7qimk_9.webp",
-      alt: "Bondi Wave - Strip on Sand"
+      src: "/images/8.webp",
+      alt: "Bondi Wave - 30 Nasal Strips, 1 Month Supply"
     },
   ];
 
