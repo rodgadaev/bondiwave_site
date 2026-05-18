@@ -10,38 +10,14 @@ export const ProductGallery = () => {
   const thumbColumnRef = useRef(null);
 
   const galleryImages = [
-    {
-      src: "/images/1.webp",
-      alt: "Bondi Wave - How It Works"
-    },
-    {
-      src: "/images/2.webp",
-      alt: "Bondi Wave - Move Faster, Train Longer"
-    },
-    {
-      src: "/images/3.webp",
-      alt: "Bondi Wave - Sweat, Rain, Shower & Sleep Proof"
-    },
-    {
-      src: "/images/4.webp",
-      alt: "Bondi Wave vs Other Nose Strips"
-    },
-    {
-      src: "/images/5.webp",
-      alt: "Bondi Wave - Recover Faster, Sleep Deeper"
-    },
-    {
-      src: "/images/6.webp",
-      alt: "Bondi Wave - Layer Technology"
-    },
-    {
-      src: "/images/7.webp",
-      alt: "Bondi Wave - 12 Hour Hold, Medical Grade Adhesive"
-    },
-    {
-      src: "/images/8.webp",
-      alt: "Bondi Wave - 30 Nasal Strips, 1 Month Supply"
-    },
+    { src: "/images/carousel/1.webp", alt: "Bondi Wave - How It Works" },
+    { src: "/images/carousel/2.webp", alt: "Bondi Wave - Move Faster, Train Longer" },
+    { src: "/images/carousel/3.webp", alt: "Bondi Wave - Sweat, Rain, Shower & Sleep Proof" },
+    { src: "/images/carousel/4.webp", alt: "Bondi Wave vs Other Nose Strips" },
+    { src: "/images/carousel/5.webp", alt: "Bondi Wave - Recover Faster, Sleep Deeper" },
+    { src: "/images/carousel/6.webp", alt: "Bondi Wave - Layer Technology" },
+    { src: "/images/carousel/7.webp", alt: "Bondi Wave - 12 Hour Hold, Medical Grade Adhesive" },
+    { src: "/images/carousel/8.webp", alt: "Bondi Wave - 30 Nasal Strips, 1 Month Supply" },
   ];
 
   const bulletPoints = [

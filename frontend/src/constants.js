@@ -1,8 +1,8 @@
 // Brand Assets
 export const ASSETS = {
-  logo: "/images/bondi-wave-logo.svg",
-  heroProduct: "/images/BREATHE BETTER. (4).webp",
-  display1: "/images/BREAHTE FREELY - Display Cases.webp",
+  logo: "/images/transparent assets/bondi-wave-logo.svg",
+  heroProduct: "/images/transparent assets/BREATHE BETTER. (4).webp",
+  display1: "/images/transparent assets/BREAHTE FREELY - Display Cases.webp",
 };
 
 // Social Links

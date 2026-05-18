@@ -79,7 +79,7 @@ export const Benefits = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[80px] rounded-full scale-150" />
               <img 
-                src="/images/actual product image.webp"
+                src="/images/transparent assets/actual product image.webp"
                 alt="Bondi Wave Nose Strip"
                 className="relative z-10 w-64 md:w-80 drop-shadow-2xl"
                 data-testid="benefits-image"
@@ -134,7 +134,7 @@ export const Benefits = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-[#00B4D8]/20 blur-[80px] rounded-full scale-150" />
               <img 
-                src="/images/actual product image.webp"
+                src="/images/transparent assets/actual product image.webp"
                 alt="Bondi Wave Nose Strip"
                 className="relative z-10 w-64 drop-shadow-2xl"
                 loading="lazy"

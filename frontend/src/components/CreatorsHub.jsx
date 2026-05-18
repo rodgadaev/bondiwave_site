@@ -422,10 +422,10 @@ export default function CreatorsHub() {
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-6 text-center">Selfie Examples</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
               {[
-                { src: "/images/review-viktoria.png", alt: "Viktoria review" },
-                { src: "/images/review-hilda.png", alt: "Hilda review" },
-                { src: "/images/review-joey.png", alt: "Joey review" },
-                { src: "/images/review-rod.png", alt: "Rod review" },
+                { src: "/images/reviews/review-viktoria.webp", alt: "Viktoria review" },
+                { src: "/images/reviews/review-hilda.webp", alt: "Hilda review" },
+                { src: "/images/reviews/review-joey.webp", alt: "Joey review" },
+                { src: "/images/reviews/review-rod.webp", alt: "Rod review" },
               ].map((img, i) => (
                 <motion.div key={i} {...stagger(i)} className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8]">
                   <img src={img.src} alt={img.alt} className="w-full h-full object-cover" loading="lazy" />
@@ -505,7 +505,7 @@ export default function CreatorsHub() {
           <motion.div {...fadeUp} className="flex flex-col md:flex-row items-center gap-8 max-w-2xl mx-auto">
             <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-[3px] border-[#00B4D8] flex-shrink-0">
               <img
-                src="/images/rod-profile.jpg"
+                src="/images/creators hub assets/rod-profile.webp"
                 alt="Roderick Gadaev - Director"
                 className="w-full h-full object-cover"
               />
