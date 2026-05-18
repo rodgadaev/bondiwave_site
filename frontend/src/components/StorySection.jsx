@@ -17,11 +17,11 @@ export const StorySection = () => {
 
         <motion.div {...fadeUp} className="grid grid-cols-5 gap-3 md:gap-4 mb-8">
           {[
-            { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/73b5ntyx_video%201.mp4", alt: "Bondi Beach coastal" },
-            { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/8u09c6yi_%E2%9C%A8%20Bondi%20to%20Coogee%20Walk%20%E2%80%93%20Sydney%E2%80%99s%20Most%20Scenic%20Coastal%20Hike%21%20%E2%9C%A8%F0%9F%9A%B6_%E2%99%80%EF%B8%8F%206%20km%20-%20%F0%9F%8C%8A%20Breathtaking%20Views%20.mp4", alt: "Bondi to Coogee Walk" },
-            { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/obpwciku_POV%F0%9F%AB%80-%20You%E2%80%99re%20strolling%20along%20the%20picturesque%20coastal%20walk%20from%20Bronte%20to%20Ben%20Buckler%E2%80%99s%20Point%20in.mp4", alt: "Bronte to Ben Buckler POV" },
-            { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/955gy3x6_Muita%20sorte%20morar%20em%20um%20lugar%20que%20tem%20essas%20praias%20pertinho%20de%20casa%20e%20uma%20do%20lado%20da%20outra%2C%20com%20.mp4", alt: "Bondi Beach lifestyle" },
-            { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/4kt0nt6x_Welcome%20to%E2%80%A6This%20is%20the%20classic%20Bronte%20to%20Bondi%20costal%20walk%20in%20Sydney%20it%E2%80%99s%20one%20of%20the%20most%20iconic.mp4", alt: "Bronte to Bondi coastal walk" },
+            { src: "/videos/story-bondi-beach.mp4", alt: "Bondi Beach coastal" },
+            { src: "/videos/story-bondi-coogee.mp4", alt: "Bondi to Coogee Walk" },
+            { src: "/videos/story-bronte-buckler.mp4", alt: "Bronte to Ben Buckler POV" },
+            { src: "/videos/story-bondi-lifestyle.mp4", alt: "Bondi Beach lifestyle" },
+            { src: "/videos/story-bronte-bondi.mp4", alt: "Bronte to Bondi coastal walk" },
           ].map((video, i) => (
             <div key={i} className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16]">
               <video
