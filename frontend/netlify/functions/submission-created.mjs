@@ -1,65 +1,60 @@
 import { Resend } from 'resend';
 
-export default async (req, context) => {
+/**
+ * Netlify event-triggered function.
+ * The file name `submission-created` registers it to run automatically
+ * whenever a Netlify Form submission is verified. Uses the reliable
+ * legacy handler signature: the submission arrives as a JSON string in
+ * `event.body`, with the form fields under `payload.data`.
+ */
+export const handler = async (event) => {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
-    const { payload } = await req.json();
-    const { email, profile } = payload.data;
-    const formName = payload.form_name;
+    const { payload } = JSON.parse(event.body);
+    const email = payload?.data?.email;
+    const profile = payload?.data?.profile;
+    const formName = payload?.form_name;
 
     if (!email) {
-      console.error('No email address found in submission');
-      return new Response(JSON.stringify({ error: 'No email provided' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      console.error('submission-created: no email found in payload', payload?.data);
+      return { statusCode: 400, body: JSON.stringify({ error: 'No email provided' }) };
     }
 
-    // Determine which template to use based on form and profile
-    let templateId = 'welcome'; // Default for waitlist form
+    // Default (waitlist) template
+    let templateId = 'welcome';
     let subject = 'Welcome to Bondi Wave';
 
+    // Map the assessment profile (A/B/C) to its published Resend template
     if (formName === 'assessment' && profile) {
-      // Map profile to template ID
       const profileTemplates = {
-        'A': 'profile_a-2',
-        'B': 'profile_b',
-        'C': 'profile_c',
+        A: 'profile_a-2',
+        B: 'profile_b',
+        C: 'profile_c',
       };
       templateId = profileTemplates[profile] || 'welcome';
       subject = 'Your Breathing Profile Results - Bondi Wave';
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'Bondi Wave <hello@bondiwaveaustralia.com>',
+      from: 'Bondi Wave <hello@bondiwave.com.au>',
       to: email,
-      subject: subject,
+      subject,
       template: { id: templateId },
       headers: {
-        'List-Unsubscribe': '<{{{RESEND_UNSUBSCRIBE_URL}}}>',
-        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click'
+        'List-Unsubscribe': '<mailto:unsubscribe@bondiwave.com.au>',
       },
     });
 
     if (error) {
       console.error('Resend error:', error);
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
     }
 
-    console.log('Email sent successfully:', data);
-    return new Response(JSON.stringify({ success: true, data }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    console.log(`Email sent to ${email} using template "${templateId}":`, data);
+    return { statusCode: 200, body: JSON.stringify({ success: true, data }) };
   } catch (err) {
-    console.error('Function error:', err);
-    return new Response(JSON.stringify({ error: err.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    console.error('submission-created function error:', err);
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
 };

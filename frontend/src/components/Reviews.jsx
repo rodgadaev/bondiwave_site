@@ -1,4 +1,3 @@
-import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import { fadeUp } from "@/constants";
@@ -36,54 +35,6 @@ const reviewImages = [
 ];
 
 export const Reviews = () => {
-  const scrollRef = useRef(null);
-  const isUserScrolling = useRef(false);
-  const scrollTimeout = useRef(null);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    let animId;
-    let isProgrammaticScroll = false;
-    const speed = 0.8;
-
-    const autoScroll = () => {
-      if (!isUserScrolling.current && el) {
-        isProgrammaticScroll = true;
-        el.scrollLeft += speed;
-        isProgrammaticScroll = false;
-        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
-          el.scrollLeft = 0;
-        }
-      }
-      animId = requestAnimationFrame(autoScroll);
-    };
-
-    const pauseAutoScroll = () => {
-      if (isProgrammaticScroll) return;
-      isUserScrolling.current = true;
-      clearTimeout(scrollTimeout.current);
-      scrollTimeout.current = setTimeout(() => {
-        isUserScrolling.current = false;
-      }, 2000);
-    };
-
-    el.addEventListener('mousedown', pauseAutoScroll);
-    el.addEventListener('wheel', pauseAutoScroll);
-    el.addEventListener('touchstart', pauseAutoScroll);
-
-    animId = requestAnimationFrame(autoScroll);
-
-    return () => {
-      cancelAnimationFrame(animId);
-      clearTimeout(scrollTimeout.current);
-      el.removeEventListener('mousedown', pauseAutoScroll);
-      el.removeEventListener('wheel', pauseAutoScroll);
-      el.removeEventListener('touchstart', pauseAutoScroll);
-    };
-  }, []);
-
   return (
     <section className="py-8 md:py-10 bg-[#0A0A0A]" data-testid="reviews-section" itemScope itemType="https://schema.org/Product">
       <meta itemProp="name" content="Bondi Wave Premium Nasal Strips" />
@@ -104,15 +55,14 @@ export const Reviews = () => {
             <span className="font-mono text-sm text-neutral-400 ml-2">4.8 / 5</span>
           </div>
         </motion.div>
+      </div>
 
-        <div
-          ref={scrollRef}
-          className="flex gap-3 md:gap-4 overflow-x-auto pb-4 reviews-scroll cursor-grab active:cursor-grabbing"
-        >
-          {reviewImages.map((filename, i) => (
+      <div className="reviews-marquee w-full overflow-hidden px-6 md:px-12" data-testid="reviews-carousel">
+        <div className="animate-reviews-track flex w-max">
+          {[...reviewImages, ...reviewImages].map((filename, i) => (
             <div
               key={i}
-              className="w-[200px] md:w-[240px] flex-shrink-0 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16]"
+              className="w-[200px] md:w-[240px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16]"
               itemScope
               itemProp="review"
               itemType="https://schema.org/Review"
