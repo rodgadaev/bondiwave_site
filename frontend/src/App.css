@@ -140,22 +140,6 @@ a {
   100% { transform: translateX(-50%); }
 }
 
-/* Reviews auto-scrolling marquee (mobile-safe, CSS-driven) */
-.animate-reviews-track {
-  animation: reviews-slide 90s linear infinite;
-  will-change: transform;
-}
-
-.reviews-marquee:hover .animate-reviews-track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-reviews-track {
-    animation: none;
-  }
-}
-
 /* Staggered fade-in for benefit items */
 @keyframes fade-in-up {
   from {

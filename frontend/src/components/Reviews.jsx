@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, X } from "lucide-react";
 import { fadeUp } from "@/constants";
 
 const reviewImages = [
@@ -34,7 +35,111 @@ const reviewImages = [
   "review-zaide.webp",
 ];
 
+const label = (filename) => filename.replace("review-", "").replace(".webp", "");
+
 export const Reviews = () => {
+  const trackRef = useRef(null);
+  const offsetRef = useRef(0);
+  const halfRef = useRef(0);
+  const draggingRef = useRef(false);
+  const movedRef = useRef(false);
+  const startXRef = useRef(0);
+  const startOffsetRef = useRef(0);
+  const hoverRef = useRef(false);
+  const selectedRef = useRef(null);
+
+  const [selected, setSelected] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Auto-scroll engine (transform-based — reliable on mobile + desktop)
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const speed = reduce ? 0 : 0.6;
+
+    const computeHalf = () => {
+      const desktop = window.matchMedia("(min-width: 768px)").matches;
+      const cardW = desktop ? 240 : 200;
+      const gap = desktop ? 16 : 12;
+      halfRef.current = reviewImages.length * (cardW + gap);
+    };
+    computeHalf();
+    window.addEventListener("resize", computeHalf);
+
+    let raf;
+    const tick = () => {
+      const track = trackRef.current;
+      if (track) {
+        if (!draggingRef.current && !hoverRef.current && !selectedRef.current) {
+          offsetRef.current += speed;
+        }
+        const half = halfRef.current;
+        if (half > 0) {
+          if (offsetRef.current >= half) offsetRef.current -= half;
+          else if (offsetRef.current < 0) offsetRef.current += half;
+        }
+        track.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", computeHalf);
+    };
+  }, []);
+
+  // Close lightbox on Escape
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") closeModal();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selected]);
+
+  const openModal = (filename) => {
+    selectedRef.current = filename;
+    setSelected(filename);
+  };
+  const closeModal = () => {
+    selectedRef.current = null;
+    setSelected(null);
+  };
+
+  const onPointerDown = (e) => {
+    draggingRef.current = true;
+    movedRef.current = false;
+    startXRef.current = e.clientX;
+    startOffsetRef.current = offsetRef.current;
+    setIsDragging(true);
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+  };
+  const onPointerMove = (e) => {
+    if (!draggingRef.current) return;
+    const delta = e.clientX - startXRef.current;
+    if (Math.abs(delta) > 5) movedRef.current = true;
+    offsetRef.current = startOffsetRef.current - delta;
+  };
+  const onPointerUp = (e) => {
+    draggingRef.current = false;
+    setIsDragging(false);
+    e.currentTarget.releasePointerCapture?.(e.pointerId);
+    // Treat a no-move release as a tap → open the review under the pointer.
+    if (!movedRef.current) {
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      const card = el?.closest("[data-review]");
+      if (card) openModal(card.getAttribute("data-review"));
+    }
+  };
+
+  const onCardClick = (filename) => {
+    // Keyboard activation (Enter/Space) — pointer drags are ignored.
+    if (movedRef.current) return;
+    openModal(filename);
+  };
+
   return (
     <section className="py-8 md:py-10 bg-[#0A0A0A]" data-testid="reviews-section" itemScope itemType="https://schema.org/Product">
       <meta itemProp="name" content="Bondi Wave Premium Nasal Strips" />
@@ -57,28 +162,79 @@ export const Reviews = () => {
         </motion.div>
       </div>
 
-      <div className="reviews-marquee w-full overflow-hidden px-6 md:px-12" data-testid="reviews-carousel">
-        <div className="animate-reviews-track flex w-max">
+      <div
+        className={`reviews-viewport w-full overflow-hidden px-6 md:px-12 select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+        data-testid="reviews-carousel"
+        style={{ touchAction: "pan-y" }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+        onMouseEnter={() => { hoverRef.current = true; }}
+        onMouseLeave={() => { hoverRef.current = false; }}
+      >
+        <div ref={trackRef} className="flex w-max will-change-transform">
           {[...reviewImages, ...reviewImages].map((filename, i) => (
-            <div
+            <button
               key={i}
-              className="w-[200px] md:w-[240px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16]"
+              type="button"
+              data-review={filename}
+              onClick={() => onCardClick(filename)}
+              className="w-[200px] md:w-[240px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] block transition-transform duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#00B4D8]/60"
               itemScope
               itemProp="review"
               itemType="https://schema.org/Review"
               data-testid={`review-card-${i}`}
+              aria-label={`Enlarge customer review from ${label(filename)}`}
             >
               <img
                 src={`/images/reviews/${filename}`}
-                alt={`Customer review - ${filename.replace('review-', '').replace('.webp', '')}`}
-                className="w-full h-full object-cover"
+                alt={`Customer review - ${label(filename)}`}
+                className="w-full h-full object-cover pointer-events-none"
                 loading="lazy"
                 decoding="async"
+                draggable={false}
               />
-            </div>
+            </button>
           ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
+            onClick={closeModal}
+            data-testid="review-lightbox"
+          >
+            <button
+              type="button"
+              onClick={closeModal}
+              className="absolute top-5 right-5 text-white/80 hover:text-white transition-colors"
+              data-testid="review-lightbox-close"
+              aria-label="Close enlarged review"
+            >
+              <X size={28} />
+            </button>
+            <motion.img
+              key={selected}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 26 }}
+              src={`/images/reviews/${selected}`}
+              alt={`Customer review - ${label(selected)}`}
+              className="max-h-[88vh] w-auto rounded-xl border-[3px] border-[#00B4D8] object-contain"
+              onClick={(e) => e.stopPropagation()}
+              data-testid="review-lightbox-image"
+              draggable={false}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
