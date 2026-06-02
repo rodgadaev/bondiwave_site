@@ -465,7 +465,7 @@ export default function CreatorsHub() {
             <motion.div {...fadeUp}>
               <div className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16]">
                 <video
-                  src="/videos/how-to-apply.mp4"
+                 src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/bey3g113_how%20to%20apply.mp4#t=0.1"
                   controls
                   playsInline
                   preload="metadata"
