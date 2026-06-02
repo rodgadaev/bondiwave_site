@@ -80,6 +80,13 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - `/app/frontend/src/index.css` - Tailwind config
 - `/app/frontend/public/index.html` - Base HTML with preconnect/preload hints
 
+## Changelog
+### Feb 2026 (Fork session)
+- Synced preview pod to GitHub `main` branch (private repo, temporarily made public to pull). Copied 6 asset-migrated source files (Benefits, CreatorsHub, ProductGallery, SleepRecovery, StorySection, constants.js) + new public asset folders (`images/carousel`, `images/transparent assets`, `images/creators hub assets`, `images/reviews` x30, `videos/`).
+- VERIFIED (visual screenshots): main page hero + Reviews carousel render with local `/images/reviews/` photos; `/creators` Creators Hub loads with video player + content cards, 0 broken images.
+- KNOWN ISSUE: `/videos/how-to-apply.mp4` is only 2 bytes (empty/corrupt) in the GitHub repo itself — needs re-commit. Will render blank in Creators Hub "How to Apply" spot.
+- PENDING (awaiting user input): Resend email automation work — user wants to proceed but hasn't yet confirmed (a) Netlify vs FastAPI backend, (b) template authoring approach, (c) Resend API key + verified sender domain. Note: current Netlify function uses `template:{id}` which is NOT part of Resend's standard send API.
+
 ## Prioritized Backlog
 
 ### P1 (High Priority)

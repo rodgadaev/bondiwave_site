@@ -1,8 +1,8 @@
 // Brand Assets
 export const ASSETS = {
-  logo: "https://customer-assets.emergentagent.com/job_9cbd79b7-2ff2-4a5e-8fd4-1856bb9c0e0a/artifacts/9rfimotz_Bondi%20Wave%20Logo.svg",
-  heroProduct: "/images/BREATHE BETTER. (4).webp",
-  display1: "/images/BREAHTE FREELY - Display Cases.webp",
+  logo: "/images/transparent assets/bondi-wave-logo.svg",
+  heroProduct: "/images/transparent assets/BREATHE BETTER. (4).webp",
+  display1: "/images/transparent assets/BREAHTE FREELY - Display Cases.webp",
 };
 
 // Social Links

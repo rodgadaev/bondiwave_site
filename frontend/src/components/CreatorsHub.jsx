@@ -422,10 +422,10 @@ export default function CreatorsHub() {
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-6 text-center">Selfie Examples</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
               {[
-                { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/9d3qjg2f_viktoria%20review.png", alt: "Viktoria review" },
-                { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/uhirouvb_hilda%20review.png", alt: "Hilda review" },
-                { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/ny4bmom8_Joey%20review.png", alt: "Joey review" },
-                { src: "https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/8sw44fvo_Rod%20review.png", alt: "Rod review" },
+                { src: "/images/reviews/review-viktoria.webp", alt: "Viktoria review" },
+                { src: "/images/reviews/review-hilda.webp", alt: "Hilda review" },
+                { src: "/images/reviews/review-joey.webp", alt: "Joey review" },
+                { src: "/images/reviews/review-rod.webp", alt: "Rod review" },
               ].map((img, i) => (
                 <motion.div key={i} {...stagger(i)} className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8]">
                   <img src={img.src} alt={img.alt} className="w-full h-full object-cover" loading="lazy" />
@@ -439,7 +439,7 @@ export default function CreatorsHub() {
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00B4D8] mb-6 text-center">Review Video Example</p>
             <div className="max-w-sm mx-auto rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16]">
               <video
-                src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/39196nf4_joey%20review%20video.MP4#t=0.1"
+                src="/videos/review-joey.mp4"
                 controls
                 playsInline
                 preload="metadata"
@@ -465,7 +465,7 @@ export default function CreatorsHub() {
             <motion.div {...fadeUp}>
               <div className="rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16]">
                 <video
-                  src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/bey3g113_how%20to%20apply.mp4#t=0.1"
+                  src="/videos/how-to-apply.mp4"
                   controls
                   playsInline
                   preload="metadata"
@@ -505,7 +505,7 @@ export default function CreatorsHub() {
           <motion.div {...fadeUp} className="flex flex-col md:flex-row items-center gap-8 max-w-2xl mx-auto">
             <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-[3px] border-[#00B4D8] flex-shrink-0">
               <img
-                src="https://customer-assets.emergentagent.com/job_afa1f63c-426b-4bce-8438-0d015601c035/artifacts/09fxseh4_000008%20%286%29.jpg"
+                src="/images/creators hub assets/rod-profile.webp"
                 alt="Roderick Gadaev - Director"
                 className="w-full h-full object-cover"
               />
