@@ -37,12 +37,12 @@ export const handler = async (event) => {
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'Bondi Wave <hello@bondiwaveaustralia.com>',
+      from: 'Bondi Wave <hello@bondiwave.com.au>',
       to: email,
       subject,
       template: { id: templateId },
       headers: {
-        'List-Unsubscribe': '<mailto:unsubscribe@bondiwaveaustralia.com>',
+        'List-Unsubscribe': '<mailto:unsubscribe@bondiwave.com.au>',
       },
     });
 
