@@ -11,7 +11,6 @@ import { ProductGallery } from "@/components/ProductGallery";
 import { StorySection } from "@/components/StorySection";
 import { Benefits } from "@/components/Benefits";
 import { ProductShowcase } from "@/components/ProductShowcase";
-import { SleepRecovery } from "@/components/SleepRecovery";
 import { FAQ } from "@/components/FAQ";
 import { Reviews } from "@/components/Reviews";
 import { EmailSignup } from "@/components/EmailSignup";
@@ -44,9 +43,8 @@ function App() {
       <StorySection />
       <Benefits />
       <ProductShowcase />
-      <SleepRecovery />
-      <FAQ />
       <Reviews />
+      <FAQ />
       <EmailSignup />
       <Footer />
     </div>
