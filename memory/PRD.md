@@ -81,6 +81,16 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - `/app/frontend/public/index.html` - Base HTML with preconnect/preload hints
 
 ## Changelog
+### Feb 2026 (Fork session — part 4)
+- Reviews carousel: added wheel/two-finger trackpad scrubbing — native non-passive `wheel` listener on the viewport translates dominant-axis delta (vertical OR horizontal) into horizontal scrub + `preventDefault` (only while pointer is over the carousel). Verified: vertical wheel moved 720px, horizontal trackpad 600px.
+- Lightbox: added prev/next arrow buttons (ChevronLeft/Right) + ArrowLeft/ArrowRight keyboard nav to browse review-to-review without closing. Index-based state (`data-index` on cards, wraps modulo 29). data-testids: review-lightbox-prev, review-lightbox-next. Verified open→next→prev cycles correctly.
+- USER CONFIRMED: CreatorsHub how-to-apply actioned; Resend now working + templates updated; GitHub integration functional.
+
+### Feb 2026 (Fork session — part 3)
+- Reviews carousel upgraded to a JS transform-based engine (`Reviews.jsx`): keeps auto-scroll (reliable mobile + desktop), adds desktop click-and-drag scrubbing via Pointer Events (pointer capture + `touch-action: pan-y`), pauses on hover/drag/modal-open. Removed the now-unused `.animate-reviews-track` CSS block.
+- Added click-to-enlarge lightbox: tapping/clicking a review opens a Framer Motion modal with the enlarged 9:16 image so the small testimonial text is readable. Tap-vs-drag disambiguation via a 5px move threshold; lightbox opened from `onPointerUp` using `elementFromPoint` (pointer capture swallows the card click). Closes via X button, Escape, or backdrop click. data-testids: reviews-carousel, review-card-N, review-lightbox, review-lightbox-image, review-lightbox-close.
+- VERIFIED (Playwright, desktop 1920px): auto-scroll moves; drag scrubs exactly the dragged distance; drag does NOT open lightbox; tap opens readable lightbox; all 3 close paths work.
+
 ### Feb 2026 (Fork session — part 2)
 - Reviews carousel: replaced JS `requestAnimationFrame` scrollLeft auto-scroll (was STATIC on mobile) with a CSS keyframe marquee (`animate-reviews-track` / `reviews-slide`, duplicated list, `mr` spacing for seamless loop, pause-on-hover, reduced-motion safe). Verified animating on 390px mobile viewport (moved 166px/2s).
 - CreatorsHub `how-to-apply` video: pointed to Emergent-hosted URL (customer-assets... bey3g113_how%20to%20apply.mp4#t=0.1, returns 200) per user request — kept off GitHub.
