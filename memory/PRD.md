@@ -81,7 +81,14 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - `/app/frontend/public/index.html` - Base HTML with preconnect/preload hints
 
 ## Changelog
-### Feb 2026 (Fork session)
+### Feb 2026 (Fork session — part 2)
+- Reviews carousel: replaced JS `requestAnimationFrame` scrollLeft auto-scroll (was STATIC on mobile) with a CSS keyframe marquee (`animate-reviews-track` / `reviews-slide`, duplicated list, `mr` spacing for seamless loop, pause-on-hover, reduced-motion safe). Verified animating on 390px mobile viewport (moved 166px/2s).
+- CreatorsHub `how-to-apply` video: pointed to Emergent-hosted URL (customer-assets... bey3g113_how%20to%20apply.mp4#t=0.1, returns 200) per user request — kept off GitHub.
+- Email function (`netlify/functions/submission-created.mjs`): rewrote from unreliable v2 `export default` (no `config` event subscription) to the proven legacy `export const handler` pattern reading `JSON.parse(event.body).payload.data`. Kept valid `template:{id}` send (resend@6.9.1 supports it; discount codes are hard-coded inside the user's published Resend templates). Replaced broken `{{{RESEND_UNSUBSCRIBE_URL}}}` List-Unsubscribe placeholder with a valid mailto header.
+- EMAIL ROOT CAUSE (diagnosed): code was structurally fine EXCEPT the v2 handler hybrid (now fixed). Remaining user-side blockers: (1) verify sender domain `bondiwaveaustralia.com` in Resend → Domains (status unknown to user), (2) RESEND_API_KEY already set in Netlify per user. NOT testable in Emergent preview — Netlify Forms + functions only run on Netlify production.
+- NOTE: All part-2 code edits live only in the Emergent preview. User must "Save to GitHub" so Netlify auto-deploys them to production.
+
+### Feb 2026 (Fork session — part 1)
 - Synced preview pod to GitHub `main` branch (private repo, temporarily made public to pull). Copied 6 asset-migrated source files (Benefits, CreatorsHub, ProductGallery, SleepRecovery, StorySection, constants.js) + new public asset folders (`images/carousel`, `images/transparent assets`, `images/creators hub assets`, `images/reviews` x30, `videos/`).
 - VERIFIED (visual screenshots): main page hero + Reviews carousel render with local `/images/reviews/` photos; `/creators` Creators Hub loads with video player + content cards, 0 broken images.
 - KNOWN ISSUE: `/videos/how-to-apply.mp4` is only 2 bytes (empty/corrupt) in the GitHub repo itself — needs re-commit. Will render blank in Creators Hub "How to Apply" spot.
