@@ -218,8 +218,8 @@ export const ProductGallery = () => {
             </a>
 
             <div className="pt-1" data-testid="payment-methods">
-              <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-neutral-500 text-center mb-3">
-                Secure Checkout — We Accept
+              <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-neutral-500 text-center mb-1.5">
+                Secure Checkout
               </p>
               <img
                 src="/images/transparent assets/credit card logos.webp"
