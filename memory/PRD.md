@@ -81,6 +81,9 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - `/app/frontend/public/index.html` - Base HTML with preconnect/preload hints
 
 ## Changelog
+### Feb 2026 (Fork session — part 5)
+- "The Details" section (`ProductGallery.jsx`): added a "Secure Checkout — We Accept" payment-logos strip below the Shop on Amazon button using user-uploaded `/images/transparent assets/credit card logos.webp` (Visa, Mastercard, Amex, Apple Pay, Google Pay; transparent 4000×1429). Centered, max-w-280px, opacity-80 → 100 on hover. data-testid: payment-methods / payment-logos. Verified rendering. Asset pulled from temporarily-public GitHub repo.
+
 ### Feb 2026 (Fork session — part 4)
 - Reviews carousel: added wheel/two-finger trackpad scrubbing — native non-passive `wheel` listener on the viewport translates dominant-axis delta (vertical OR horizontal) into horizontal scrub + `preventDefault` (only while pointer is over the carousel). Verified: vertical wheel moved 720px, horizontal trackpad 600px.
 - Lightbox: added prev/next arrow buttons (ChevronLeft/Right) + ArrowLeft/ArrowRight keyboard nav to browse review-to-review without closing. Index-based state (`data-index` on cards, wraps modulo 29). data-testids: review-lightbox-prev, review-lightbox-next. Verified open→next→prev cycles correctly.

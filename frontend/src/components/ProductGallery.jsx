@@ -216,6 +216,20 @@ export const ProductGallery = () => {
               Shop on Amazon
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </a>
+
+            <div className="pt-1" data-testid="payment-methods">
+              <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-neutral-500 text-center mb-3">
+                Secure Checkout — We Accept
+              </p>
+              <img
+                src="/images/transparent assets/credit card logos.webp"
+                alt="Accepted payment methods: Visa, Mastercard, American Express, Apple Pay and Google Pay"
+                className="w-full max-w-[280px] mx-auto opacity-80 hover:opacity-100 transition-opacity duration-300"
+                loading="lazy"
+                decoding="async"
+                data-testid="payment-logos"
+              />
+            </div>
           </motion.div>
         </div>
       </div>
