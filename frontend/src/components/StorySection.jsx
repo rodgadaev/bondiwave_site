@@ -3,7 +3,7 @@ import { fadeUp } from "@/constants";
 
 export const StorySection = () => {
   return (
-    <section className="py-8 md:py-10 bg-[#0A0A0A]" data-testid="story-section">
+    <section className="pt-4 md:pt-5 pb-8 md:pb-10 bg-[#0A0A0A]" data-testid="story-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div {...fadeUp} className="text-center mb-8">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Our Origin</p>
