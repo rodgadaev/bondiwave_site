@@ -55,9 +55,8 @@ export const StorySection = () => {
   const startXRef = useRef(0);
   const startOffsetRef = useRef(0);
   const offsetRef = useRef(0);
-  const maxRef = useRef(0);
+  const halfRef = useRef(0);
   const hoverRef = useRef(false);
-  const interactRef = useRef(0);
   const openRef = useRef(false);
   const [isDragging, setIsDragging] = useState(false);
   const [index, setIndex] = useState(null); // lightbox index or null
@@ -78,8 +77,9 @@ export const StorySection = () => {
   const prev = useCallback(() => setIndex((i) => (i === null ? i : (i - 1 + REELN) % REELN)), []);
   const next = useCallback(() => setIndex((i) => (i === null ? i : (i + 1) % REELN)), []);
 
-  // Auto-rotation via GPU transform (smooth on mobile) + wheel scrub.
-  // Loops back to the first reel at the end. Pauses on hover/drag/interaction/lightbox.
+  // Auto-rotation via GPU transform + wheel/drag scrubbing with a seamless
+  // infinite loop (duplicated track + wrap), identical to the Reviews carousel.
+  // Pauses on hover / drag / lightbox open.
   useEffect(() => {
     const vp = viewportRef.current;
     const track = trackRef.current;
@@ -87,34 +87,41 @@ export const StorySection = () => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const speed = reduce ? 0 : 0.3;
 
-    const computeMax = () => { maxRef.current = Math.max(0, track.scrollWidth - vp.clientWidth); };
-    const clamp = (o) => {
-      const max = maxRef.current;
-      return o < 0 ? 0 : (max > 0 && o > max ? max : o);
+    const computeHalf = () => {
+      const md = window.matchMedia("(min-width: 768px)").matches;
+      const sm = window.matchMedia("(min-width: 640px)").matches;
+      const cardW = md ? 220 : sm ? 180 : 150;
+      const gap = md ? 16 : 12;
+      halfRef.current = REELN * (cardW + gap);
     };
-    computeMax();
-    window.addEventListener("resize", computeMax);
+    computeHalf();
+    window.addEventListener("resize", computeHalf);
+
+    const wrap = () => {
+      const half = halfRef.current;
+      if (half > 0) {
+        if (offsetRef.current >= half) offsetRef.current -= half;
+        else if (offsetRef.current < 0) offsetRef.current += half;
+      }
+    };
 
     const onWheel = (e) => {
+      if (openRef.current) return;
       const absX = Math.abs(e.deltaX);
       const absY = Math.abs(e.deltaY);
       const delta = absX > absY ? e.deltaX : e.deltaY;
-      if (!delta) return;
-      offsetRef.current = clamp(offsetRef.current + delta);
-      interactRef.current = Date.now() + 1500;
+      if (delta === 0) return;
+      offsetRef.current += delta;
+      wrap();
       e.preventDefault();
     };
     vp.addEventListener("wheel", onWheel, { passive: false });
 
     let raf;
     const tick = () => {
-      if (maxRef.current <= 0) computeMax();
-      const max = maxRef.current;
-      const paused = hoverRef.current || draggingRef.current || openRef.current || Date.now() < interactRef.current;
-      if (!paused && max > 0 && speed > 0) {
-        offsetRef.current += speed;
-        if (offsetRef.current >= max) offsetRef.current = 0; // endless loop back to first
-      }
+      const paused = hoverRef.current || draggingRef.current || openRef.current;
+      if (!paused && speed > 0) offsetRef.current += speed;
+      wrap();
       track.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
       raf = requestAnimationFrame(tick);
     };
@@ -122,7 +129,7 @@ export const StorySection = () => {
 
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("resize", computeMax);
+      window.removeEventListener("resize", computeHalf);
       vp.removeEventListener("wheel", onWheel);
     };
   }, []);
@@ -177,16 +184,12 @@ export const StorySection = () => {
     if (!draggingRef.current) return;
     const dx = e.clientX - startXRef.current;
     if (Math.abs(dx) > 5) movedRef.current = true;
-    const max = maxRef.current;
-    let o = startOffsetRef.current - dx;
-    o = o < 0 ? 0 : (max > 0 && o > max ? max : o);
-    offsetRef.current = o;
+    offsetRef.current = startOffsetRef.current - dx;
   };
   const finishDrag = (e, allowTap) => {
     if (!draggingRef.current) return;
     draggingRef.current = false;
     setIsDragging(false);
-    interactRef.current = Date.now() + 1500;
     viewportRef.current.releasePointerCapture?.(e.pointerId);
     if (!allowTap || movedRef.current) return; // drag or cancelled gesture → not a tap
     const el = document.elementFromPoint(e.clientX, e.clientY);
@@ -200,16 +203,6 @@ export const StorySection = () => {
   };
   const onPointerUp = (e) => finishDrag(e, true);
   const onPointerCancel = (e) => finishDrag(e, false);
-
-  const scrollByCards = (dir) => {
-    const vp = viewportRef.current;
-    if (!vp) return;
-    const max = maxRef.current;
-    let o = offsetRef.current + dir * vp.clientWidth * 0.8;
-    o = o < 0 ? 0 : (max > 0 && o > max ? max : o);
-    offsetRef.current = o;
-    interactRef.current = Date.now() + 1500;
-  };
 
   return (
     <section className="pt-4 md:pt-5 pb-8 md:pb-10 bg-[#0A0A0A]" data-testid="story-section">
@@ -247,65 +240,50 @@ export const StorySection = () => {
           </div>
         </motion.div>
 
-        {/* UGC reels carousel */}
-        <motion.div {...fadeUp} className="relative mb-8" data-testid="reels-carousel">
-          <button
-            type="button"
-            onClick={() => scrollByCards(-1)}
-            className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-[#00B4D8] border border-white/20 text-white items-center justify-center transition-colors"
-            data-testid="reels-prev"
-            aria-label="Previous reels"
-          >
-            <ChevronLeft size={24} />
-          </button>
+      </div>
 
-          <div
-            ref={viewportRef}
-            className={`overflow-hidden select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
-            style={{ touchAction: "pan-y" }}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerCancel={onPointerCancel}
-            onMouseEnter={() => { hoverRef.current = true; }}
-            onMouseLeave={() => { hoverRef.current = false; }}
-          >
-            <div ref={trackRef} className="flex gap-3 md:gap-4 w-max will-change-transform">
-              {reels.map((reel, i) => (
-                <div
-                  key={i}
-                  data-reel-index={i}
-                  className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
-                  data-testid={`reel-${i}`}
-                >
-                  <video
-                    data-reel
-                    src={reel.src}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
-                    className="w-full h-full object-cover pointer-events-none"
-                    aria-label={`Reel from @${reel.handle}`}
-                  />
-                  <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
-                </div>
-              ))}
-            </div>
-          </div>
+      {/* UGC reels carousel — full-bleed, seamless infinite loop (matches Reviews) */}
+      <div
+        ref={viewportRef}
+        className={`w-full overflow-hidden px-6 md:px-12 select-none mb-8 ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+        data-testid="reels-carousel"
+        style={{ touchAction: "pan-y" }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerCancel}
+        onMouseEnter={() => { hoverRef.current = true; }}
+        onMouseLeave={() => { hoverRef.current = false; }}
+      >
+        <div ref={trackRef} className="flex w-max will-change-transform">
+          {[...reels, ...reels].map((reel, i) => {
+            const realIndex = i % REELN;
+            return (
+              <div
+                key={i}
+                data-reel-index={realIndex}
+                className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
+                data-testid={`reel-${i}`}
+              >
+                <video
+                  data-reel
+                  src={reel.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full object-cover pointer-events-none"
+                  aria-label={`Reel from @${reel.handle}`}
+                />
+                <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
-          <button
-            type="button"
-            onClick={() => scrollByCards(1)}
-            className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-[#00B4D8] border border-white/20 text-white items-center justify-center transition-colors"
-            data-testid="reels-next"
-            aria-label="Next reels"
-          >
-            <ChevronRight size={24} />
-          </button>
-        </motion.div>
-
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div {...fadeUp} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           <div className="bg-[#050505] border border-white/5 rounded-lg p-6 text-center">
             <div className="font-heading text-3xl font-bold text-[#00B4D8] mb-2">2.5km</div>
