@@ -10,6 +10,7 @@ import { DeliveryBanner } from "@/components/DeliveryBanner";
 import { ProductGallery } from "@/components/ProductGallery";
 import { StorySection } from "@/components/StorySection";
 import { Benefits } from "@/components/Benefits";
+import { HowToApply } from "@/components/HowToApply";
 import { ProductShowcase } from "@/components/ProductShowcase";
 import { FAQ } from "@/components/FAQ";
 import { Reviews } from "@/components/Reviews";
@@ -42,6 +43,7 @@ function App() {
       <ProductGallery />
       <StorySection />
       <Benefits />
+      <HowToApply />
       <ProductShowcase />
       <Reviews />
       <FAQ />
