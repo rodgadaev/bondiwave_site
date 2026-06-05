@@ -10,6 +10,7 @@ import { DeliveryBanner } from "@/components/DeliveryBanner";
 import { ProductGallery } from "@/components/ProductGallery";
 import { StorySection } from "@/components/StorySection";
 import { Benefits } from "@/components/Benefits";
+import { HowToApply } from "@/components/HowToApply";
 import { ProductShowcase } from "@/components/ProductShowcase";
 import { FAQ } from "@/components/FAQ";
 import { Reviews } from "@/components/Reviews";
@@ -42,6 +43,10 @@ function App() {
       <ProductGallery />
       <StorySection />
       <Benefits />
+      <HowToApply />
+      <div className="bg-[#050505]" data-testid="how-product-divider">
+        <div className="h-0.5 bg-[#00B4D8]" />
+      </div>
       <ProductShowcase />
       <Reviews />
       <FAQ />

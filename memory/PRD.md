@@ -81,6 +81,14 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - `/app/frontend/public/index.html` - Base HTML with preconnect/preload hints
 
 ## Changelog
+### Feb 2026 (Fork session — part 10)
+- New `HowToApply.jsx` section inserted after the Science section (Benefits) in App.js. Three 4:5 (1080x1350) blue-bordered rounded containers side by side, no headers. Center = Cloudinary how-to-apply video (mov→mp4) behind a cover PNG + cyan play button; left = yoga PNG, right = crouching PNG.
+- On play: center video reveals in place and ENLARGES (flex-grow transition, not a popup); left image → Step 1 & 2 boxes, right image → Step 3/4/5 boxes. Steps cycle blue 1→5 on a 1.5s loop (matching Features.jsx active-box style: bg-[#00B4D8]). Video autoplays with sound (muted=false on the click gesture) + native controls for scrub/mute.
+- Responsive: matchMedia(max-width:767px) toggles a mobile layout (3-image teaser row → on play, full-width video + 5 stacked step boxes) vs the desktop flanking layout (single video element, no double-audio). VERIFIED: play button, images load, video + 5 steps appear, blue cycle loops.
+
+### Feb 2026 (Fork session — part 9)
+- Reels carousel rebuilt from native `scrollLeft` animation to a GPU-composited `translate3d` transform engine to fix mobile jank (scrollLeft animation runs on the main thread → janky framerate on phones; transforms are GPU-accelerated). Viewport is `overflow-hidden` with an inner translated track; offset accumulates as a float, loops back to 0 at max. Drag/wheel/arrows now mutate the transform offset (clamped); touch handled via Pointer Events with `touch-action: pan-y` (vertical page scroll preserved) and a separate `pointercancel` path so a vertical-scroll gesture doesn't false-trigger the tap-to-open. Hover-pause + interaction debounce retained. Tap-to-open lightbox + IG-bubble link still via elementFromPoint. Verified: smooth transform advance (53px/3s), hover pause, tap open/close.
+
 ### Feb 2026 (Fork session — part 8)
 - Reels carousel: added very slow auto-rotation (~0.3px/frame, rAF accumulates float pos to avoid mobile scrollLeft-rounding stall) that loops back to the first at the end (posRef resets to 0 at max). Pauses on hover (desktop), during drag/wheel/arrow (interactRef debounce ~1.5s), touch (2.5s), and while lightbox open. Verified: slow advance, hover-pause=0, loop-back works.
 - Stat card: "1M+ Yearly visitors..." → "200+" with blurb "A community growing rapidly — from Bondi, to Sydney, to all of Australia and beyond. And we're only just getting started."

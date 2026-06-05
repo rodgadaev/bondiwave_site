@@ -48,12 +48,14 @@ const HandleBubble = ({ handle, testid }) => (
 
 export const StorySection = () => {
   const viewportRef = useRef(null);
+  const trackRef = useRef(null);
   const lightboxVideoRef = useRef(null);
   const draggingRef = useRef(false);
   const movedRef = useRef(false);
   const startXRef = useRef(0);
-  const startScrollRef = useRef(0);
-  const posRef = useRef(0);
+  const startOffsetRef = useRef(0);
+  const offsetRef = useRef(0);
+  const maxRef = useRef(0);
   const hoverRef = useRef(false);
   const interactRef = useRef(0);
   const openRef = useRef(false);
@@ -76,45 +78,53 @@ export const StorySection = () => {
   const prev = useCallback(() => setIndex((i) => (i === null ? i : (i - 1 + REELN) % REELN)), []);
   const next = useCallback(() => setIndex((i) => (i === null ? i : (i + 1) % REELN)), []);
 
-  // Wheel / two-finger trackpad → horizontal scrub (native non-passive listener)
+  // Auto-rotation via GPU transform (smooth on mobile) + wheel scrub.
+  // Loops back to the first reel at the end. Pauses on hover/drag/interaction/lightbox.
   useEffect(() => {
     const vp = viewportRef.current;
-    if (!vp) return;
+    const track = trackRef.current;
+    if (!vp || !track) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const speed = reduce ? 0 : 0.3;
+
+    const computeMax = () => { maxRef.current = Math.max(0, track.scrollWidth - vp.clientWidth); };
+    const clamp = (o) => {
+      const max = maxRef.current;
+      return o < 0 ? 0 : (max > 0 && o > max ? max : o);
+    };
+    computeMax();
+    window.addEventListener("resize", computeMax);
+
     const onWheel = (e) => {
       const absX = Math.abs(e.deltaX);
       const absY = Math.abs(e.deltaY);
       const delta = absX > absY ? e.deltaX : e.deltaY;
       if (!delta) return;
-      vp.scrollLeft += delta;
+      offsetRef.current = clamp(offsetRef.current + delta);
       interactRef.current = Date.now() + 1500;
       e.preventDefault();
     };
     vp.addEventListener("wheel", onWheel, { passive: false });
-    return () => vp.removeEventListener("wheel", onWheel);
-  }, []);
 
-  // Very slow auto-rotation that loops back to the first at the end
-  useEffect(() => {
-    const vp = viewportRef.current;
-    if (!vp) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const speed = reduce ? 0 : 0.3;
     let raf;
     const tick = () => {
-      const max = vp.scrollWidth - vp.clientWidth;
-      const paused =
-        hoverRef.current || draggingRef.current || openRef.current || Date.now() < interactRef.current;
-      if (paused || max <= 0 || speed === 0) {
-        posRef.current = vp.scrollLeft;
-      } else {
-        posRef.current += speed;
-        if (posRef.current >= max) posRef.current = 0; // endless loop back to first
-        vp.scrollLeft = posRef.current;
+      if (maxRef.current <= 0) computeMax();
+      const max = maxRef.current;
+      const paused = hoverRef.current || draggingRef.current || openRef.current || Date.now() < interactRef.current;
+      if (!paused && max > 0 && speed > 0) {
+        offsetRef.current += speed;
+        if (offsetRef.current >= max) offsetRef.current = 0; // endless loop back to first
       }
+      track.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", computeMax);
+      vp.removeEventListener("wheel", onWheel);
+    };
   }, []);
 
   // Only play reels that are visible (keeps it smooth with many videos)
@@ -156,11 +166,10 @@ export const StorySection = () => {
   }, [index, pauseReels, close, prev, next]);
 
   const onPointerDown = (e) => {
-    if (e.pointerType !== "mouse") return; // touch uses native scroll
     draggingRef.current = true;
     movedRef.current = false;
     startXRef.current = e.clientX;
-    startScrollRef.current = viewportRef.current.scrollLeft;
+    startOffsetRef.current = offsetRef.current;
     setIsDragging(true);
     viewportRef.current.setPointerCapture?.(e.pointerId);
   };
@@ -168,16 +177,18 @@ export const StorySection = () => {
     if (!draggingRef.current) return;
     const dx = e.clientX - startXRef.current;
     if (Math.abs(dx) > 5) movedRef.current = true;
-    viewportRef.current.scrollLeft = startScrollRef.current - dx;
-    interactRef.current = Date.now() + 1500;
+    const max = maxRef.current;
+    let o = startOffsetRef.current - dx;
+    o = o < 0 ? 0 : (max > 0 && o > max ? max : o);
+    offsetRef.current = o;
   };
-  const onPointerUp = (e) => {
+  const finishDrag = (e, allowTap) => {
     if (!draggingRef.current) return;
     draggingRef.current = false;
     setIsDragging(false);
     interactRef.current = Date.now() + 1500;
     viewportRef.current.releasePointerCapture?.(e.pointerId);
-    if (movedRef.current) return; // it was a drag, not a tap
+    if (!allowTap || movedRef.current) return; // drag or cancelled gesture → not a tap
     const el = document.elementFromPoint(e.clientX, e.clientY);
     const ig = el?.closest("[data-ig]");
     if (ig) {
@@ -187,13 +198,17 @@ export const StorySection = () => {
     const tile = el?.closest("[data-reel-index]");
     if (tile) openLightbox(Number(tile.getAttribute("data-reel-index")));
   };
+  const onPointerUp = (e) => finishDrag(e, true);
+  const onPointerCancel = (e) => finishDrag(e, false);
 
   const scrollByCards = (dir) => {
     const vp = viewportRef.current;
-    if (vp) {
-      interactRef.current = Date.now() + 1500;
-      vp.scrollBy({ left: vp.clientWidth * 0.8 * dir, behavior: "smooth" });
-    }
+    if (!vp) return;
+    const max = maxRef.current;
+    let o = offsetRef.current + dir * vp.clientWidth * 0.8;
+    o = o < 0 ? 0 : (max > 0 && o > max ? max : o);
+    offsetRef.current = o;
+    interactRef.current = Date.now() + 1500;
   };
 
   return (
@@ -246,38 +261,38 @@ export const StorySection = () => {
 
           <div
             ref={viewportRef}
-            className={`reels-scroll flex gap-3 md:gap-4 overflow-x-auto pb-1 select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+            className={`overflow-hidden select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+            style={{ touchAction: "pan-y" }}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
-            onPointerCancel={onPointerUp}
+            onPointerCancel={onPointerCancel}
             onMouseEnter={() => { hoverRef.current = true; }}
             onMouseLeave={() => { hoverRef.current = false; }}
-            onTouchStart={() => { interactRef.current = Date.now() + 2500; }}
-            onTouchMove={() => { interactRef.current = Date.now() + 2500; }}
           >
-            {reels.map((reel, i) => (
-              <div
-                key={i}
-                data-reel-index={i}
-                onClick={() => { if (!movedRef.current) openLightbox(i); }}
-                className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
-                data-testid={`reel-${i}`}
-              >
-                <video
-                  data-reel
-                  src={reel.src}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-full object-cover pointer-events-none"
-                  aria-label={`Reel from @${reel.handle}`}
-                />
-                <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
-              </div>
-            ))}
+            <div ref={trackRef} className="flex gap-3 md:gap-4 w-max will-change-transform">
+              {reels.map((reel, i) => (
+                <div
+                  key={i}
+                  data-reel-index={i}
+                  className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
+                  data-testid={`reel-${i}`}
+                >
+                  <video
+                    data-reel
+                    src={reel.src}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="w-full h-full object-cover pointer-events-none"
+                    aria-label={`Reel from @${reel.handle}`}
+                  />
+                  <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
+                </div>
+              ))}
+            </div>
           </div>
 
           <button
