@@ -53,6 +53,10 @@ export const StorySection = () => {
   const movedRef = useRef(false);
   const startXRef = useRef(0);
   const startScrollRef = useRef(0);
+  const posRef = useRef(0);
+  const hoverRef = useRef(false);
+  const interactRef = useRef(0);
+  const openRef = useRef(false);
   const [isDragging, setIsDragging] = useState(false);
   const [index, setIndex] = useState(null); // lightbox index or null
 
@@ -63,8 +67,9 @@ export const StorySection = () => {
     viewportRef.current?.querySelectorAll("video[data-reel]").forEach((v) => v.play?.().catch(() => {}));
   }, []);
 
-  const openLightbox = useCallback((i) => setIndex(i), []);
+  const openLightbox = useCallback((i) => { openRef.current = true; setIndex(i); }, []);
   const close = useCallback(() => {
+    openRef.current = false;
     setIndex(null);
     playVisibleReels();
   }, [playVisibleReels]);
@@ -81,10 +86,35 @@ export const StorySection = () => {
       const delta = absX > absY ? e.deltaX : e.deltaY;
       if (!delta) return;
       vp.scrollLeft += delta;
+      interactRef.current = Date.now() + 1500;
       e.preventDefault();
     };
     vp.addEventListener("wheel", onWheel, { passive: false });
     return () => vp.removeEventListener("wheel", onWheel);
+  }, []);
+
+  // Very slow auto-rotation that loops back to the first at the end
+  useEffect(() => {
+    const vp = viewportRef.current;
+    if (!vp) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const speed = reduce ? 0 : 0.3;
+    let raf;
+    const tick = () => {
+      const max = vp.scrollWidth - vp.clientWidth;
+      const paused =
+        hoverRef.current || draggingRef.current || openRef.current || Date.now() < interactRef.current;
+      if (paused || max <= 0 || speed === 0) {
+        posRef.current = vp.scrollLeft;
+      } else {
+        posRef.current += speed;
+        if (posRef.current >= max) posRef.current = 0; // endless loop back to first
+        vp.scrollLeft = posRef.current;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   // Only play reels that are visible (keeps it smooth with many videos)
@@ -139,11 +169,13 @@ export const StorySection = () => {
     const dx = e.clientX - startXRef.current;
     if (Math.abs(dx) > 5) movedRef.current = true;
     viewportRef.current.scrollLeft = startScrollRef.current - dx;
+    interactRef.current = Date.now() + 1500;
   };
   const onPointerUp = (e) => {
     if (!draggingRef.current) return;
     draggingRef.current = false;
     setIsDragging(false);
+    interactRef.current = Date.now() + 1500;
     viewportRef.current.releasePointerCapture?.(e.pointerId);
     if (movedRef.current) return; // it was a drag, not a tap
     const el = document.elementFromPoint(e.clientX, e.clientY);
@@ -158,7 +190,10 @@ export const StorySection = () => {
 
   const scrollByCards = (dir) => {
     const vp = viewportRef.current;
-    if (vp) vp.scrollBy({ left: vp.clientWidth * 0.8 * dir, behavior: "smooth" });
+    if (vp) {
+      interactRef.current = Date.now() + 1500;
+      vp.scrollBy({ left: vp.clientWidth * 0.8 * dir, behavior: "smooth" });
+    }
   };
 
   return (
@@ -216,6 +251,10 @@ export const StorySection = () => {
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
             onPointerCancel={onPointerUp}
+            onMouseEnter={() => { hoverRef.current = true; }}
+            onMouseLeave={() => { hoverRef.current = false; }}
+            onTouchStart={() => { interactRef.current = Date.now() + 2500; }}
+            onTouchMove={() => { interactRef.current = Date.now() + 2500; }}
           >
             {reels.map((reel, i) => (
               <div
@@ -260,9 +299,9 @@ export const StorySection = () => {
             </p>
           </div>
           <div className="bg-[#050505] border border-white/5 rounded-lg p-6 text-center">
-            <div className="font-heading text-3xl font-bold text-[#00B4D8] mb-2">1M+</div>
+            <div className="font-heading text-3xl font-bold text-[#00B4D8] mb-2">200+</div>
             <p className="text-neutral-400 text-sm">
-              Yearly visitors to Bondi Beach, one of the world's most famous stretches of coastline and our home.
+              A community growing rapidly — from Bondi, to Sydney, to all of Australia and beyond. And we're only just getting started.
             </p>
           </div>
           <div className="bg-[#050505] border border-white/5 rounded-lg p-6 text-center">

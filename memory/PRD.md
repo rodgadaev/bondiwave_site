@@ -81,6 +81,10 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - `/app/frontend/public/index.html` - Base HTML with preconnect/preload hints
 
 ## Changelog
+### Feb 2026 (Fork session — part 8)
+- Reels carousel: added very slow auto-rotation (~0.3px/frame, rAF accumulates float pos to avoid mobile scrollLeft-rounding stall) that loops back to the first at the end (posRef resets to 0 at max). Pauses on hover (desktop), during drag/wheel/arrow (interactRef debounce ~1.5s), touch (2.5s), and while lightbox open. Verified: slow advance, hover-pause=0, loop-back works.
+- Stat card: "1M+ Yearly visitors..." → "200+" with blurb "A community growing rapidly — from Bondi, to Sydney, to all of Australia and beyond. And we're only just getting started."
+
 ### Feb 2026 (Fork session — part 7)
 - StorySection reels populated with 18 Cloudinary UGC creator videos (the one `.mov`/HEVC source served as `.mp4` for browser support). Each tile has a transparent-blue Instagram handle bubble (bottom-left) linking to instagram.com/<handle> (handles parsed from URL before `-UGC_`).
 - Added a video lightbox: click a reel to enlarge (9:16) with prev/next arrows + ←/→ keys; opens with sound auto-unmuted (muted=false + play() on open) and native `controls` for scrub + remute; closes via X / backdrop / Escape. Main carousel tiles autoplay muted; only visible reels play (IntersectionObserver); lightbox pauses carousel while open.
