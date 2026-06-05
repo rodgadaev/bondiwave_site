@@ -135,6 +135,16 @@ a {
   -ms-overflow-style: none;
 }
 
+/* Reels horizontal carousel - hide scrollbar */
+.reels-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.reels-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
 @keyframes reviews-slide {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
