@@ -33,8 +33,8 @@ const StepBox = ({ n, text, active, testid, className = "" }) => (
   </div>
 );
 
-const Frame = ({ children, className = "" }) => (
-  <div className={`relative w-full aspect-[4/5] rounded-2xl border-[3px] border-[#00B4D8] overflow-hidden bg-black ${className}`}>
+const Frame = ({ children, className = "", aspect = "aspect-[4/5]" }) => (
+  <div className={`relative w-full ${aspect} rounded-2xl border-[3px] border-[#00B4D8] overflow-hidden bg-black transition-[aspect-ratio] duration-700 ease-in-out ${className}`}>
     {children}
   </div>
 );
@@ -46,8 +46,8 @@ const PlayButton = ({ onClick, testid, size = "lg" }) => (
     data-testid={testid}
     aria-label="Play how to apply video"
   >
-    <span className={`${size === "lg" ? "w-16 h-16 md:w-20 md:h-20" : "w-10 h-10"} rounded-full bg-[#00B4D8]/90 group-hover:bg-[#00B4D8] flex items-center justify-center shadow-xl transition-all duration-300 group-hover:scale-110`}>
-      <Play className={`${size === "lg" ? "w-7 h-7 md:w-9 md:h-9 ml-1" : "w-5 h-5 ml-0.5"} text-white fill-white`} />
+    <span className={`${size === "lg" ? "w-11 h-11 md:w-12 md:h-12" : "w-9 h-9"} rounded-full bg-white/70 group-hover:bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-xl transition-all duration-300 group-hover:scale-110`}>
+      <Play className={`${size === "lg" ? "w-4 h-4 md:w-5 md:h-5 ml-0.5" : "w-4 h-4 ml-0.5"} text-[#00B4D8] fill-[#00B4D8]`} />
     </span>
   </button>
 );
@@ -116,7 +116,7 @@ export const HowToApply = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                <Frame className="rounded-xl border-[3px]">{VideoEl}</Frame>
+                <Frame className="rounded-xl border-[3px]" aspect="aspect-[9/16]">{VideoEl}</Frame>
                 <div className="space-y-3">
                   {steps.map((t, i) => (
                     <StepBox key={i} n={i + 1} text={t} active={activeStep === i} testid={`how-step-${i + 1}`} />
@@ -152,7 +152,7 @@ export const HowToApply = () => {
               style={{ flexGrow: started ? 1.9 : 1.2, flexBasis: 0 }}
               data-testid="how-center"
             >
-              <Frame>
+              <Frame aspect={started ? "aspect-[9/16]" : "aspect-[4/5]"}>
                 {!started ? (
                   <>
                     <img src={COVER} alt="How to apply Bondi Wave" className="w-full h-full object-cover" loading="lazy" />

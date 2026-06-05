@@ -44,6 +44,11 @@ function App() {
       <StorySection />
       <Benefits />
       <HowToApply />
+      <div className="bg-[#050505]" data-testid="how-product-divider">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="h-0.5 bg-[#00B4D8]" />
+        </div>
+      </div>
       <ProductShowcase />
       <Reviews />
       <FAQ />
