@@ -108,6 +108,14 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - HowToApply.jsx & CreatorsHub.jsx (review-joey): local mp4 + poster; review video set `preload="none"`.
 - Removed 5 orphaned/dead `story-*.mp4` files (~26MB) from public/videos (0 code refs).
 - VERIFIED via curl: all videos `video/mp4` + 206 range; posters `image/jpeg`; frontend compiled. Visual H.264 playback NOT verifiable in headless Chromium — USER MUST VERIFY ON REAL MOBILE/iOS.
+- QUALITY RE-ENCODE (same session, after user feedback "compressed videos terrible quality / thumbnails stretched / 1s black on open"):
+  - Root cause of stretched thumbnails: several source reels were ANAMORPHIC (non-square SAR, e.g. coded 720x540 / SAR 27:64 / DAR 9:16). `<video>` applies SAR and looks right, but JPEG posters have no SAR → showed the squished coded frame. Also my first pass scaled the *coded* width, quartering effective resolution on anamorphic clips → mushy.
+  - Fix: re-encoded all from originals with `scale=trunc(iw*sar/2)*2:ih,setsar=1` (bake SAR → square pixels), portrait capped to <=1920 tall, CRF 21, preset medium, lanczos. Reels now 606x1080 / 720x1280 / 1080x1920. Posters regenerated FROM the corrected square-pixel videos → no more stretch (verified portrait poster dims match video).
+  - review-joey.mp4 original (23.6MB) recovered from git history, re-encoded 1080x1920 CRF21.
+  - Background re-encoded smaller (960x410, CRF30, 25fps, ~4.9MB) since it autoplays on page load and sits behind a 55% black overlay — keeps initial load fast.
+  - Black-screen-on-open fix: lightbox + how-to render the (cached) poster as an absolutely-positioned `<img>` BEHIND the `<video>`; video paints over it once decoded → no black gap. `preload="auto"` + `+faststart` + byte-range so playback starts before full download.
+  - Total /public/videos ~189MB, but initial page load only fetches bg (4.9MB) + reel posters (~1MB); reels stream on tap. NOTE: video/poster filenames unchanged, so users may need one hard-refresh to see the new high-quality assets (browser cache).
+
 
 
 ### Feb 2026 (Fork session — part 6)

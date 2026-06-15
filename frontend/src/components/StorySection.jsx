@@ -107,6 +107,12 @@ const LightboxVideo = ({ src, poster, innerRef }) => {
 
   return (
     <div style={{ position: "relative", height: "88vh", aspectRatio: "9 / 16", overflow: "hidden", borderRadius: "0.75rem", border: "3px solid #00B4D8", background: "#000" }}>
+      <img
+        src={poster}
+        alt=""
+        aria-hidden="true"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+      />
       <video
         ref={innerRef}
         src={src}
@@ -116,7 +122,7 @@ const LightboxVideo = ({ src, poster, innerRef }) => {
         playsInline
         preload="auto"
         data-testid="reel-lightbox-video"
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        style={{ position: "absolute", inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
       />
       <button
         type="button"

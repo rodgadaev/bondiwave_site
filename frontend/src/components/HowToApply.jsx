@@ -96,7 +96,13 @@ export const HowToApply = () => {
   };
 
   const VideoEl = (
-    <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 16", overflow: "hidden" }}>
+    <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 16", overflow: "hidden", background: "#000" }}>
+      <img
+        src={VIDEO_POSTER}
+        alt=""
+        aria-hidden="true"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+      />
       <video
         ref={videoRef}
         src={VIDEO}
@@ -107,7 +113,7 @@ export const HowToApply = () => {
         playsInline
         preload="auto"
         data-testid="how-video"
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        style={{ position: "absolute", inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
       />
       <button
         type="button"
