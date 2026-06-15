@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { fadeUp } from "@/constants";
 
-const VIDEO = "https://ik.imagekit.io/bondiwave/How%20To%20Apply%20section/how%20to%20apply.mp4/ik-video.mp4?updatedAt=1781482893293";
+const VIDEO = "https://player.vimeo.com/video/1201275764?background=1&autoplay=1&loop=1&muted=1";
 const COVER = "https://ik.imagekit.io/bondiwave/How%20To%20Apply%20section/how_to_apply_cover_qne8bh.png?updatedAt=1781482990540";
-const LEFT_IMG = "https://ik.imagekit.io/bondiwave/How%20To%20Apply%20section/female-editorial-static.png?updatedAt=1781482990560";
-const RIGHT_IMG = "https://ik.imagekit.io/bondiwave/How%20To%20Apply%20section/male-editorial-static.png?updatedAt=1781482989380";
+const LEFT_IMG = "/images/how to apply/yoga 4x5.png";
+const RIGHT_IMG = "/images/how to apply/crouching 4x5.png";
 
 const steps = [
   "Wash face and nose with cleanser",
@@ -82,14 +82,11 @@ export const HowToApply = () => {
   }, [started]);
 
   const VideoEl = (
-    <video
+    <iframe
       ref={videoRef}
       src={VIDEO}
-      poster={COVER}
-      autoPlay
-      controls
-      loop
-      playsInline
+      frameBorder="0"
+      allow="autoplay; fullscreen"
       className="w-full h-full object-cover"
       data-testid="how-video"
     />

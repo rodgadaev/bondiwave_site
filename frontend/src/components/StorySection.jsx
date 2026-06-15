@@ -4,29 +4,28 @@ import { ChevronLeft, ChevronRight, X, Instagram } from "lucide-react";
 import { fadeUp } from "@/constants";
 
 // Background video for the heading band (1980x817 — wide/thin Bondi Beach clip)
-const BG_VIDEO_MP4 = "https://res.cloudinary.com/db7phqm4y/video/upload/v1780626135/bondi_beach_video_mqiepg.mp4";
-const BG_VIDEO_MOV = "https://ik.imagekit.io/bondiwave/bondi%20beach%20video/bondi%20beach%20video.mov/ik-video.mp4?updatedAt=1781482763733";
+const BG_VIDEO = "https://player.vimeo.com/video/1201275131?background=1&autoplay=1&loop=1&muted=1";
 
 // UGC creator reels — { src, handle }. The .mov original is served as .mp4 for browser support.
 const reels = [
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/benzingtens-UGC.mp4?updatedAt=1781482413564", handle: "benzingtens" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/aliciajane_e-UGC.mp4?updatedAt=1781482526409", handle: "aliciajane_e" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/dane.stewart_UGC.mp4?updatedAt=1781482400889", handle: "dane.stewart" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/chantelleoffical_-UGC.mp4?updatedAt=1781482394520", handle: "chantelleoffical_" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/b1ll_cheese-UGC.MP4?updatedAt=1781482511157", handle: "b1ll_cheese" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/samantha_rowney-UGC.MP4?updatedAt=1781482517495", handle: "samantha_rowney" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/joey.robson-UGC.MP4?updatedAt=1781482518549", handle: "joey.robson" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/just_zavier-UGC.MP4?updatedAt=1781482498736", handle: "just_zavier" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/maddischmierer-UGC.MP4?updatedAt=1781482512967", handle: "maddischmierer" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/jordansavic-UGC.MP4?updatedAt=1781482507258", handle: "jordansavic" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/flynn.fitness-UGC.MP4?updatedAt=1781482445721", handle: "flynn.fitness" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/skinbyjason-UGC.mp4?updatedAt=1781482410124", handle: "skinbyjason" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/calithekid_-UGC.mp4?updatedAt=1781482401628", handle: "calithekid_" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/michaelatkinson_-UGC.mp4?updatedAt=1781482401615", handle: "michaelatkinson_" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/guillermocristiandias-UGC.MP4?updatedAt=1781482478838", handle: "guillermocristiandias" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/itsyahomiejacob-UGC.MP4?updatedAt=1781482451429", handle: "itsyahomiejacob" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/nickl30068-UGC.MP4?updatedAt=1781482528973", handle: "nickl30068" },
-  { src: "https://ik.imagekit.io/bondiwave/bondiwave%20UGC/mnimoniquee-UGC.mov/ik-video.mp4?updatedAt=1781482505693", handle: "mnimoniquee" },
+  { src: "https://player.vimeo.com/video/1201272952?h=7eb1fc6d9f&background=1&autoplay=1&loop=1&muted=1", handle: "benzingtens" },
+  { src: "https://player.vimeo.com/video/1201272954?h=6ce80cd54e&background=1&autoplay=1&loop=1&muted=1", handle: "aliciajane_e" },
+  { src: "https://player.vimeo.com/video/1201273179?h=5b36fb870c&background=1&autoplay=1&loop=1&muted=1", handle: "dane.stewart" },
+  { src: "https://player.vimeo.com/video/1201273187?h=707979a8a8&background=1&autoplay=1&loop=1&muted=1", handle: "chantelleoffical_" },
+  { src: "https://player.vimeo.com/video/1201273217?h=5229d487ac&background=1&autoplay=1&loop=1&muted=1", handle: "b1ll_cheese" },
+  { src: "https://player.vimeo.com/video/1201273214?h=844695dc1e&background=1&autoplay=1&loop=1&muted=1", handle: "samantha_rowney" },
+  { src: "https://player.vimeo.com/video/1201272955?h=186833be72&background=1&autoplay=1&loop=1&muted=1", handle: "joey.robson" },
+  { src: "https://player.vimeo.com/video/1201273204?h=733d35154a&background=1&autoplay=1&loop=1&muted=1", handle: "just_zavier" },
+  { src: "https://player.vimeo.com/video/1201273168?h=9c81476efb&background=1&autoplay=1&loop=1&muted=1", handle: "maddischmierer" },
+  { src: "https://player.vimeo.com/video/1201273258?h=3e23746aa7&background=1&autoplay=1&loop=1&muted=1", handle: "jordansavic" },
+  { src: "https://player.vimeo.com/video/1201273129?h=431e9ffa28&background=1&autoplay=1&loop=1&muted=1", handle: "flynn.fitness" },
+  { src: "https://player.vimeo.com/video/1201273186?h=c8c06fda5c&background=1&autoplay=1&loop=1&muted=1", handle: "skinbyjason" },
+  { src: "https://player.vimeo.com/video/1201273088?h=617fb9ba6c&background=1&autoplay=1&loop=1&muted=1", handle: "calithekid_" },
+  { src: "https://player.vimeo.com/video/1201273195?h=1a0cae0150&background=1&autoplay=1&loop=1&muted=1", handle: "michaelatkinson_" },
+  { src: "https://player.vimeo.com/video/1201272982?h=0382eb3e90&background=1&autoplay=1&loop=1&muted=1", handle: "guillermocristiandias" },
+  { src: "https://player.vimeo.com/video/1201273120?h=e2b539048f&background=1&autoplay=1&loop=1&muted=1", handle: "itsyahomiejacob" },
+  { src: "https://player.vimeo.com/video/1201272951?h=44eab30e4b&background=1&autoplay=1&loop=1&muted=1", handle: "nickl30068" },
+  { src: "https://player.vimeo.com/video/1201273308?h=045346ed19&background=1&autoplay=1&loop=1&muted=1", handle: "mnimoniquee" },
 ];
 const REELN = reels.length;
 const igUrl = (handle) => `https://www.instagram.com/${handle}`;
@@ -213,19 +212,14 @@ export const StorySection = () => {
           className="relative overflow-hidden rounded-2xl border border-white/10 mb-8"
           data-testid="story-hero"
         >
-          <video
+          <iframe
             className="absolute inset-0 w-full h-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
+            src={BG_VIDEO}
+            frameBorder="0"
+            allow="autoplay; fullscreen"
             aria-hidden="true"
             data-testid="story-bg-video"
-          >
-            <source src={BG_VIDEO_MP4} type="video/mp4" />
-            <source src={BG_VIDEO_MOV} type="video/quicktime" />
-          </video>
+          />
           <div className="absolute inset-0 bg-black/55" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/40" />
 
@@ -265,14 +259,11 @@ export const StorySection = () => {
                 className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
                 data-testid={`reel-${i}`}
               >
-                <video
+                <iframe
                   data-reel
                   src={reel.src}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen"
                   className="w-full h-full object-cover pointer-events-none"
                   aria-label={`Reel from @${reel.handle}`}
                 />
@@ -346,13 +337,11 @@ export const StorySection = () => {
               className="relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <video
+              <iframe
                 ref={lightboxVideoRef}
                 src={reels[index].src}
-                controls
-                autoPlay
-                loop
-                playsInline
+                frameBorder="0"
+                allow="autoplay; fullscreen"
                 className="max-h-[88vh] w-auto rounded-xl border-[3px] border-[#00B4D8] object-contain bg-black"
                 data-testid="reel-lightbox-video"
               />
@@ -374,3 +363,4 @@ export const StorySection = () => {
     </section>
   );
 };
+
