@@ -5,28 +5,28 @@ import Player from "@vimeo/player";
 import { fadeUp } from "@/constants";
 
 // Background video for the heading band (1980x817 — wide/thin Bondi Beach clip)
-const BG_VIDEO = "https://player.vimeo.com/video/1201275131?background=1&autoplay=1&loop=1&muted=1";
+const BG_VIDEO = "https://player.vimeo.com/video/1201275131?background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0";
 
 // UGC creator reels — { src, handle }. The .mov original is served as .mp4 for browser support.
 const reels = [
-  { src: "https://player.vimeo.com/video/1201272952?h=7eb1fc6d9f&background=1&autoplay=1&loop=1&muted=1", handle: "benzingtens" },
-  { src: "https://player.vimeo.com/video/1201272954?h=6ce80cd54e&background=1&autoplay=1&loop=1&muted=1", handle: "aliciajane_e" },
-  { src: "https://player.vimeo.com/video/1201273179?h=5b36fb870c&background=1&autoplay=1&loop=1&muted=1", handle: "dane.stewart" },
-  { src: "https://player.vimeo.com/video/1201273187?h=707979a8a8&background=1&autoplay=1&loop=1&muted=1", handle: "chantelleoffical_" },
-  { src: "https://player.vimeo.com/video/1201273217?h=5229d487ac&background=1&autoplay=1&loop=1&muted=1", handle: "b1ll_cheese" },
-  { src: "https://player.vimeo.com/video/1201273214?h=844695dc1e&background=1&autoplay=1&loop=1&muted=1", handle: "samantha_rowney" },
-  { src: "https://player.vimeo.com/video/1201272955?h=186833be72&background=1&autoplay=1&loop=1&muted=1", handle: "joey.robson" },
-  { src: "https://player.vimeo.com/video/1201273204?h=733d35154a&background=1&autoplay=1&loop=1&muted=1", handle: "just_zavier" },
-  { src: "https://player.vimeo.com/video/1201273168?h=9c81476efb&background=1&autoplay=1&loop=1&muted=1", handle: "maddischmierer" },
-  { src: "https://player.vimeo.com/video/1201273258?h=3e23746aa7&background=1&autoplay=1&loop=1&muted=1", handle: "jordansavic" },
-  { src: "https://player.vimeo.com/video/1201273129?h=431e9ffa28&background=1&autoplay=1&loop=1&muted=1", handle: "flynn.fitness" },
-  { src: "https://player.vimeo.com/video/1201273186?h=c8c06fda5c&background=1&autoplay=1&loop=1&muted=1", handle: "skinbyjason" },
-  { src: "https://player.vimeo.com/video/1201273088?h=617fb9ba6c&background=1&autoplay=1&loop=1&muted=1", handle: "calithekid_" },
-  { src: "https://player.vimeo.com/video/1201273195?h=1a0cae0150&background=1&autoplay=1&loop=1&muted=1", handle: "michaelatkinson_" },
-  { src: "https://player.vimeo.com/video/1201272982?h=0382eb3e90&background=1&autoplay=1&loop=1&muted=1", handle: "guillermocristiandias" },
-  { src: "https://player.vimeo.com/video/1201273120?h=e2b539048f&background=1&autoplay=1&loop=1&muted=1", handle: "itsyahomiejacob" },
-  { src: "https://player.vimeo.com/video/1201272951?h=44eab30e4b&background=1&autoplay=1&loop=1&muted=1", handle: "nickl30068" },
-  { src: "https://player.vimeo.com/video/1201273308?h=045346ed19&background=1&autoplay=1&loop=1&muted=1", handle: "mnimoniquee" },
+  { src: "https://player.vimeo.com/video/1201272952?h=7eb1fc6d9f&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "benzingtens" },
+  { src: "https://player.vimeo.com/video/1201272954?h=6ce80cd54e&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "aliciajane_e" },
+  { src: "https://player.vimeo.com/video/1201273179?h=5b36fb870c&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "dane.stewart" },
+  { src: "https://player.vimeo.com/video/1201273187?h=707979a8a8&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "chantelleoffical_" },
+  { src: "https://player.vimeo.com/video/1201273217?h=5229d487ac&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "b1ll_cheese" },
+  { src: "https://player.vimeo.com/video/1201273214?h=844695dc1e&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "samantha_rowney" },
+  { src: "https://player.vimeo.com/video/1201272955?h=186833be72&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "joey.robson" },
+  { src: "https://player.vimeo.com/video/1201273204?h=733d35154a&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "just_zavier" },
+  { src: "https://player.vimeo.com/video/1201273168?h=9c81476efb&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "maddischmierer" },
+  { src: "https://player.vimeo.com/video/1201273258?h=3e23746aa7&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "jordansavic" },
+  { src: "https://player.vimeo.com/video/1201273129?h=431e9ffa28&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "flynn.fitness" },
+  { src: "https://player.vimeo.com/video/1201273186?h=c8c06fda5c&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "skinbyjason" },
+  { src: "https://player.vimeo.com/video/1201273088?h=617fb9ba6c&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "calithekid_" },
+  { src: "https://player.vimeo.com/video/1201273195?h=1a0cae0150&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "michaelatkinson_" },
+  { src: "https://player.vimeo.com/video/1201272982?h=0382eb3e90&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "guillermocristiandias" },
+  { src: "https://player.vimeo.com/video/1201273120?h=e2b539048f&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "itsyahomiejacob" },
+  { src: "https://player.vimeo.com/video/1201272951?h=44eab30e4b&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "nickl30068" },
+  { src: "https://player.vimeo.com/video/1201273308?h=045346ed19&background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0", handle: "mnimoniquee" },
 ];
 const REELN = reels.length;
 const igUrl = (handle) => `https://www.instagram.com/${handle}`;
@@ -84,7 +84,8 @@ const ReelTile = ({ reel, i, realIndex, preload }) => {
           data-reel
           src={reel.src}
           frameBorder="0"
-          allow="autoplay; fullscreen"
+          allow="autoplay; fullscreen; picture-in-picture; playsinline"
+          allowFullScreen={true}
           className="w-full h-full object-cover pointer-events-none"
           aria-label={`Reel from @${reel.handle}`}
         />
@@ -135,7 +136,8 @@ const LightboxVideo = ({ src, innerRef }) => {
         ref={innerRef}
         src={src}
         frameBorder="0"
-        allow="autoplay; fullscreen"
+        allow="autoplay; fullscreen; picture-in-picture; playsinline"
+        allowFullScreen={true}
         data-testid="reel-lightbox-video"
         style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", height: "100%", width: "316.05%", border: "none" }}
       />
@@ -319,7 +321,8 @@ export const StorySection = () => {
             <iframe
               src={BG_VIDEO}
               frameBorder="0"
-              allow="autoplay; fullscreen"
+              allow="autoplay; fullscreen; picture-in-picture; playsinline"
+              allowFullScreen={true}
               data-testid="story-bg-video"
               style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "177.78cqh", height: "56.25cqw", minWidth: "100%", minHeight: "100%", border: "none" }}
             />
