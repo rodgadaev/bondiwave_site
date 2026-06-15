@@ -212,14 +212,15 @@ export const StorySection = () => {
           className="relative overflow-hidden rounded-2xl border border-white/10 mb-8"
           data-testid="story-hero"
         >
-          <iframe
-            className="absolute inset-0 w-full h-full object-cover"
-            src={BG_VIDEO}
-            frameBorder="0"
-            allow="autoplay; fullscreen"
-            aria-hidden="true"
-            data-testid="story-bg-video"
-          />
+          <div className="absolute inset-0 overflow-hidden" style={{ containerType: "size" }} aria-hidden="true">
+            <iframe
+              src={BG_VIDEO}
+              frameBorder="0"
+              allow="autoplay; fullscreen"
+              data-testid="story-bg-video"
+              style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "177.78cqh", height: "56.25cqw", minWidth: "100%", minHeight: "100%", border: "none" }}
+            />
+          </div>
           <div className="absolute inset-0 bg-black/55" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/40" />
 
