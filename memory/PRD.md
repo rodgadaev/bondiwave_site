@@ -115,6 +115,12 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
   - Background re-encoded smaller (960x410, CRF30, 25fps, ~4.9MB) since it autoplays on page load and sits behind a 55% black overlay — keeps initial load fast.
   - Black-screen-on-open fix: lightbox + how-to render the (cached) poster as an absolutely-positioned `<img>` BEHIND the `<video>`; video paints over it once decoded → no black gap. `preload="auto"` + `+faststart` + byte-range so playback starts before full download.
   - Total /public/videos ~189MB, but initial page load only fetches bg (4.9MB) + reel posters (~1MB); reels stream on tap. NOTE: video/poster filenames unchanged, so users may need one hard-refresh to see the new high-quality assets (browser cache).
+- MOBILE LOAD PERF (same session, user: "hero text/buttons load in slow on mobile; Our Origin bg video slow + doesn't autoplay every time; overall mobile slower"). Desktop untouched (visuals identical; only load timing/offscreen behavior changed). 4 fixes:
+  1. Deferred below-the-fold mounting: new `components/DeferMount.jsx` (IntersectionObserver, rootMargin 600px, drops placeholder once shown). App.js wraps ProductGallery, StorySection, Benefits, HowToApply, ProductShowcase, Reviews, FAQ, EmailSignup, Footer. Frees the main thread so the hero paints/animates immediately instead of waiting on the full synchronous render (36 reel tiles + 2 rAF carousels + videos). Nav has no in-page anchors, so deferring is safe.
+  2. `public/index.html`: removed a wasted `<link rel=preload>` for an UNUSED remote PNG hero image; now preloads the actual local `/images/transparent assets/BREATHE BETTER. (4).webp` (fetchpriority high). Hero image verified loads (naturalWidth 2594).
+  3. Fonts: removed render-blocking CSS `@import` in `index.css`; load Google Fonts via non-blocking `<link rel=preload as=style onload=...rel=stylesheet>` + `<noscript>` fallback in index.html (same fonts, identical look, faster first paint).
+  4. StorySection bg video ("Our Origin" band): `preload="none"` + removed `autoPlay`; new IntersectionObserver plays it when in view / pauses when out (mobile throttles offscreen autoplay → fixes "doesn't autoplay every time" and stops the ~5MB clip competing during initial load).
+  - VERIFIED (mobile viewport): hero CTA/quiz/h1 present immediately; story-section + reels-carousel mount on scroll; hero image loads; frontend compiled. Real-device network timing must be confirmed by USER (hard-refresh once for cache).
 
 
 

@@ -143,6 +143,7 @@ export const StorySection = () => {
   const viewportRef = useRef(null);
   const trackRef = useRef(null);
   const lightboxVideoRef = useRef(null);
+  const bgVideoRef = useRef(null);
   const draggingRef = useRef(false);
   const movedRef = useRef(false);
   const startXRef = useRef(0);
@@ -219,6 +220,25 @@ export const StorySection = () => {
     };
   }, []);
 
+  // Play the heading-band background video only while it's in view. Mobile
+  // browsers throttle offscreen autoplay (the attribute alone is unreliable),
+  // and preload="none" keeps the ~5MB clip from competing during initial load.
+  useEffect(() => {
+    const v = bgVideoRef.current;
+    if (!v) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) v.play?.().catch(() => {});
+          else v.pause?.();
+        });
+      },
+      { threshold: 0.1 }
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+
   // Lightbox open: keyboard nav (Esc / arrows)
   useEffect(() => {
     if (index === null) return;
@@ -273,13 +293,13 @@ export const StorySection = () => {
           data-testid="story-hero"
         >
           <video
+            ref={bgVideoRef}
             src={BG_VIDEO}
             poster={BG_POSTER}
-            autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="none"
             data-testid="story-bg-video"
             aria-hidden="true"
             className="absolute inset-0"

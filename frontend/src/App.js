@@ -16,6 +16,7 @@ import { FAQ } from "@/components/FAQ";
 import { Reviews } from "@/components/Reviews";
 import { EmailSignup } from "@/components/EmailSignup";
 import { Footer } from "@/components/Footer";
+import { DeferMount } from "@/components/DeferMount";
 import "@/App.css";
 
 function App() {
@@ -40,18 +41,18 @@ function App() {
       <Marquee />
       <Features />
       <DeliveryBanner />
-      <ProductGallery />
-      <StorySection />
-      <Benefits />
-      <HowToApply />
+      <DeferMount minHeight={700}><ProductGallery /></DeferMount>
+      <DeferMount minHeight={700}><StorySection /></DeferMount>
+      <DeferMount minHeight={500}><Benefits /></DeferMount>
+      <DeferMount minHeight={600}><HowToApply /></DeferMount>
       <div className="bg-[#050505]" data-testid="how-product-divider">
         <div className="h-0.5 bg-[#00B4D8]" />
       </div>
-      <ProductShowcase />
-      <Reviews />
-      <FAQ />
-      <EmailSignup />
-      <Footer />
+      <DeferMount minHeight={700}><ProductShowcase /></DeferMount>
+      <DeferMount minHeight={500}><Reviews /></DeferMount>
+      <DeferMount minHeight={400}><FAQ /></DeferMount>
+      <DeferMount minHeight={300}><EmailSignup /></DeferMount>
+      <DeferMount minHeight={200}><Footer /></DeferMount>
     </div>
   );
 }
