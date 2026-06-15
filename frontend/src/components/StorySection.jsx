@@ -3,29 +3,36 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, Instagram, Play, Pause } from "lucide-react";
 import { fadeUp } from "@/constants";
 
-// Background video for the heading band (wide/thin Bondi Beach clip)
-const BG_VIDEO = "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/bondi%20beach%20video.mp4";
+// Background video for the heading band (wide/thin Bondi Beach clip).
+// Compressed mp4 served as a static asset (correct video/mp4 MIME + byte-range
+// support for iOS Safari).
+const BG_VIDEO = "/videos/bondi-beach-bg.mp4";
+const BG_POSTER = "/videos/posters/bondi-beach-bg.jpg";
 
-// UGC creator reels — { src, handle }, served as native mp4 from the assets repo.
+// UGC creator reels — { file, handle }. Compressed mp4s + first-frame poster
+// jpgs are served locally from /public/videos. Tiles show the poster only; the
+// full clip loads on demand in the lightbox.
+const vid = (file) => `/videos/${file}.mp4`;
+const poster = (file) => `/videos/posters/${file}.jpg`;
 const reels = [
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/benzingtens-UGC.mp4", handle: "benzingtens" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/aliciajane_e-UGC.mp4", handle: "aliciajane_e" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/dane.stewart_UGC.mp4", handle: "dane.stewart" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/chantelleoffical_-UGC.mp4", handle: "chantelleoffical_" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/b1ll_cheese-UGC.mp4", handle: "b1ll_cheese" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/samantha_rowney-UGC.mp4", handle: "samantha_rowney" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/joey.robson-UGC.mp4", handle: "joey.robson" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/just_zavier-UGC.mp4", handle: "just_zavier" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/maddischmierer-UGC.mp4", handle: "maddischmierer" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/jordansavic-UGC.mp4", handle: "jordansavic" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/flynn.fitness-UGC.MP4", handle: "flynn.fitness" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/skinbyjason-UGC.mp4", handle: "skinbyjason" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/calithekid_-UGC.mp4", handle: "calithekid_" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/michaelatkinson_-UGC.mp4", handle: "michaelatkinson_" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/guillermocristiandias-UGC.MP4", handle: "guillermocristiandias" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/itsyahomiejacob-UGC.MP4", handle: "itsyahomiejacob" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/nickl30068-UGC.mp4", handle: "nickl30068" },
-  { src: "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/mnimoniquee-UGC.mp4", handle: "mnimoniquee" },
+  { file: "benzingtens", handle: "benzingtens" },
+  { file: "aliciajane_e", handle: "aliciajane_e" },
+  { file: "dane_stewart", handle: "dane.stewart" },
+  { file: "chantelleoffical_", handle: "chantelleoffical_" },
+  { file: "b1ll_cheese", handle: "b1ll_cheese" },
+  { file: "samantha_rowney", handle: "samantha_rowney" },
+  { file: "joey_robson", handle: "joey.robson" },
+  { file: "just_zavier", handle: "just_zavier" },
+  { file: "maddischmierer", handle: "maddischmierer" },
+  { file: "jordansavic", handle: "jordansavic" },
+  { file: "flynn_fitness", handle: "flynn.fitness" },
+  { file: "skinbyjason", handle: "skinbyjason" },
+  { file: "calithekid_", handle: "calithekid_" },
+  { file: "michaelatkinson_", handle: "michaelatkinson_" },
+  { file: "guillermocristiandias", handle: "guillermocristiandias" },
+  { file: "itsyahomiejacob", handle: "itsyahomiejacob" },
+  { file: "nickl30068", handle: "nickl30068" },
+  { file: "mnimoniquee", handle: "mnimoniquee" },
 ];
 const REELN = reels.length;
 const igUrl = (handle) => `https://www.instagram.com/${handle}`;
@@ -45,8 +52,9 @@ const HandleBubble = ({ handle, testid }) => (
   </a>
 );
 
-// Reel tile — shows the video's first frame as a thumbnail with a play button.
-// No autoplay; tapping opens the lightbox where it plays.
+// Reel tile — shows the clip's first-frame poster image with a play button.
+// No video is fetched here (keeps mobile load fast); tapping opens the lightbox
+// where the actual mp4 loads and plays.
 const ReelTile = ({ reel, i, realIndex }) => {
   return (
     <div
@@ -54,15 +62,14 @@ const ReelTile = ({ reel, i, realIndex }) => {
       className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
       data-testid={`reel-${i}`}
     >
-      <video
+      <img
         data-reel
-        src={`${reel.src}#t=0.1`}
-        muted
-        playsInline
-        preload="metadata"
+        src={poster(reel.file)}
+        alt={`Reel from @${reel.handle}`}
+        loading="lazy"
+        draggable="false"
         className="pointer-events-none"
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        aria-label={`Reel from @${reel.handle}`}
       />
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
         <span className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/70 flex items-center justify-center shadow-lg">
@@ -75,7 +82,7 @@ const ReelTile = ({ reel, i, realIndex }) => {
 };
 
 // Expanded lightbox video — native <video>, unmuted on open with a pause/play toggle.
-const LightboxVideo = ({ src, innerRef }) => {
+const LightboxVideo = ({ src, poster, innerRef }) => {
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -103,9 +110,11 @@ const LightboxVideo = ({ src, innerRef }) => {
       <video
         ref={innerRef}
         src={src}
+        poster={poster}
         autoPlay
         loop
         playsInline
+        preload="auto"
         data-testid="reel-lightbox-video"
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
@@ -259,10 +268,12 @@ export const StorySection = () => {
         >
           <video
             src={BG_VIDEO}
+            poster={BG_POSTER}
             autoPlay
             muted
             loop
             playsInline
+            preload="auto"
             data-testid="story-bg-video"
             aria-hidden="true"
             className="absolute inset-0"
@@ -367,7 +378,7 @@ export const StorySection = () => {
               className="relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <LightboxVideo src={reels[index].src} innerRef={lightboxVideoRef} />
+              <LightboxVideo src={vid(reels[index].file)} poster={poster(reels[index].file)} innerRef={lightboxVideoRef} />
               <HandleBubble handle={reels[index].handle} testid="reel-lightbox-handle" />
             </motion.div>
 

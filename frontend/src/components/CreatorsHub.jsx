@@ -440,9 +440,10 @@ export default function CreatorsHub() {
             <div className="max-w-sm mx-auto rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16]">
               <video
                 src="/videos/review-joey.mp4"
+                poster="/videos/posters/review-joey.jpg"
                 controls
                 playsInline
-                preload="metadata"
+                preload="none"
                 className="w-full h-full object-cover"
               />
             </div>

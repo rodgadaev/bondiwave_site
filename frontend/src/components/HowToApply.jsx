@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { Play, Pause } from "lucide-react";
 import { fadeUp } from "@/constants";
 
-const VIDEO = "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/how%20to%20apply.mp4";
+const VIDEO = "/videos/how-to-apply.mp4";
+const VIDEO_POSTER = "/videos/posters/how-to-apply.jpg";
 const COVER = "https://ik.imagekit.io/bondiwave/How%20To%20Apply%20section/how_to_apply_cover_qne8bh.png?updatedAt=1781482990540";
 const LEFT_IMG = "/images/how to apply/yoga 4x5.png";
 const RIGHT_IMG = "/images/how to apply/crouching 4x5.png";
@@ -99,10 +100,12 @@ export const HowToApply = () => {
       <video
         ref={videoRef}
         src={VIDEO}
+        poster={VIDEO_POSTER}
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
         data-testid="how-video"
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
