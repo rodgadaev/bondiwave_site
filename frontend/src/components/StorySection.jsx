@@ -5,7 +5,7 @@ import { fadeUp } from "@/constants";
 
 // Background video for the heading band (1980x817 — wide/thin Bondi Beach clip)
 const BG_VIDEO_MP4 = "https://res.cloudinary.com/db7phqm4y/video/upload/v1780626135/bondi_beach_video_mqiepg.mp4";
-const BG_VIDEO_MOV = "https://res.cloudinary.com/db7phqm4y/video/upload/v1780626135/bondi_beach_video_mqiepg.mov";
+const BG_VIDEO_MOV = "https://ik.imagekit.io/bondiwave/bondi%20beach%20video/bondi%20beach%20video.mov/ik-video.mp4?updatedAt=1781482763733";
 
 // UGC creator reels — { src, handle }. The .mov original is served as .mp4 for browser support.
 const reels = [
