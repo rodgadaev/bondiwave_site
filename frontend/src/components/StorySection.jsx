@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, X, Instagram } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, Instagram, Play, Pause } from "lucide-react";
+import Player from "@vimeo/player";
 import { fadeUp } from "@/constants";
 
 // Background video for the heading band (1980x817 — wide/thin Bondi Beach clip)
@@ -129,9 +130,39 @@ const ReelTile = ({ reel, i, realIndex }) => {
 
 // Expanded lightbox video — its own component so the `loaded` poster state
 // resets automatically each time a different reel is opened (keyed remount).
+// Uses the Vimeo Player SDK to unmute on open, re-mute on close, and toggle play/pause.
 const LightboxVideo = ({ src, innerRef }) => {
   const [loaded, setLoaded] = useState(false);
+  const [paused, setPaused] = useState(false);
   const thumb = useVimeoThumb(src);
+  const playerRef = useRef(null);
+
+  useEffect(() => {
+    const el = innerRef.current;
+    if (!el) return;
+    const player = new Player(el);
+    playerRef.current = player;
+    player.setMuted(false).catch(() => {});
+    player.play().catch(() => {});
+    return () => {
+      player.setMuted(true).catch(() => {});
+      playerRef.current = null;
+    };
+  }, [innerRef]);
+
+  const togglePlay = (e) => {
+    e.stopPropagation();
+    const p = playerRef.current;
+    if (!p) return;
+    if (paused) {
+      p.play().catch(() => {});
+      setPaused(false);
+    } else {
+      p.pause().catch(() => {});
+      setPaused(true);
+    }
+  };
+
   return (
     <div style={{ position: "relative", height: "88vh", aspectRatio: "9 / 16", overflow: "hidden", borderRadius: "0.75rem", border: "3px solid #00B4D8", background: "#000" }}>
       <iframe
@@ -156,6 +187,17 @@ const LightboxVideo = ({ src, innerRef }) => {
           pointerEvents: "none",
         }}
       />
+      <button
+        type="button"
+        onClick={togglePlay}
+        className="absolute bottom-4 right-4 z-10 w-12 h-12 rounded-full bg-white/70 hover:bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg transition-all duration-300"
+        data-testid="reel-lightbox-toggle"
+        aria-label={paused ? "Play video" : "Pause video"}
+      >
+        {paused
+          ? <Play className="w-5 h-5 ml-0.5 text-[#00B4D8] fill-[#00B4D8]" />
+          : <Pause className="w-5 h-5 text-[#00B4D8] fill-[#00B4D8]" />}
+      </button>
     </div>
   );
 };
@@ -275,12 +317,6 @@ export const StorySection = () => {
   useEffect(() => {
     if (index === null) return;
     pauseReels();
-    const v = lightboxVideoRef.current;
-    if (v) {
-      v.muted = false;
-      v.currentTime = 0;
-      v.play?.().catch(() => {});
-    }
     const onKey = (e) => {
       if (e.key === "Escape") close();
       else if (e.key === "ArrowLeft") prev();

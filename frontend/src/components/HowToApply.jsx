@@ -95,10 +95,12 @@ export const HowToApply = () => {
     return () => clearInterval(id);
   }, [started]);
 
-  // Attach the Vimeo Player API once the video is revealed (enables pause/play)
+  // Attach the Vimeo Player API once the video is revealed (enables pause/play + unmute)
   useEffect(() => {
     if (started && videoRef.current && !playerRef.current) {
-      playerRef.current = new Player(videoRef.current);
+      const p = new Player(videoRef.current);
+      playerRef.current = p;
+      p.setMuted(false).catch(() => {});
     }
   }, [started]);
 
