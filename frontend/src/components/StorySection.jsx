@@ -1,31 +1,38 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, X, Instagram } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, Instagram, Play, Pause } from "lucide-react";
 import { fadeUp } from "@/constants";
 
-// Background video for the heading band (1980x817 — wide/thin Bondi Beach clip)
-const BG_VIDEO = "https://player.vimeo.com/video/1201275131?background=1&autoplay=1&loop=1&muted=1";
+// Background video for the heading band (wide/thin Bondi Beach clip).
+// Compressed mp4 served as a static asset (correct video/mp4 MIME + byte-range
+// support for iOS Safari).
+const BG_VIDEO = "/videos/bondi-beach-bg.mp4";
+const BG_POSTER = "/videos/posters/bondi-beach-bg.jpg";
 
-// UGC creator reels — { src, handle }. The .mov original is served as .mp4 for browser support.
+// UGC creator reels — { file, handle }. Compressed mp4s + first-frame poster
+// jpgs are served locally from /public/videos. Tiles show the poster only; the
+// full clip loads on demand in the lightbox.
+const vid = (file) => `/videos/${file}.mp4`;
+const poster = (file) => `/videos/posters/${file}.jpg`;
 const reels = [
-  { src: "https://player.vimeo.com/video/1201272952?h=7eb1fc6d9f&background=1&autoplay=1&loop=1&muted=1", handle: "benzingtens" },
-  { src: "https://player.vimeo.com/video/1201272954?h=6ce80cd54e&background=1&autoplay=1&loop=1&muted=1", handle: "aliciajane_e" },
-  { src: "https://player.vimeo.com/video/1201273179?h=5b36fb870c&background=1&autoplay=1&loop=1&muted=1", handle: "dane.stewart" },
-  { src: "https://player.vimeo.com/video/1201273187?h=707979a8a8&background=1&autoplay=1&loop=1&muted=1", handle: "chantelleoffical_" },
-  { src: "https://player.vimeo.com/video/1201273217?h=5229d487ac&background=1&autoplay=1&loop=1&muted=1", handle: "b1ll_cheese" },
-  { src: "https://player.vimeo.com/video/1201273214?h=844695dc1e&background=1&autoplay=1&loop=1&muted=1", handle: "samantha_rowney" },
-  { src: "https://player.vimeo.com/video/1201272955?h=186833be72&background=1&autoplay=1&loop=1&muted=1", handle: "joey.robson" },
-  { src: "https://player.vimeo.com/video/1201273204?h=733d35154a&background=1&autoplay=1&loop=1&muted=1", handle: "just_zavier" },
-  { src: "https://player.vimeo.com/video/1201273168?h=9c81476efb&background=1&autoplay=1&loop=1&muted=1", handle: "maddischmierer" },
-  { src: "https://player.vimeo.com/video/1201273258?h=3e23746aa7&background=1&autoplay=1&loop=1&muted=1", handle: "jordansavic" },
-  { src: "https://player.vimeo.com/video/1201273129?h=431e9ffa28&background=1&autoplay=1&loop=1&muted=1", handle: "flynn.fitness" },
-  { src: "https://player.vimeo.com/video/1201273186?h=c8c06fda5c&background=1&autoplay=1&loop=1&muted=1", handle: "skinbyjason" },
-  { src: "https://player.vimeo.com/video/1201273088?h=617fb9ba6c&background=1&autoplay=1&loop=1&muted=1", handle: "calithekid_" },
-  { src: "https://player.vimeo.com/video/1201273195?h=1a0cae0150&background=1&autoplay=1&loop=1&muted=1", handle: "michaelatkinson_" },
-  { src: "https://player.vimeo.com/video/1201272982?h=0382eb3e90&background=1&autoplay=1&loop=1&muted=1", handle: "guillermocristiandias" },
-  { src: "https://player.vimeo.com/video/1201273120?h=e2b539048f&background=1&autoplay=1&loop=1&muted=1", handle: "itsyahomiejacob" },
-  { src: "https://player.vimeo.com/video/1201272951?h=44eab30e4b&background=1&autoplay=1&loop=1&muted=1", handle: "nickl30068" },
-  { src: "https://player.vimeo.com/video/1201273308?h=045346ed19&background=1&autoplay=1&loop=1&muted=1", handle: "mnimoniquee" },
+  { file: "benzingtens", handle: "benzingtens" },
+  { file: "aliciajane_e", handle: "aliciajane_e" },
+  { file: "dane_stewart", handle: "dane.stewart" },
+  { file: "chantelleoffical_", handle: "chantelleoffical_" },
+  { file: "b1ll_cheese", handle: "b1ll_cheese" },
+  { file: "samantha_rowney", handle: "samantha_rowney" },
+  { file: "joey_robson", handle: "joey.robson" },
+  { file: "just_zavier", handle: "just_zavier" },
+  { file: "maddischmierer", handle: "maddischmierer" },
+  { file: "jordansavic", handle: "jordansavic" },
+  { file: "flynn_fitness", handle: "flynn.fitness" },
+  { file: "skinbyjason", handle: "skinbyjason" },
+  { file: "calithekid_", handle: "calithekid_" },
+  { file: "michaelatkinson_", handle: "michaelatkinson_" },
+  { file: "guillermocristiandias", handle: "guillermocristiandias" },
+  { file: "itsyahomiejacob", handle: "itsyahomiejacob" },
+  { file: "nickl30068", handle: "nickl30068" },
+  { file: "mnimoniquee", handle: "mnimoniquee" },
 ];
 const REELN = reels.length;
 const igUrl = (handle) => `https://www.instagram.com/${handle}`;
@@ -45,51 +52,89 @@ const HandleBubble = ({ handle, testid }) => (
   </a>
 );
 
-// Lazy-loaded reel tile: the Vimeo iframe is only mounted once the tile
-// scrolls into view (IntersectionObserver, threshold 0.1). Until then a
-// same-sized empty div holds the space.
+// Reel tile — shows the clip's first-frame poster image with a play button.
+// No video is fetched here (keeps mobile load fast); tapping opens the lightbox
+// where the actual mp4 loads and plays.
 const ReelTile = ({ reel, i, realIndex }) => {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            io.disconnect();
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
   return (
     <div
-      ref={ref}
       data-reel-index={realIndex}
       className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
       data-testid={`reel-${i}`}
     >
-      {visible ? (
-        <iframe
-          data-reel
-          src={reel.src}
-          frameBorder="0"
-          allow="autoplay; fullscreen"
-          className="w-full h-full object-cover pointer-events-none"
-          aria-label={`Reel from @${reel.handle}`}
-        />
-      ) : (
-        <div className="w-full h-full" />
-      )}
+      <img
+        data-reel
+        src={poster(reel.file)}
+        alt={`Reel from @${reel.handle}`}
+        loading="lazy"
+        draggable="false"
+        className="pointer-events-none"
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      />
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+        <span className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/70 flex items-center justify-center shadow-lg">
+          <Play className="w-4 h-4 md:w-5 md:h-5 ml-0.5 text-[#00B4D8] fill-[#00B4D8]" />
+        </span>
+      </div>
       <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
+    </div>
+  );
+};
+
+// Expanded lightbox video — native <video>, unmuted on open with a pause/play toggle.
+const LightboxVideo = ({ src, poster, innerRef }) => {
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    const v = innerRef.current;
+    if (!v) return;
+    v.muted = false;
+    v.play?.().catch(() => {});
+  }, [innerRef]);
+
+  const togglePlay = (e) => {
+    e.stopPropagation();
+    const v = innerRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play().catch(() => {});
+      setPaused(false);
+    } else {
+      v.pause();
+      setPaused(true);
+    }
+  };
+
+  return (
+    <div style={{ position: "relative", height: "88vh", aspectRatio: "9 / 16", overflow: "hidden", borderRadius: "0.75rem", border: "3px solid #00B4D8", background: "#000" }}>
+      <img
+        src={poster}
+        alt=""
+        aria-hidden="true"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+      />
+      <video
+        ref={innerRef}
+        src={src}
+        poster={poster}
+        autoPlay
+        loop
+        playsInline
+        preload="auto"
+        data-testid="reel-lightbox-video"
+        style={{ position: "absolute", inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+      />
+      <button
+        type="button"
+        onClick={togglePlay}
+        className="absolute bottom-4 right-4 z-10 w-12 h-12 rounded-full bg-white/70 hover:bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg transition-all duration-300"
+        data-testid="reel-lightbox-toggle"
+        aria-label={paused ? "Play video" : "Pause video"}
+      >
+        {paused
+          ? <Play className="w-5 h-5 ml-0.5 text-[#00B4D8] fill-[#00B4D8]" />
+          : <Pause className="w-5 h-5 text-[#00B4D8] fill-[#00B4D8]" />}
+      </button>
     </div>
   );
 };
@@ -98,6 +143,7 @@ export const StorySection = () => {
   const viewportRef = useRef(null);
   const trackRef = useRef(null);
   const lightboxVideoRef = useRef(null);
+  const bgVideoRef = useRef(null);
   const draggingRef = useRef(false);
   const movedRef = useRef(false);
   const startXRef = useRef(0);
@@ -109,19 +155,11 @@ export const StorySection = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [index, setIndex] = useState(null); // lightbox index or null
 
-  const pauseReels = useCallback(() => {
-    viewportRef.current?.querySelectorAll("video[data-reel]").forEach((v) => v.pause());
-  }, []);
-  const playVisibleReels = useCallback(() => {
-    viewportRef.current?.querySelectorAll("video[data-reel]").forEach((v) => v.play?.().catch(() => {}));
-  }, []);
-
   const openLightbox = useCallback((i) => { openRef.current = true; setIndex(i); }, []);
   const close = useCallback(() => {
     openRef.current = false;
     setIndex(null);
-    playVisibleReels();
-  }, [playVisibleReels]);
+  }, []);
   const prev = useCallback(() => setIndex((i) => (i === null ? i : (i - 1 + REELN) % REELN)), []);
   const next = useCallback(() => setIndex((i) => (i === null ? i : (i + 1) % REELN)), []);
 
@@ -182,35 +220,28 @@ export const StorySection = () => {
     };
   }, []);
 
-  // Only play reels that are visible (keeps it smooth with many videos)
+  // Play the heading-band background video only while it's in view. Mobile
+  // browsers throttle offscreen autoplay (the attribute alone is unreliable),
+  // and preload="none" keeps the ~5MB clip from competing during initial load.
   useEffect(() => {
-    const vp = viewportRef.current;
-    if (!vp) return;
-    const vids = vp.querySelectorAll("video[data-reel]");
+    const v = bgVideoRef.current;
+    if (!v) return;
     const io = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          const v = entry.target;
-          if (entry.isIntersecting) v.play?.().catch(() => {});
+        entries.forEach((e) => {
+          if (e.isIntersecting) v.play?.().catch(() => {});
           else v.pause?.();
         });
       },
-      { root: vp, threshold: 0.2 }
+      { threshold: 0.1 }
     );
-    vids.forEach((v) => io.observe(v));
+    io.observe(v);
     return () => io.disconnect();
   }, []);
 
-  // Lightbox open: pause the carousel, autoplay selected with sound, keyboard nav
+  // Lightbox open: keyboard nav (Esc / arrows)
   useEffect(() => {
     if (index === null) return;
-    pauseReels();
-    const v = lightboxVideoRef.current;
-    if (v) {
-      v.muted = false;
-      v.currentTime = 0;
-      v.play?.().catch(() => {});
-    }
     const onKey = (e) => {
       if (e.key === "Escape") close();
       else if (e.key === "ArrowLeft") prev();
@@ -218,7 +249,7 @@ export const StorySection = () => {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [index, pauseReels, close, prev, next]);
+  }, [index, close, prev, next]);
 
   const onPointerDown = (e) => {
     draggingRef.current = true;
@@ -261,15 +292,19 @@ export const StorySection = () => {
           className="relative overflow-hidden rounded-2xl border border-white/10 mb-8"
           data-testid="story-hero"
         >
-          <div className="absolute inset-0 overflow-hidden" style={{ containerType: "size" }} aria-hidden="true">
-            <iframe
-              src={BG_VIDEO}
-              frameBorder="0"
-              allow="autoplay; fullscreen"
-              data-testid="story-bg-video"
-              style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "177.78cqh", height: "56.25cqw", minWidth: "100%", minHeight: "100%", border: "none" }}
-            />
-          </div>
+          <video
+            ref={bgVideoRef}
+            src={BG_VIDEO}
+            poster={BG_POSTER}
+            muted
+            loop
+            playsInline
+            preload="none"
+            data-testid="story-bg-video"
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
           <div className="absolute inset-0 bg-black/55" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/40" />
 
@@ -369,16 +404,7 @@ export const StorySection = () => {
               className="relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <div style={{ position: "relative", height: "88vh", aspectRatio: "9 / 16", overflow: "hidden", borderRadius: "0.75rem", border: "3px solid #00B4D8", background: "#000" }}>
-                <iframe
-                  ref={lightboxVideoRef}
-                  src={reels[index].src}
-                  frameBorder="0"
-                  allow="autoplay; fullscreen"
-                  data-testid="reel-lightbox-video"
-                  style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", height: "100%", width: "316.05%", border: "none" }}
-                />
-              </div>
+              <LightboxVideo src={vid(reels[index].file)} poster={poster(reels[index].file)} innerRef={lightboxVideoRef} />
               <HandleBubble handle={reels[index].handle} testid="reel-lightbox-handle" />
             </motion.div>
 

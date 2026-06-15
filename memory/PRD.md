@@ -99,6 +99,31 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - Click vs drag vs handle-click disambiguated via pointer capture + elementFromPoint (closest [data-ig] → Instagram, else [data-reel-index] → lightbox). VERIFIED: 18 reels, overflow+arrow scroll (0→947), correct IG hrefs, lightbox open/next/prev/close all work.
 - NOTE: video playback can't be shown in the headless screenshot tool (open-source Chromium lacks H.264) — verified by config/URL (all 200, avc1); plays in real browsers.
 
+### Jun 2026 (Fork session — video hosting fix, P0)
+- ROOT CAUSE of broken mobile playback / slow load: videos were loaded from `raw.githubusercontent.com`, which serves `application/octet-stream` + `nosniff` (iOS Safari refuses to play) and files were huge (Bondi Beach bg = 55MB, some reels = 39MB).
+- FIX: Downloaded all 20 videos, compressed with ffmpeg (libx264, `-pix_fmt yuv420p`, `+faststart`, reels/portrait capped to 720px width, muted bg audio stripped). Now served as **static assets from `/app/frontend/public/videos/`** → frontend static host returns `Content-Type: video/mp4` + `Accept-Ranges: bytes` + `206` range responses natively (iOS-compatible, no backend proxy bottleneck).
+  - Chose static hosting over the Emergent object-storage backend proxy because `<video>` on iOS requires byte-range support that a proxy would have to re-implement (and would stream every byte through FastAPI). User approved compress+rehost goal; static delivery best satisfies it.
+- Sizes after compression: bg 55MB→6.4MB; reels ~1-5MB each; how-to 25MB→3.8MB; review-joey 23.6MB→5.5MB.
+- StorySection.jsx: reel tiles switched from 36 `<video preload=metadata>` elements to lightweight `<img>` first-frame posters (`/videos/posters/*.jpg`, ~850KB total) — actual mp4 only loads in the lightbox on tap. Big mobile load win. BG video + lightbox video given posters.
+- HowToApply.jsx & CreatorsHub.jsx (review-joey): local mp4 + poster; review video set `preload="none"`.
+- Removed 5 orphaned/dead `story-*.mp4` files (~26MB) from public/videos (0 code refs).
+- VERIFIED via curl: all videos `video/mp4` + 206 range; posters `image/jpeg`; frontend compiled. Visual H.264 playback NOT verifiable in headless Chromium — USER MUST VERIFY ON REAL MOBILE/iOS.
+- QUALITY RE-ENCODE (same session, after user feedback "compressed videos terrible quality / thumbnails stretched / 1s black on open"):
+  - Root cause of stretched thumbnails: several source reels were ANAMORPHIC (non-square SAR, e.g. coded 720x540 / SAR 27:64 / DAR 9:16). `<video>` applies SAR and looks right, but JPEG posters have no SAR → showed the squished coded frame. Also my first pass scaled the *coded* width, quartering effective resolution on anamorphic clips → mushy.
+  - Fix: re-encoded all from originals with `scale=trunc(iw*sar/2)*2:ih,setsar=1` (bake SAR → square pixels), portrait capped to <=1920 tall, CRF 21, preset medium, lanczos. Reels now 606x1080 / 720x1280 / 1080x1920. Posters regenerated FROM the corrected square-pixel videos → no more stretch (verified portrait poster dims match video).
+  - review-joey.mp4 original (23.6MB) recovered from git history, re-encoded 1080x1920 CRF21.
+  - Background re-encoded smaller (960x410, CRF30, 25fps, ~4.9MB) since it autoplays on page load and sits behind a 55% black overlay — keeps initial load fast.
+  - Black-screen-on-open fix: lightbox + how-to render the (cached) poster as an absolutely-positioned `<img>` BEHIND the `<video>`; video paints over it once decoded → no black gap. `preload="auto"` + `+faststart` + byte-range so playback starts before full download.
+  - Total /public/videos ~189MB, but initial page load only fetches bg (4.9MB) + reel posters (~1MB); reels stream on tap. NOTE: video/poster filenames unchanged, so users may need one hard-refresh to see the new high-quality assets (browser cache).
+- MOBILE LOAD PERF (same session, user: "hero text/buttons load in slow on mobile; Our Origin bg video slow + doesn't autoplay every time; overall mobile slower"). Desktop untouched (visuals identical; only load timing/offscreen behavior changed). 4 fixes:
+  1. Deferred below-the-fold mounting: new `components/DeferMount.jsx` (IntersectionObserver, rootMargin 600px, drops placeholder once shown). App.js wraps ProductGallery, StorySection, Benefits, HowToApply, ProductShowcase, Reviews, FAQ, EmailSignup, Footer. Frees the main thread so the hero paints/animates immediately instead of waiting on the full synchronous render (36 reel tiles + 2 rAF carousels + videos). Nav has no in-page anchors, so deferring is safe.
+  2. `public/index.html`: removed a wasted `<link rel=preload>` for an UNUSED remote PNG hero image; now preloads the actual local `/images/transparent assets/BREATHE BETTER. (4).webp` (fetchpriority high). Hero image verified loads (naturalWidth 2594).
+  3. Fonts: LEFT UNCHANGED — kept the original render-blocking CSS `@import` in `index.css`. (A non-blocking preload+onload swap was briefly tried and REVERTED because it broke font rendering; fonts must stay exactly as the original `@import`.)
+  4. StorySection bg video ("Our Origin" band): `preload="none"` + removed `autoPlay`; new IntersectionObserver plays it when in view / pauses when out (mobile throttles offscreen autoplay → fixes "doesn't autoplay every time" and stops the ~5MB clip competing during initial load).
+  - VERIFIED (mobile viewport): hero CTA/quiz/h1 present immediately; story-section + reels-carousel mount on scroll; hero image loads; frontend compiled. Real-device network timing must be confirmed by USER (hard-refresh once for cache).
+
+
+
 ### Feb 2026 (Fork session — part 6)
 - StorySection: "and sleepers" added to subtitle; Bondi Beach Cloudinary video (H.264 mp4) as heading-band background with bg-black/55 + gradient overlay and text drop-shadows; reels converted from static grid to draggable/wheel/arrow carousel.
 - ProductGallery: payment-logos label removed, logos sit directly under Shop button (`!mt-3`); reduced inter-section padding (ProductGallery pb / StorySection pt) to cut dead space.

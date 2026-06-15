@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ShoppingBag, ArrowRight } from "lucide-react";
-import { ASSETS, SOCIAL_LINKS, fadeUp } from "@/constants";
+import { ASSETS, SOCIAL_LINKS } from "@/constants";
 
 export const Hero = ({ onTakeQuiz }) => {
   return (
@@ -8,16 +8,11 @@ export const Hero = ({ onTakeQuiz }) => {
       <div className="absolute inset-0 hero-glow" />
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 pt-6 pb-0 md:pt-8 md:pb-20 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center relative z-10">
-        <motion.div {...fadeUp} className="space-y-8">
+        <div className="space-y-8">
           <div>
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4"
-            >
+            <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">
               Now Available
-            </motion.p>
+            </p>
             <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tight leading-[0.9]">
               <span className="tracking-[0.02em]">Breathe</span><br/>
               <span className="text-[#00B4D8] tracking-[0.02em]">Better.</span>
@@ -49,7 +44,7 @@ export const Hero = ({ onTakeQuiz }) => {
               <ArrowRight size={18} />
             </button>
           </div>
-        </motion.div>
+        </div>
         
         <motion.div 
           initial={{ opacity: 0, scale: 0.9, x: 50 }}
