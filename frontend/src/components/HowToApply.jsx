@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Play, Pause } from "lucide-react";
-import Player from "@vimeo/player";
 import { fadeUp } from "@/constants";
 
-const VIDEO = "https://player.vimeo.com/video/1201275764?background=1&autoplay=1&loop=1&muted=1";
+const VIDEO = "https://raw.githubusercontent.com/rodgadaev/bondiwaveassets/main/how%20to%20apply.mp4";
 const COVER = "https://ik.imagekit.io/bondiwave/How%20To%20Apply%20section/how_to_apply_cover_qne8bh.png?updatedAt=1781482990540";
 const LEFT_IMG = "/images/how to apply/yoga 4x5.png";
 const RIGHT_IMG = "/images/how to apply/crouching 4x5.png";
@@ -59,7 +58,6 @@ export const HowToApply = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [paused, setPaused] = useState(false);
   const videoRef = useRef(null);
-  const playerRef = useRef(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -76,36 +74,37 @@ export const HowToApply = () => {
     return () => clearInterval(id);
   }, [started]);
 
-  // Attach the Vimeo Player API once the video is revealed (enables pause/play + unmute)
+  // Unmute and play the native video once the user reveals it (within the click gesture)
   useEffect(() => {
-    if (started && videoRef.current && !playerRef.current) {
-      const p = new Player(videoRef.current);
-      playerRef.current = p;
-      p.setMuted(false).catch(() => {});
+    if (started && videoRef.current) {
+      videoRef.current.muted = false;
+      videoRef.current.play?.().catch(() => {});
     }
   }, [started]);
 
   const togglePlay = () => {
-    const p = playerRef.current;
-    if (!p) return;
-    if (paused) {
-      p.play().catch(() => {});
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play().catch(() => {});
       setPaused(false);
     } else {
-      p.pause().catch(() => {});
+      v.pause();
       setPaused(true);
     }
   };
 
   const VideoEl = (
     <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 16", overflow: "hidden" }}>
-      <iframe
+      <video
         ref={videoRef}
         src={VIDEO}
-        frameBorder="0"
-        allow="autoplay; fullscreen"
+        autoPlay
+        muted
+        loop
+        playsInline
         data-testid="how-video"
-        style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", height: "100%", width: "316.05%", border: "none" }}
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
       <button
         type="button"
