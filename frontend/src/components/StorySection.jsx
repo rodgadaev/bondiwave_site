@@ -7,23 +7,6 @@ import { fadeUp } from "@/constants";
 // Background video for the heading band (1980x817 — wide/thin Bondi Beach clip)
 const BG_VIDEO = "https://player.vimeo.com/video/1201275131?background=1&autoplay=1&loop=1&muted=1";
 
-// Fetch a Vimeo thumbnail (poster) via the oEmbed API for a player.vimeo.com URL.
-const useVimeoThumb = (playerUrl) => {
-  const [thumb, setThumb] = useState(null);
-  useEffect(() => {
-    if (!playerUrl) return;
-    const m = playerUrl.match(/video\/(\d+)/);
-    if (!m) return;
-    let active = true;
-    fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${m[1]}`)
-      .then((r) => r.json())
-      .then((d) => { if (active && d && d.thumbnail_url) setThumb(d.thumbnail_url); })
-      .catch(() => {});
-    return () => { active = false; };
-  }, [playerUrl]);
-  return thumb;
-};
-
 // UGC creator reels — { src, handle }. The .mov original is served as .mp4 for browser support.
 const reels = [
   { src: "https://player.vimeo.com/video/1201272952?h=7eb1fc6d9f&background=1&autoplay=1&loop=1&muted=1", handle: "benzingtens" },
@@ -69,8 +52,6 @@ const HandleBubble = ({ handle, testid }) => (
 const ReelTile = ({ reel, i, realIndex, preload }) => {
   const ref = useRef(null);
   const [visible, setVisible] = useState(preload);
-  const [loaded, setLoaded] = useState(false);
-  const thumb = useVimeoThumb(visible ? reel.src : null);
 
   useEffect(() => {
     if (preload) return; // already mounted eagerly
@@ -106,24 +87,10 @@ const ReelTile = ({ reel, i, realIndex, preload }) => {
           allow="autoplay; fullscreen"
           className="w-full h-full object-cover pointer-events-none"
           aria-label={`Reel from @${reel.handle}`}
-          onLoad={() => setLoaded(true)}
         />
       ) : (
         <div className="w-full h-full" />
       )}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: thumb ? `url(${thumb})` : "none",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: loaded ? 0 : 1,
-          transition: "opacity 0.3s ease",
-          pointerEvents: "none",
-        }}
-      />
       <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
     </div>
   );
@@ -133,9 +100,7 @@ const ReelTile = ({ reel, i, realIndex, preload }) => {
 // resets automatically each time a different reel is opened (keyed remount).
 // Uses the Vimeo Player SDK to unmute on open, re-mute on close, and toggle play/pause.
 const LightboxVideo = ({ src, innerRef }) => {
-  const [loaded, setLoaded] = useState(false);
   const [paused, setPaused] = useState(false);
-  const thumb = useVimeoThumb(src);
   const playerRef = useRef(null);
 
   useEffect(() => {
@@ -173,20 +138,6 @@ const LightboxVideo = ({ src, innerRef }) => {
         allow="autoplay; fullscreen"
         data-testid="reel-lightbox-video"
         style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", height: "100%", width: "316.05%", border: "none" }}
-        onLoad={() => setLoaded(true)}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: thumb ? `url(${thumb})` : "none",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: loaded ? 0 : 1,
-          transition: "opacity 0.3s ease",
-          pointerEvents: "none",
-        }}
       />
       <button
         type="button"
@@ -217,10 +168,6 @@ export const StorySection = () => {
   const openRef = useRef(false);
   const [isDragging, setIsDragging] = useState(false);
   const [index, setIndex] = useState(null); // lightbox index or null
-  const [bgLoaded, setBgLoaded] = useState(false);
-  const [lbLoaded, setLbLoaded] = useState(false);
-  const bgThumb = useVimeoThumb(BG_VIDEO);
-  const lbThumb = useVimeoThumb(index !== null ? reels[index].src : null);
 
   const pauseReels = useCallback(() => {
     viewportRef.current?.querySelectorAll("video[data-reel]").forEach((v) => v.pause());
@@ -375,19 +322,6 @@ export const StorySection = () => {
               allow="autoplay; fullscreen"
               data-testid="story-bg-video"
               style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "177.78cqh", height: "56.25cqw", minWidth: "100%", minHeight: "100%", border: "none" }}
-              onLoad={() => setBgLoaded(true)}
-            />
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                backgroundImage: bgThumb ? `url(${bgThumb})` : "none",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                opacity: bgLoaded ? 0 : 1,
-                transition: "opacity 0.3s ease",
-                pointerEvents: "none",
-              }}
             />
           </div>
           <div className="absolute inset-0 bg-black/55" />

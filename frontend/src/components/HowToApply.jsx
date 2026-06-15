@@ -9,23 +9,6 @@ const COVER = "https://ik.imagekit.io/bondiwave/How%20To%20Apply%20section/how_t
 const LEFT_IMG = "/images/how to apply/yoga 4x5.png";
 const RIGHT_IMG = "/images/how to apply/crouching 4x5.png";
 
-// Fetch a Vimeo thumbnail (poster) via the oEmbed API for a player.vimeo.com URL.
-const useVimeoThumb = (playerUrl) => {
-  const [thumb, setThumb] = useState(null);
-  useEffect(() => {
-    if (!playerUrl) return;
-    const m = playerUrl.match(/video\/(\d+)/);
-    if (!m) return;
-    let active = true;
-    fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${m[1]}`)
-      .then((r) => r.json())
-      .then((d) => { if (active && d && d.thumbnail_url) setThumb(d.thumbnail_url); })
-      .catch(() => {});
-    return () => { active = false; };
-  }, [playerUrl]);
-  return thumb;
-};
-
 const steps = [
   "Wash face and nose with cleanser",
   "Dry face thoroughly",
@@ -75,10 +58,8 @@ export const HowToApply = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [paused, setPaused] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef(null);
   const playerRef = useRef(null);
-  const howThumb = useVimeoThumb(started ? VIDEO : null);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -125,20 +106,6 @@ export const HowToApply = () => {
         allow="autoplay; fullscreen"
         data-testid="how-video"
         style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", height: "100%", width: "316.05%", border: "none" }}
-        onLoad={() => setVideoLoaded(true)}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: howThumb ? `url(${howThumb})` : "none",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: videoLoaded ? 0 : 1,
-          transition: "opacity 0.3s ease",
-          pointerEvents: "none",
-        }}
       />
       <button
         type="button"
