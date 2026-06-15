@@ -45,7 +45,8 @@ const HandleBubble = ({ handle, testid }) => (
   </a>
 );
 
-// Reel tile — native autoplay/muted/looping video. Tap opens the lightbox.
+// Reel tile — shows the video's first frame as a thumbnail with a play button.
+// No autoplay; tapping opens the lightbox where it plays.
 const ReelTile = ({ reel, i, realIndex }) => {
   return (
     <div
@@ -55,15 +56,19 @@ const ReelTile = ({ reel, i, realIndex }) => {
     >
       <video
         data-reel
-        src={reel.src}
-        autoPlay
+        src={`${reel.src}#t=0.1`}
         muted
-        loop
         playsInline
+        preload="metadata"
         className="pointer-events-none"
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         aria-label={`Reel from @${reel.handle}`}
       />
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+        <span className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/70 flex items-center justify-center shadow-lg">
+          <Play className="w-4 h-4 md:w-5 md:h-5 ml-0.5 text-[#00B4D8] fill-[#00B4D8]" />
+        </span>
+      </div>
       <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
     </div>
   );
@@ -134,19 +139,11 @@ export const StorySection = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [index, setIndex] = useState(null); // lightbox index or null
 
-  const pauseReels = useCallback(() => {
-    viewportRef.current?.querySelectorAll("video[data-reel]").forEach((v) => v.pause());
-  }, []);
-  const playVisibleReels = useCallback(() => {
-    viewportRef.current?.querySelectorAll("video[data-reel]").forEach((v) => v.play?.().catch(() => {}));
-  }, []);
-
   const openLightbox = useCallback((i) => { openRef.current = true; setIndex(i); }, []);
   const close = useCallback(() => {
     openRef.current = false;
     setIndex(null);
-    playVisibleReels();
-  }, [playVisibleReels]);
+  }, []);
   const prev = useCallback(() => setIndex((i) => (i === null ? i : (i - 1 + REELN) % REELN)), []);
   const next = useCallback(() => setIndex((i) => (i === null ? i : (i + 1) % REELN)), []);
 
@@ -207,10 +204,9 @@ export const StorySection = () => {
     };
   }, []);
 
-  // Lightbox open: pause the carousel, autoplay selected with sound, keyboard nav
+  // Lightbox open: keyboard nav (Esc / arrows)
   useEffect(() => {
     if (index === null) return;
-    pauseReels();
     const onKey = (e) => {
       if (e.key === "Escape") close();
       else if (e.key === "ArrowLeft") prev();
@@ -218,7 +214,7 @@ export const StorySection = () => {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [index, pauseReels, close, prev, next]);
+  }, [index, close, prev, next]);
 
   const onPointerDown = (e) => {
     draggingRef.current = true;
