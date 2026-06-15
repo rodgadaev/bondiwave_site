@@ -89,7 +89,7 @@ export const HowToApply = () => {
         frameBorder="0"
         allow="autoplay; fullscreen"
         data-testid="how-video"
-        style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "177.78vh", height: "100%", minWidth: "100%", minHeight: "177.78%", border: "none" }}
+        style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", height: "100%", width: "316.05%", border: "none" }}
       />
     </div>
   );
