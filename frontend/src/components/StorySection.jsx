@@ -259,14 +259,17 @@ export const StorySection = () => {
                 className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
                 data-testid={`reel-${i}`}
               >
-                <iframe
-                  data-reel
-                  src={reel.src}
-                  frameBorder="0"
-                  allow="autoplay; fullscreen"
-                  className="w-full h-full object-cover pointer-events-none"
-                  aria-label={`Reel from @${reel.handle}`}
-                />
+                <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 16", overflow: "hidden" }}>
+                  <iframe
+                    data-reel
+                    src={reel.src}
+                    frameBorder="0"
+                    allow="autoplay; fullscreen"
+                    className="pointer-events-none"
+                    style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "177.78vh", height: "100%", minWidth: "100%", minHeight: "177.78%", border: "none" }}
+                    aria-label={`Reel from @${reel.handle}`}
+                  />
+                </div>
                 <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
               </div>
             );
@@ -337,14 +340,16 @@ export const StorySection = () => {
               className="relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <iframe
-                ref={lightboxVideoRef}
-                src={reels[index].src}
-                frameBorder="0"
-                allow="autoplay; fullscreen"
-                className="max-h-[88vh] w-auto rounded-xl border-[3px] border-[#00B4D8] object-contain bg-black"
-                data-testid="reel-lightbox-video"
-              />
+              <div style={{ position: "relative", height: "88vh", aspectRatio: "9 / 16", overflow: "hidden", borderRadius: "0.75rem", border: "3px solid #00B4D8", background: "#000" }}>
+                <iframe
+                  ref={lightboxVideoRef}
+                  src={reels[index].src}
+                  frameBorder="0"
+                  allow="autoplay; fullscreen"
+                  data-testid="reel-lightbox-video"
+                  style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "177.78vh", height: "100%", minWidth: "100%", minHeight: "177.78%", border: "none" }}
+                />
+              </div>
               <HandleBubble handle={reels[index].handle} testid="reel-lightbox-handle" />
             </motion.div>
 
