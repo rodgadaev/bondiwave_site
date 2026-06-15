@@ -66,13 +66,14 @@ const HandleBubble = ({ handle, testid }) => (
 // Lazy-loaded reel tile: the Vimeo iframe is only mounted once the tile
 // scrolls into view (IntersectionObserver, threshold 0.1). Until then a
 // same-sized empty div holds the space.
-const ReelTile = ({ reel, i, realIndex }) => {
+const ReelTile = ({ reel, i, realIndex, preload }) => {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(preload);
   const [loaded, setLoaded] = useState(false);
   const thumb = useVimeoThumb(visible ? reel.src : null);
 
   useEffect(() => {
+    if (preload) return; // already mounted eagerly
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -88,7 +89,7 @@ const ReelTile = ({ reel, i, realIndex }) => {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [preload]);
 
   return (
     <div
@@ -420,7 +421,7 @@ export const StorySection = () => {
       >
         <div ref={trackRef} className="flex w-max will-change-transform">
           {[...reels, ...reels].map((reel, i) => (
-            <ReelTile key={i} reel={reel} i={i} realIndex={i % REELN} />
+            <ReelTile key={i} reel={reel} i={i} realIndex={i % REELN} preload={i < 7} />
           ))}
         </div>
       </div>
