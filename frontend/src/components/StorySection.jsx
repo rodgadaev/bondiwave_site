@@ -45,6 +45,55 @@ const HandleBubble = ({ handle, testid }) => (
   </a>
 );
 
+// Lazy-loaded reel tile: the Vimeo iframe is only mounted once the tile
+// scrolls into view (IntersectionObserver, threshold 0.1). Until then a
+// same-sized empty div holds the space.
+const ReelTile = ({ reel, i, realIndex }) => {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      data-reel-index={realIndex}
+      className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
+      data-testid={`reel-${i}`}
+    >
+      {visible ? (
+        <iframe
+          data-reel
+          src={reel.src}
+          frameBorder="0"
+          allow="autoplay; fullscreen"
+          className="w-full h-full object-cover pointer-events-none"
+          aria-label={`Reel from @${reel.handle}`}
+        />
+      ) : (
+        <div className="w-full h-full" />
+      )}
+      <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
+    </div>
+  );
+};
+
 export const StorySection = () => {
   const viewportRef = useRef(null);
   const trackRef = useRef(null);
@@ -251,27 +300,9 @@ export const StorySection = () => {
         onMouseLeave={() => { hoverRef.current = false; }}
       >
         <div ref={trackRef} className="flex w-max will-change-transform">
-          {[...reels, ...reels].map((reel, i) => {
-            const realIndex = i % REELN;
-            return (
-              <div
-                key={i}
-                data-reel-index={realIndex}
-                className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
-                data-testid={`reel-${i}`}
-              >
-                <iframe
-                  data-reel
-                  src={reel.src}
-                  frameBorder="0"
-                  allow="autoplay; fullscreen"
-                  className="w-full h-full object-cover pointer-events-none"
-                  aria-label={`Reel from @${reel.handle}`}
-                />
-                <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
-              </div>
-            );
-          })}
+          {[...reels, ...reels].map((reel, i) => (
+            <ReelTile key={i} reel={reel} i={i} realIndex={i % REELN} />
+          ))}
         </div>
       </div>
 
