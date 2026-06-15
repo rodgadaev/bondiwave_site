@@ -4,29 +4,28 @@ import { ChevronLeft, ChevronRight, X, Instagram } from "lucide-react";
 import { fadeUp } from "@/constants";
 
 // Background video for the heading band (1980x817 — wide/thin Bondi Beach clip)
-const BG_VIDEO_MP4 = "https://res.cloudinary.com/db7phqm4y/video/upload/v1780626135/bondi_beach_video_mqiepg.mp4";
-const BG_VIDEO_MOV = "https://res.cloudinary.com/db7phqm4y/video/upload/v1780626135/bondi_beach_video_mqiepg.mov";
+const BG_VIDEO = "https://player.vimeo.com/video/1201275131?background=1&autoplay=1&loop=1&muted=1";
 
 // UGC creator reels — { src, handle }. The .mov original is served as .mp4 for browser support.
 const reels = [
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780623536/benzingtens-UGC_upeooy.mp4", handle: "benzingtens" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555953/aliciajane_e-UGC_xphgz1.mp4", handle: "aliciajane_e" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555810/dane.stewart__v7a0tc.mp4", handle: "dane.stewart" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555809/chantelleoffical_-UGC_gr1gfl.mp4", handle: "chantelleoffical_" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555933/b1ll_cheese-UGC_ruqs46.mp4", handle: "b1ll_cheese" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555917/samantha_rowney-UGC_ihr6bo.mp4", handle: "samantha_rowney" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780623565/joey.robson-UGC_ffzyme.mp4", handle: "joey.robson" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555927/just_zavier-UGC_rucyzo.mp4", handle: "just_zavier" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555925/maddischmierer-UGC_zjlsdw.mp4", handle: "maddischmierer" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555918/jordansavic-UGC_nfipfq.mp4", handle: "jordansavic" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555838/flynn.fitness-UGC_u0w0t9.mp4", handle: "flynn.fitness" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555830/skinbyjason-UGC_mehduo.mp4", handle: "skinbyjason" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555814/calithekid_-UGC_k5woec.mp4", handle: "calithekid_" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555823/michaelatkinson_-UGC_zqyth8.mp4", handle: "michaelatkinson_" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555904/guillermocristiandias-UGC_kk8y51.mp4", handle: "guillermocristiandias" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555865/itsyahomiejacob-UGC_tsllqc.mp4", handle: "itsyahomiejacob" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555944/nickl30068-UGC_l6fz6e.mp4", handle: "nickl30068" },
-  { src: "https://res.cloudinary.com/db7phqm4y/video/upload/v1780555926/mnimoniquee-UGC_l0jlq3.mp4", handle: "mnimoniquee" },
+  { src: "https://player.vimeo.com/video/1201272952?h=7eb1fc6d9f&background=1&autoplay=1&loop=1&muted=1", handle: "benzingtens" },
+  { src: "https://player.vimeo.com/video/1201272954?h=6ce80cd54e&background=1&autoplay=1&loop=1&muted=1", handle: "aliciajane_e" },
+  { src: "https://player.vimeo.com/video/1201273179?h=5b36fb870c&background=1&autoplay=1&loop=1&muted=1", handle: "dane.stewart" },
+  { src: "https://player.vimeo.com/video/1201273187?h=707979a8a8&background=1&autoplay=1&loop=1&muted=1", handle: "chantelleoffical_" },
+  { src: "https://player.vimeo.com/video/1201273217?h=5229d487ac&background=1&autoplay=1&loop=1&muted=1", handle: "b1ll_cheese" },
+  { src: "https://player.vimeo.com/video/1201273214?h=844695dc1e&background=1&autoplay=1&loop=1&muted=1", handle: "samantha_rowney" },
+  { src: "https://player.vimeo.com/video/1201272955?h=186833be72&background=1&autoplay=1&loop=1&muted=1", handle: "joey.robson" },
+  { src: "https://player.vimeo.com/video/1201273204?h=733d35154a&background=1&autoplay=1&loop=1&muted=1", handle: "just_zavier" },
+  { src: "https://player.vimeo.com/video/1201273168?h=9c81476efb&background=1&autoplay=1&loop=1&muted=1", handle: "maddischmierer" },
+  { src: "https://player.vimeo.com/video/1201273258?h=3e23746aa7&background=1&autoplay=1&loop=1&muted=1", handle: "jordansavic" },
+  { src: "https://player.vimeo.com/video/1201273129?h=431e9ffa28&background=1&autoplay=1&loop=1&muted=1", handle: "flynn.fitness" },
+  { src: "https://player.vimeo.com/video/1201273186?h=c8c06fda5c&background=1&autoplay=1&loop=1&muted=1", handle: "skinbyjason" },
+  { src: "https://player.vimeo.com/video/1201273088?h=617fb9ba6c&background=1&autoplay=1&loop=1&muted=1", handle: "calithekid_" },
+  { src: "https://player.vimeo.com/video/1201273195?h=1a0cae0150&background=1&autoplay=1&loop=1&muted=1", handle: "michaelatkinson_" },
+  { src: "https://player.vimeo.com/video/1201272982?h=0382eb3e90&background=1&autoplay=1&loop=1&muted=1", handle: "guillermocristiandias" },
+  { src: "https://player.vimeo.com/video/1201273120?h=e2b539048f&background=1&autoplay=1&loop=1&muted=1", handle: "itsyahomiejacob" },
+  { src: "https://player.vimeo.com/video/1201272951?h=44eab30e4b&background=1&autoplay=1&loop=1&muted=1", handle: "nickl30068" },
+  { src: "https://player.vimeo.com/video/1201273308?h=045346ed19&background=1&autoplay=1&loop=1&muted=1", handle: "mnimoniquee" },
 ];
 const REELN = reels.length;
 const igUrl = (handle) => `https://www.instagram.com/${handle}`;
@@ -45,6 +44,55 @@ const HandleBubble = ({ handle, testid }) => (
     @{handle}
   </a>
 );
+
+// Lazy-loaded reel tile: the Vimeo iframe is only mounted once the tile
+// scrolls into view (IntersectionObserver, threshold 0.1). Until then a
+// same-sized empty div holds the space.
+const ReelTile = ({ reel, i, realIndex }) => {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      data-reel-index={realIndex}
+      className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
+      data-testid={`reel-${i}`}
+    >
+      {visible ? (
+        <iframe
+          data-reel
+          src={reel.src}
+          frameBorder="0"
+          allow="autoplay; fullscreen"
+          className="w-full h-full object-cover pointer-events-none"
+          aria-label={`Reel from @${reel.handle}`}
+        />
+      ) : (
+        <div className="w-full h-full" />
+      )}
+      <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
+    </div>
+  );
+};
 
 export const StorySection = () => {
   const viewportRef = useRef(null);
@@ -213,19 +261,15 @@ export const StorySection = () => {
           className="relative overflow-hidden rounded-2xl border border-white/10 mb-8"
           data-testid="story-hero"
         >
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            aria-hidden="true"
-            data-testid="story-bg-video"
-          >
-            <source src={BG_VIDEO_MP4} type="video/mp4" />
-            <source src={BG_VIDEO_MOV} type="video/quicktime" />
-          </video>
+          <div className="absolute inset-0 overflow-hidden" style={{ containerType: "size" }} aria-hidden="true">
+            <iframe
+              src={BG_VIDEO}
+              frameBorder="0"
+              allow="autoplay; fullscreen"
+              data-testid="story-bg-video"
+              style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "177.78cqh", height: "56.25cqw", minWidth: "100%", minHeight: "100%", border: "none" }}
+            />
+          </div>
           <div className="absolute inset-0 bg-black/55" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/40" />
 
@@ -256,30 +300,9 @@ export const StorySection = () => {
         onMouseLeave={() => { hoverRef.current = false; }}
       >
         <div ref={trackRef} className="flex w-max will-change-transform">
-          {[...reels, ...reels].map((reel, i) => {
-            const realIndex = i % REELN;
-            return (
-              <div
-                key={i}
-                data-reel-index={realIndex}
-                className="relative w-[150px] sm:w-[180px] md:w-[220px] flex-shrink-0 mr-3 md:mr-4 rounded-xl overflow-hidden border-[3px] border-[#00B4D8] aspect-[9/16] cursor-pointer"
-                data-testid={`reel-${i}`}
-              >
-                <video
-                  data-reel
-                  src={reel.src}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-full object-cover pointer-events-none"
-                  aria-label={`Reel from @${reel.handle}`}
-                />
-                <HandleBubble handle={reel.handle} testid={`reel-handle-${i}`} />
-              </div>
-            );
-          })}
+          {[...reels, ...reels].map((reel, i) => (
+            <ReelTile key={i} reel={reel} i={i} realIndex={i % REELN} />
+          ))}
         </div>
       </div>
 
@@ -346,16 +369,16 @@ export const StorySection = () => {
               className="relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <video
-                ref={lightboxVideoRef}
-                src={reels[index].src}
-                controls
-                autoPlay
-                loop
-                playsInline
-                className="max-h-[88vh] w-auto rounded-xl border-[3px] border-[#00B4D8] object-contain bg-black"
-                data-testid="reel-lightbox-video"
-              />
+              <div style={{ position: "relative", height: "88vh", aspectRatio: "9 / 16", overflow: "hidden", borderRadius: "0.75rem", border: "3px solid #00B4D8", background: "#000" }}>
+                <iframe
+                  ref={lightboxVideoRef}
+                  src={reels[index].src}
+                  frameBorder="0"
+                  allow="autoplay; fullscreen"
+                  data-testid="reel-lightbox-video"
+                  style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", height: "100%", width: "316.05%", border: "none" }}
+                />
+              </div>
               <HandleBubble handle={reels[index].handle} testid="reel-lightbox-handle" />
             </motion.div>
 
@@ -374,3 +397,4 @@ export const StorySection = () => {
     </section>
   );
 };
+
