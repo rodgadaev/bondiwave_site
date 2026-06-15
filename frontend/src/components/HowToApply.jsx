@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { fadeUp } from "@/constants";
 
-const VIDEO = "https://res.cloudinary.com/db7phqm4y/video/upload/v1780632559/how_to_apply_uneoyu.mp4";
-const COVER = "https://res.cloudinary.com/db7phqm4y/image/upload/v1780633621/how_to_apply_cover_qne8bh.png";
-const LEFT_IMG = "https://res.cloudinary.com/db7phqm4y/image/upload/v1780632634/yoga_4x5_m8xoiv.png";
-const RIGHT_IMG = "https://res.cloudinary.com/db7phqm4y/image/upload/v1780632633/crouching_4x5_clr6vy.png";
+const VIDEO = "https://ik.imagekit.io/bondiwave/How%20To%20Apply%20section/how%20to%20apply.mp4/ik-video.mp4?updatedAt=1781482893293";
+const COVER = "https://ik.imagekit.io/bondiwave/How%20To%20Apply%20section/how_to_apply_cover_qne8bh.png?updatedAt=1781482990540";
+const LEFT_IMG = "https://ik.imagekit.io/bondiwave/How%20To%20Apply%20section/female-editorial-static.png?updatedAt=1781482990560";
+const RIGHT_IMG = "https://ik.imagekit.io/bondiwave/How%20To%20Apply%20section/male-editorial-static.png?updatedAt=1781482989380";
 
 const steps = [
   "Wash face and nose with cleanser",
