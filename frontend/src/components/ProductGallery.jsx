@@ -46,7 +46,7 @@ export const ProductGallery = () => {
   }, [activeIndex]);
 
   return (
-    <section id="product-gallery" className="py-8 md:py-10 bg-[#050505]" data-testid="product-gallery-section">
+    <section id="product-gallery" className="pt-8 md:pt-10 pb-3 md:pb-4 bg-[#050505]" data-testid="product-gallery-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div {...fadeUp} className="text-center mb-6 hidden md:block">
           <p className="font-mono text-sm uppercase tracking-[0.3em] text-[#00B4D8] mb-4">Up Close</p>
@@ -216,6 +216,17 @@ export const ProductGallery = () => {
               Shop on Amazon
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </a>
+
+            <div className="!mt-3" data-testid="payment-methods">
+              <img
+                src="/images/transparent assets/credit card logos.webp"
+                alt="Accepted payment methods: Visa, Mastercard, American Express, Apple Pay and Google Pay"
+                className="w-full max-w-[280px] mx-auto opacity-80 hover:opacity-100 transition-opacity duration-300"
+                loading="lazy"
+                decoding="async"
+                data-testid="payment-logos"
+              />
+            </div>
           </motion.div>
         </div>
       </div>

@@ -81,6 +81,31 @@ Create a sleek, high-end, minimalistic website for "Bondi Wave" - a premium nose
 - `/app/frontend/public/index.html` - Base HTML with preconnect/preload hints
 
 ## Changelog
+### Feb 2026 (Fork session — part 10)
+- New `HowToApply.jsx` section inserted after the Science section (Benefits) in App.js. Three 4:5 (1080x1350) blue-bordered rounded containers side by side, no headers. Center = Cloudinary how-to-apply video (mov→mp4) behind a cover PNG + cyan play button; left = yoga PNG, right = crouching PNG.
+- On play: center video reveals in place and ENLARGES (flex-grow transition, not a popup); left image → Step 1 & 2 boxes, right image → Step 3/4/5 boxes. Steps cycle blue 1→5 on a 1.5s loop (matching Features.jsx active-box style: bg-[#00B4D8]). Video autoplays with sound (muted=false on the click gesture) + native controls for scrub/mute.
+- Responsive: matchMedia(max-width:767px) toggles a mobile layout (3-image teaser row → on play, full-width video + 5 stacked step boxes) vs the desktop flanking layout (single video element, no double-audio). VERIFIED: play button, images load, video + 5 steps appear, blue cycle loops.
+
+### Feb 2026 (Fork session — part 9)
+- Reels carousel rebuilt from native `scrollLeft` animation to a GPU-composited `translate3d` transform engine to fix mobile jank (scrollLeft animation runs on the main thread → janky framerate on phones; transforms are GPU-accelerated). Viewport is `overflow-hidden` with an inner translated track; offset accumulates as a float, loops back to 0 at max. Drag/wheel/arrows now mutate the transform offset (clamped); touch handled via Pointer Events with `touch-action: pan-y` (vertical page scroll preserved) and a separate `pointercancel` path so a vertical-scroll gesture doesn't false-trigger the tap-to-open. Hover-pause + interaction debounce retained. Tap-to-open lightbox + IG-bubble link still via elementFromPoint. Verified: smooth transform advance (53px/3s), hover pause, tap open/close.
+
+### Feb 2026 (Fork session — part 8)
+- Reels carousel: added very slow auto-rotation (~0.3px/frame, rAF accumulates float pos to avoid mobile scrollLeft-rounding stall) that loops back to the first at the end (posRef resets to 0 at max). Pauses on hover (desktop), during drag/wheel/arrow (interactRef debounce ~1.5s), touch (2.5s), and while lightbox open. Verified: slow advance, hover-pause=0, loop-back works.
+- Stat card: "1M+ Yearly visitors..." → "200+" with blurb "A community growing rapidly — from Bondi, to Sydney, to all of Australia and beyond. And we're only just getting started."
+
+### Feb 2026 (Fork session — part 7)
+- StorySection reels populated with 18 Cloudinary UGC creator videos (the one `.mov`/HEVC source served as `.mp4` for browser support). Each tile has a transparent-blue Instagram handle bubble (bottom-left) linking to instagram.com/<handle> (handles parsed from URL before `-UGC_`).
+- Added a video lightbox: click a reel to enlarge (9:16) with prev/next arrows + ←/→ keys; opens with sound auto-unmuted (muted=false + play() on open) and native `controls` for scrub + remute; closes via X / backdrop / Escape. Main carousel tiles autoplay muted; only visible reels play (IntersectionObserver); lightbox pauses carousel while open.
+- Click vs drag vs handle-click disambiguated via pointer capture + elementFromPoint (closest [data-ig] → Instagram, else [data-reel-index] → lightbox). VERIFIED: 18 reels, overflow+arrow scroll (0→947), correct IG hrefs, lightbox open/next/prev/close all work.
+- NOTE: video playback can't be shown in the headless screenshot tool (open-source Chromium lacks H.264) — verified by config/URL (all 200, avc1); plays in real browsers.
+
+### Feb 2026 (Fork session — part 6)
+- StorySection: "and sleepers" added to subtitle; Bondi Beach Cloudinary video (H.264 mp4) as heading-band background with bg-black/55 + gradient overlay and text drop-shadows; reels converted from static grid to draggable/wheel/arrow carousel.
+- ProductGallery: payment-logos label removed, logos sit directly under Shop button (`!mt-3`); reduced inter-section padding (ProductGallery pb / StorySection pt) to cut dead space.
+
+### Feb 2026 (Fork session — part 5)
+- "The Details" section (`ProductGallery.jsx`): added a "Secure Checkout — We Accept" payment-logos strip below the Shop on Amazon button using user-uploaded `/images/transparent assets/credit card logos.webp` (Visa, Mastercard, Amex, Apple Pay, Google Pay; transparent 4000×1429). Centered, max-w-280px, opacity-80 → 100 on hover. data-testid: payment-methods / payment-logos. Verified rendering. Asset pulled from temporarily-public GitHub repo.
+
 ### Feb 2026 (Fork session — part 4)
 - Reviews carousel: added wheel/two-finger trackpad scrubbing — native non-passive `wheel` listener on the viewport translates dominant-axis delta (vertical OR horizontal) into horizontal scrub + `preventDefault` (only while pointer is over the carousel). Verified: vertical wheel moved 720px, horizontal trackpad 600px.
 - Lightbox: added prev/next arrow buttons (ChevronLeft/Right) + ArrowLeft/ArrowRight keyboard nav to browse review-to-review without closing. Index-based state (`data-index` on cards, wraps modulo 29). data-testids: review-lightbox-prev, review-lightbox-next. Verified open→next→prev cycles correctly.
