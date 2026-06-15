@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Play } from "lucide-react";
+import { Play, Pause } from "lucide-react";
+import Player from "@vimeo/player";
 import { fadeUp } from "@/constants";
 
 const VIDEO = "https://player.vimeo.com/video/1201275764?background=1&autoplay=1&loop=1&muted=1";
@@ -56,7 +57,9 @@ export const HowToApply = () => {
   const [started, setStarted] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [paused, setPaused] = useState(false);
   const videoRef = useRef(null);
+  const playerRef = useRef(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -73,13 +76,24 @@ export const HowToApply = () => {
     return () => clearInterval(id);
   }, [started]);
 
-  // Play (with sound) once revealed — within the click gesture
+  // Attach the Vimeo Player API once the video is revealed (enables pause/play)
   useEffect(() => {
-    if (started && videoRef.current) {
-      videoRef.current.muted = false;
-      videoRef.current.play?.().catch(() => {});
+    if (started && videoRef.current && !playerRef.current) {
+      playerRef.current = new Player(videoRef.current);
     }
   }, [started]);
+
+  const togglePlay = () => {
+    const p = playerRef.current;
+    if (!p) return;
+    if (paused) {
+      p.play().catch(() => {});
+      setPaused(false);
+    } else {
+      p.pause().catch(() => {});
+      setPaused(true);
+    }
+  };
 
   const VideoEl = (
     <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 16", overflow: "hidden" }}>
@@ -91,6 +105,17 @@ export const HowToApply = () => {
         data-testid="how-video"
         style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", height: "100%", width: "316.05%", border: "none" }}
       />
+      <button
+        type="button"
+        onClick={togglePlay}
+        className="absolute bottom-3 right-3 z-10 w-10 h-10 rounded-full bg-white/70 hover:bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg transition-all duration-300"
+        data-testid="how-video-toggle"
+        aria-label={paused ? "Play video" : "Pause video"}
+      >
+        {paused
+          ? <Play className="w-4 h-4 ml-0.5 text-[#00B4D8] fill-[#00B4D8]" />
+          : <Pause className="w-4 h-4 text-[#00B4D8] fill-[#00B4D8]" />}
+      </button>
     </div>
   );
 
@@ -115,7 +140,7 @@ export const HowToApply = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                <Frame className="rounded-xl border-[3px]" aspect="aspect-[9/16]">{VideoEl}</Frame>
+                <Frame className="rounded-xl border-[3px] max-w-[270px] mx-auto" aspect="aspect-[9/16]">{VideoEl}</Frame>
                 <div className="space-y-3">
                   {steps.map((t, i) => (
                     <StepBox key={i} n={i + 1} text={t} active={activeStep === i} testid={`how-step-${i + 1}`} />
@@ -148,7 +173,7 @@ export const HowToApply = () => {
             {/* Center */}
             <div
               className="transition-[flex-grow] duration-700 ease-in-out min-w-0"
-              style={{ flexGrow: started ? 1.9 : 1.2, flexBasis: 0 }}
+              style={{ flexGrow: started ? 1.9 : 1.2, flexBasis: 0, maxWidth: started ? 320 : "none" }}
               data-testid="how-center"
             >
               <Frame aspect={started ? "aspect-[9/16]" : "aspect-[4/5]"}>
